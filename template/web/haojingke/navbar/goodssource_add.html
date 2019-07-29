@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html>
+<link href="./resource/css/bootstrap.min.css?v=20180110" rel="stylesheet">
+<link href="./resource/css/common.css?v=20170719" rel="stylesheet">
+{template 'haojingke/common/header'}
+<script>var require = { urlArgs: 'v=201180110' };</script>
+<script type="text/javascript" src="./resource/js/lib/jquery-1.11.1.min.js"></script>
+<script type="text/javascript" src="./resource/js/lib/bootstrap.min.js"></script>
+<script type="text/javascript" src="./resource/js/app/util.js?v=20180110"></script>
+<script type="text/javascript" src="./resource/js/app/common.min.js?v=20170719"></script>
+<script type="text/javascript" src="./resource/js/require.js?v=20180110"></script>
+<script type="text/javascript" src="{NETS_HAOJIK_WEB_STYLE}js/jquery.nestable.js"></script>
+<body>
+<div class="x-body">
+    <form action="" method="post"  enctype="multipart/form-data" class="layui-form">
+        <input type="hidden" name="id" value="{$_GPC['id']}">
+        <input type="hidden" name="theme_id" value="{$_GPC['theme_id']}">
+
+        <div class="layui-form-item">
+            <label class="layui-form-label">
+                名称
+            </label>
+            <div class="layui-input-inline">
+                <input type="text" name="title"
+                       autocomplete="off" class="layui-input" value="{$navbar['title']}">
+            </div>
+            <div class="layui-form-mid layui-word-aux">
+            </div>
+        </div>
+
+        <div class="layui-form-item">
+
+            <label class="layui-form-label">
+                导航栏位置
+            </label>
+            <div class="layui-input-inline240">
+                <select  name="position" id="parent_id">
+                    <option value ="0" {if $navbar['position'] ==0}selected="selected"{/if}>首页导航栏</option>
+                    <option value ="1" {if $navbar['position'] ==1}selected="selected"{/if}>我的页面导航栏</option>
+                </select>
+            </div>
+
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">
+                小程序url
+            </label>
+            <div class="layui-input-inline">
+                <select  name="type" id="path_cid" lay-filter="wxapp_path">
+
+                    <option value ="">--请选择--</option>
+
+                    <option {if $navbar['type'] =='web'} selected {/if} value ="web_url" >网页链接</option>
+                    <option {if $navbar['type'] =='contact'} selected {/if} value ="mobile" >拨打电话</option>
+                    <option {if $navbar['type'] =='service'} selected {/if} value ="service" >联系客服</option>
+                    <option {if $navbar['type'] =='navigate_theme'} selected {/if} value ="theme_id" >拼多多主题列表</option>
+                    <option {if $navbar['type'] =='navigate_diysource'} selected {/if} value ="diysource_id" >自定义商品源</option>
+
+                </select>
+                <input type="hidden" name="path" id="wxapp_path">
+            </div>
+            <div class="layui-form-mid layui-word-aux">
+            </div>
+        </div>
+        <div class="layui-form-item wxapp_params web_url" style="display:none">
+            <label class="layui-form-label">
+                网页链接
+            </label>
+            <div class="layui-input-inline">
+                <input type="text" name="web_url" placeholder="请填写网页链接"
+                       autocomplete="off" class="layui-input" value="{$params['web_url']}">
+            </div>
+            <div class="layui-form-mid layui-word-aux">
+
+            </div>
+        </div>
+        <div class="layui-form-item wxapp_params mobile" style="display:none">
+            <label class="layui-form-label">
+                拨打电话
+            </label>
+            <div class="layui-input-inline">
+                <input type="text" name="mobile" placeholder="请填写电话号码"
+                       autocomplete="off" class="layui-input" value="{$params['mobile']}">
+            </div>
+            <div class="layui-form-mid layui-word-aux">
+
+            </div>
+        </div>
+
+        <div class="layui-form-item wxapp_params theme_id" style="display:none">
+            <label class="layui-form-label">
+                拼多多主题
+            </label>
+            <div class="layui-input-inline">
+                <input type="text" name="theme_id" placeholder="请填写拼多多主题ID"
+                       autocomplete="off" class="layui-input" value="{$params['theme_id']}">
+            </div>
+            <div class="layui-form-mid layui-word-aux">
+
+            </div>
+        </div>
+        <div class="layui-form-item wxapp_params diysource_id" style="display:none">
+            <label class="layui-form-label">
+                自定义商品源
+            </label>
+            <div class="layui-input-inline">
+                <input type="text" name="diysource_id" placeholder="请填写自定义商品源ID"
+                       autocomplete="off" class="layui-input" value="{$params['diysource_id']}">
+            </div>
+            <div class="layui-form-mid layui-word-aux">
+
+            </div>
+        </div>
+
+        <div class="layui-form-item">
+            <label class="layui-form-label">
+                排序
+            </label>
+            <div class="layui-input-inline">
+                <input type="text" name="sort" placeholder="0"
+                       autocomplete="off" class="layui-input" value="{$navbar['sort']}">
+            </div>
+            <div class="layui-form-mid layui-word-aux">
+                序号越大越靠前，最大255
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <div class="layui-form-item">
+                <label class="layui-form-label">
+                    图片
+                </label>
+                <div class="layui-input-inline4">
+                    {php echo tpl_form_field_image('icon_url',$navbar['icon_url'])}
+                </div>
+                <div class="layui-form-mid layui-word-aux">
+                    <span class="x-red">*</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="layui-form-item">
+            <label class="layui-form-label">
+            </label>
+            <div class="layui-input-block">
+                <input type="hidden" name="token" value="{$_W['token']}" />
+                <button  type="submit" class="layui-btn" lay-filter="add" lay-submit="">
+                    提交
+                </button>
+            </div>
+        </div>
+    </form>
+</div>
+</body>
+</html>
+<script>
+
+        layui.use(['form','layer'], function(){
+            $ = layui.jquery;
+            var form = layui.form
+                ,layer = layui.layer;
+
+            //自定义验证规则
+            form.verify({
+                source_name: function(value){
+                    if(value.length <=0){
+                        return '请输入分类名称！';
+                    }
+                }
+            });
+
+            form.on('select(wxapp_path)',function (data) {
+
+                $(".wxapp_params").hide();
+
+                if(data.value == 'web_url'){
+                    $("#wxapp_path").val("/pages/web/index");
+                    $('.web_url').show();
+                }else if(data.value == 'mobile'){
+                    $('.mobile').show();
+                }else if(data.value == 'theme_id'){
+                    $("#wxapp_path").val("/pages/cate-detail/index");
+                    $('.theme_id').show();
+                }else if(data.value == 'diysource_id'){
+                    $("#wxapp_path").val("/pages/cate-detail/index");
+                    $('.diysource_id').show();
+                }
+
+                console.log(data);
+
+            });
+
+
+            //监听提交
+            form.on('submit(add)', function(data){
+                var val =$("input[name='source_pic_url']").val();
+                var theme_id =$("input[name='theme_id']").val();
+                if(theme_id == ''){
+                    if(val== ''){
+                        layer.msg('请上传图片');
+                        return false;
+                    }
+                }
+                var loadii = layer.load();
+
+                //发异步，把数据提交给php
+                var ajaxurl="<?php echo webUrl('navbar/index/goodssource_add')?>";
+                $.post(ajaxurl,data.field,function(res){
+                    var res=JSON.parse(res);
+                    layer.close(loadii);
+                    if(res.status==1){
+                        layer.alert(res.result.message, {icon: 6,closeBtn: 0},function () {
+                            // 获得frame索引
+
+                            var index = parent.layer.getFrameIndex(window.name);
+                            //关闭当前frame
+                            parent.layer.close(index);
+                            if(theme_id == ''){
+                                parent.location.href=parent.location.href;
+                            }
+                        });
+                    } else {
+                        layer.msg(res.message);
+                    }
+                });
+                return false;
+            });
+        });
+
+</script>

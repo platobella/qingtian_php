@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html>
+{template 'haojingke/common/header'}
+<body>
+<div class="x-body">
+    <blockquote class="layui-elem-quote layui-text">
+        提供小程序AppID和入口链接给第三方，第三方可在公众号菜单或公众号文章中接入小程序，全自动跟踪佣金。
+    </blockquote>
+    <div class="layui-form-item">
+        <label class="layui-form-label">
+            客服消息推送地址
+        </label>
+        <div class="layui-input-inline" style="width:400px;">
+            <input type="text"  id="gouwu"
+                   autocomplete="off" class="layui-input layui-disabled" value="{$_W['siteroot']}app/index.php?i={$_W['uniacid']}&c=entry&a=wxapp&do=wxapi&model=msg&apiname=msg_server&m=qt_shop">
+
+        </div>
+        <div class="layui-form-mid" style="padding: 1px 0px !important;">
+            <button  type="button" onclick="copypage(this)" class="layui-btn" >
+                复制
+            </button>
+        </div>
+        <div class="layui-form-mid layui-word-aux">
+            <span class="x-red">*</span>配置到微信小程序后台的客服消息推送地址
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">
+            首页
+        </label>
+        <div class="layui-input-inline" style="width:400px;">
+            <input type="text"
+                   autocomplete="off" class="layui-input layui-disabled" value="pages/home/index?from_id=会员id">
+
+        </div>
+        <div class="layui-form-mid" style="padding: 1px 0px !important;">
+            <button  type="button" onclick="copypage(this)" class="layui-btn" >
+                复制
+            </button>
+        </div>
+        <div class="layui-form-mid layui-word-aux">
+            <span class="x-red">*</span>url中会员id字样替换成其对应的真实会员id
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">
+            分类专题页
+        </label>
+        <div class="layui-input-inline" style="width:400px;">
+            <input type="text"
+                   autocomplete="off" class="layui-input layui-disabled" value="pages/classification-detail/index?cid=商品id">
+
+        </div>
+        <div class="layui-form-mid" style="padding: 1px 0px !important;">
+            <button  type="button" onclick="copypage(this)" class="layui-btn" >
+                复制
+            </button>
+        </div>
+        <div class="layui-form-mid layui-word-aux">
+            <span class="x-red">*</span>url中商品分类id替换成系统内有效的商品分类id
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">
+            商品源专题页
+        </label>
+        <div class="layui-input-inline" style="width:400px;">
+            <input type="text"
+                   autocomplete="off" class="layui-input layui-disabled" value="pages/classification-detail/index?diysourceid=商品源id">
+
+        </div>
+        <div class="layui-form-mid" style="padding: 1px 0px !important;">
+            <button  type="button" onclick="copypage(this)" class="layui-btn" >
+                复制
+            </button>
+        </div>
+        <div class="layui-form-mid layui-word-aux">
+            <span class="x-red">*</span>url中商品源id字样替换成有效的商品源id
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">
+            商品页
+        </label>
+        <div class="layui-input-inline" style="width:400px;">
+            <input type="text"
+                   autocomplete="off" class="layui-input layui-disabled" value="pages/home/goods_detail?from_id=会员id&skuid=商品skuId">
+        </div>
+        <div class="layui-form-mid" style="padding: 1px 0px !important;">
+            <button  type="button" onclick="copypage(this)" class="layui-btn" >
+                复制
+            </button>
+        </div>
+        <div class="layui-form-mid layui-word-aux">
+            <span class="x-red">*</span>url中商品skuId字样替换成有效的商品skuId，会员id字样替换成其对应的真实会员id
+        </div>
+    </div>
+
+    <div class="layui-form-item">
+        <label class="layui-form-label">
+            搜索页
+        </label>
+        <div class="layui-input-inline" style="width:400px;">
+            <input type="text"
+                   autocomplete="off" class="layui-input layui-disabled" value="pages/search/index">
+
+        </div>
+        <div class="layui-form-mid" style="padding: 1px 0px !important;">
+            <button  type="button" onclick="copypage(this)" class="layui-btn" >
+                复制
+            </button>
+        </div>
+        <div class="layui-form-mid layui-word-aux">
+            <span class="x-red">*</span>
+        </div>
+    </div>
+</div>
+</body>
+</html>
+<script>
+    function copypage(obj) {
+        var d = $(obj).parent().parent().find("input:eq(0)");
+        d.select();
+        document.execCommand("Copy");
+        layer.msg("复制成功！");
+    }
+
+</script>

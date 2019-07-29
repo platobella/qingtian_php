@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html>
+<link href="./resource/css/bootstrap.min.css?v=20180110" rel="stylesheet">
+<link href="./resource/css/common.css?v=20170719" rel="stylesheet">
+{template 'haojingke/common/header'}
+<script>var require = { urlArgs: 'v=201180110' };</script>
+<script type="text/javascript" src="./resource/js/lib/jquery-1.11.1.min.js"></script>
+<script type="text/javascript" src="./resource/js/lib/bootstrap.min.js"></script>
+<script type="text/javascript" src="./resource/js/app/util.js?v=20180110"></script>
+<script type="text/javascript" src="./resource/js/app/common.min.js?v=20170719"></script>
+<script type="text/javascript" src="./resource/js/require.js?v=20180110"></script>
+<script type="text/javascript" src="{NETS_HAOJIK_WEB_STYLE}js/jquery.nestable.js"></script>
+<body>
+<div class="x-body">
+    <form action="" method="post"  enctype="multipart/form-data" class="layui-form">
+        <input type="hidden" name="id" value="{$_GPC['id']}">
+
+        <div class="layui-form-item">
+            <label class="layui-form-label">
+                描述
+            </label>
+            <div class="layui-input-inline">
+                <input type="text" name="source_title"
+                       autocomplete="off" class="layui-input" value="{$diysource['title']}">
+            </div>
+            <div class="layui-form-mid layui-word-aux">
+            </div>
+        </div>
+
+        <div class="layui-form-item">
+
+            <label class="layui-form-label">
+                banner位置
+            </label>
+            <div class="layui-input-inline240">
+                <select  name="type" id="parent_id">
+                    <option value ="1" {if $diysource['type'] ==1}selected="selected"{/if}>商城首页</option>
+                </select>
+            </div>
+
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">
+                小程序url
+            </label>
+            <div class="layui-input-inline">
+                <input type="text" name="page_url"
+                       autocomplete="off" class="layui-input" value="{$diysource['page_url']}">
+            </div>
+            <div class="layui-form-mid layui-word-aux">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">
+                排序
+            </label>
+            <div class="layui-input-inline">
+                <input type="text" name="source_sort" placeholder="0"
+                       autocomplete="off" class="layui-input" value="{$diysource['sort']}">
+            </div>
+            <div class="layui-form-mid layui-word-aux">
+                序号越大越靠前，最大255
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <div class="layui-form-item">
+                <label class="layui-form-label">
+                    图片
+                </label>
+                <div class="layui-input-inline4">
+                    {php echo tpl_form_field_image('source_pic_url',$diysource['pic_url'])}
+                </div>
+                <div class="layui-form-mid layui-word-aux">
+                    <span class="x-red">*</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="layui-form-item">
+            <label class="layui-form-label">
+            </label>
+            <div class="layui-input-block">
+                <input type="hidden" name="token" value="{$_W['token']}" />
+                <button  type="submit" class="layui-btn" lay-filter="add" lay-submit="">
+                    提交
+                </button>
+            </div>
+        </div>
+    </form>
+</div>
+</body>
+</html>
+<script>
+
+        layui.use(['form','layer'], function(){
+            $ = layui.jquery;
+            var form = layui.form
+                ,layer = layui.layer;
+
+            //自定义验证规则
+            form.verify({
+                source_name: function(value){
+                    if(value.length <=0){
+                        return '请输入分类名称！';
+                    }
+                }
+            });
+            //监听提交
+            form.on('submit(add)', function(data){
+                var val =$("input[name='source_pic_url']").val();
+                if(val== ''){
+                    layer.msg('请上传图片');
+                    return false;
+                }
+                var loadii = layer.load();
+
+                //发异步，把数据提交给php
+                var ajaxurl="<?php echo webUrl('banner/index/goodssource_addpost')?>";
+                $.post(ajaxurl,data.field,function(res){
+                    var res=JSON.parse(res);
+                    layer.close(loadii);
+                    if(res.status==1){
+                        layer.alert(res.result.message, {icon: 6,closeBtn: 0},function () {
+                            // 获得frame索引
+
+                            var index = parent.layer.getFrameIndex(window.name);
+                            //关闭当前frame
+                            parent.layer.close(index);
+                            parent.location.href=parent.location.href;
+                        });
+                    } else {
+                        layer.msg(res.message);
+                    }
+                });
+                return false;
+            });
+        });
+
+</script>

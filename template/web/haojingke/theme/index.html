@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+<link href="./resource/css/bootstrap.min.css?v=20180110" rel="stylesheet">
+{template 'haojingke/common/header'}
+<body>
+<div class="x-body">
+
+
+        <span class="x-right" style="line-height:40px">共有数据 {$total} 条</span>
+    <table class="layui-table">
+        <thead>
+        <tr>
+            <th style="width: 80px">ID</th>
+            <th style="width: 80px">名称</th>
+            <th style="width: 130px">图片url</th>
+            <th style="width: 13%">操作</th>
+        </tr>
+        </thead>
+        <tbody>
+        {loop $list $r}
+        <tr>
+            <td >
+                {$r['id']}
+            </td>
+            <td>{$r['name']}</td>
+            <td><image src="{$r['image_url']}" style="width:50px;height: 22px"></image></td>
+
+            <td class="td-manage">
+                <a  onclick="hjk_dialog_show('预览','{php echo webUrl('theme/index/img_show').'&img='.$r['image_url'];}')" href="javascript:void(0)" class="layui-btn   layui-btn-mini  layui-btn-normal" title=""><i class="layui-icon">&#xe63c;</i> 预览</a>
+                <a class="layui-btn   layui-btn-mini" href="javascript:void(0)" onclick="hjk_dialog_show('添加主题','{php echo webUrl('theme/index/goodssource_add').'&theme_id='.$r['id'].'&title='.$r['name'].'&pic_url='.$r['image_url'];}')" ><i class="layui-icon">&#xe63c;</i> 添加到轮播图</a>
+            </td>
+        </tr>
+        {/loop}
+        </tbody>
+    </table>
+
+    {$pager}
+
+</div>
+</body>
+</html>
+
+<script>
+    /*删除*/
+    function goodssource_delete(obj,id){
+        var loadii = layer.load();
+        var ajaxurl="<?php echo webUrl('theme/index/goodssource_delete')?>";
+        var data= { "id": id};
+        layer.confirm('是否要删除信息!',{
+            btn: ['确定', '取消'],
+            cancel: function(index, layero){
+                layer.close(loadii);
+            }
+            }, function (index, layero) {
+
+            $.post(ajaxurl,data,function(res){
+                var res=JSON.parse(res);
+                layer.close(loadii);
+                if(res.status==1){
+                    layer.alert(res.result.message, {icon: 6,closeBtn: 0},function () {
+                        location.href=location.href;
+                    });
+                }else{
+                    layer.msg("操作失败");
+                }
+            })
+            },function (index,layero) {
+            layer.close(loadii);
+            }
+        
+        );
+    }
+
+    layui.use('laydate', function(){
+        var laydate = layui.laydate;
+
+        //执行一个laydate实例
+        laydate.render({
+            elem: '#daterange' //指定元素
+            ,range: '~'
+            , max:0
+        });
+    });
+
+</script>

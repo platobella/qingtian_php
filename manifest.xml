@@ -1,0 +1,703 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns="http://www.we7.cc" versionCode="">
+	
+	<application setting='false'>
+		<name><![CDATA[晴天商城]]></name>
+
+		<identifie><![CDATA[qt_shop]]></identifie>
+
+		<version><![CDATA[1.2.7]]></version>
+
+		<ability><![CDATA[晴天商城_淘客拼多多京东客]]></ability>
+
+		<type><![CDATA[activity]]></type>
+
+		<description><![CDATA[晴天商城_淘客拼多多京东客]]></description>
+
+		<author><![CDATA[a1241328428]]></author>
+
+		<url><![CDATA[]]></url>
+
+		<setting><![CDATA[]]></setting>
+
+	</application>
+
+	
+	<platform>
+		<rule embed="false" />
+		<rule embed="false" />
+	<supports>
+			<item type="wxapp" />
+	</supports>
+
+	</platform>
+
+	<bindings>
+		<menu>
+			<entry title="进入后台" do="web" state="" direct="" />
+		</menu>
+	</bindings>
+
+	<install><![CDATA[
+
+DROP TABLE IF EXISTS `ims_qt_banner`;
+
+CREATE TABLE `ims_qt_banner` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `pic_url` longtext NOT NULL COMMENT '图片url',
+  `title` varchar(255) NOT NULL COMMENT '标题',
+  `page_url` longtext NOT NULL COMMENT '页面路径',
+  `open_type` varchar(255) DEFAULT 'navigate' COMMENT 'navigate,web',
+  `sort` int(11) NOT NULL DEFAULT '100' COMMENT '排序，升序',
+  `addtime` int(11) NOT NULL DEFAULT '0' COMMENT '添加时间',
+  `is_delete` smallint(1) NOT NULL DEFAULT '0' COMMENT '是否删除：0=未删除，1=已删除',
+  `type` smallint(1) unsigned NOT NULL DEFAULT '1' COMMENT '类型',
+  `path_cid` int(11) DEFAULT NULL COMMENT 'path表的id',
+  `theme_id` int(11) DEFAULT NULL COMMENT '主题的id',
+  `nav_id` int(10) DEFAULT '0' COMMENT '链接id',
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM AUTO_INCREMENT=65 DEFAULT CHARSET=utf8 COMMENT='商店幻灯片';
+
+DROP TABLE IF EXISTS `ims_qt_classification`;
+
+CREATE TABLE `ims_qt_classification` (
+  `id` int(10) NOT NULL AUTO_INCREMENT COMMENT '分类id',
+  `uniacid` int(10) DEFAULT NULL,
+  `type` int(1) DEFAULT '1' COMMENT '1普通2自营',
+  `name` varchar(50) NOT NULL COMMENT '分类名称',
+  `icon` varchar(255) DEFAULT '' COMMENT '图标',
+  `parent_id` int(10) DEFAULT '0',
+  `pdd_cid` int(10) NOT NULL DEFAULT '0' COMMENT 'pdd分类id',
+  `pdd_opt_id` int(10) DEFAULT '0',
+  `jd_cid` int(10) DEFAULT '0' COMMENT '京东分类',
+  `tb_cid` int(10) DEFAULT '0' COMMENT '淘宝分类',
+  `sort` int(10) DEFAULT '0',
+  `is_delete` tinyint(1) NOT NULL DEFAULT '0',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=1304 DEFAULT CHARSET=utf8;
+
+
+DROP TABLE IF EXISTS `ims_qt_diylogin_set`;
+
+CREATE TABLE `ims_qt_diylogin_set` (
+  `id` int(10) NOT NULL AUTO_INCREMENT,
+  `username` varchar(255) DEFAULT '' COMMENT '微擎用户名',
+  `uniacid` int(10) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8;
+
+DROP TABLE IF EXISTS `ims_qt_goods`;
+
+CREATE TABLE `ims_qt_goods` (
+  `id` int(10) NOT NULL AUTO_INCREMENT,
+  `uniacid` int(10) DEFAULT NULL,
+  `title` varchar(255) DEFAULT '',
+  `image` text COMMENT '商品图片',
+  `original_price` double DEFAULT '0' COMMENT '原价',
+  `price` double DEFAULT '0' COMMENT '现价',
+  `num` int(2) DEFAULT NULL COMMENT '获奖人数',
+  `start_time` int(10) DEFAULT NULL COMMENT '开始时间',
+  `end_time` int(10) DEFAULT NULL COMMENT '截止日期',
+  `addtime` int(10) DEFAULT NULL,
+  `cate_id` int(10) DEFAULT '0' COMMENT '分类id',
+  `is_delete` int(1) DEFAULT '0' COMMENT '0正常1删除',
+  `sales` int(10) DEFAULT '0' COMMENT '销量',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=21 DEFAULT CHARSET=utf8;
+
+DROP TABLE IF EXISTS `ims_qt_goods_order`;
+
+CREATE TABLE `ims_qt_goods_order` (
+  `id` int(10) NOT NULL AUTO_INCREMENT,
+  `uniacid` int(10) DEFAULT NULL,
+  `goods_id` int(10) NOT NULL COMMENT '商品id',
+  `rank_id` int(10) DEFAULT '0' COMMENT '当期排名id',
+  `uid` int(10) DEFAULT NULL,
+  `express_name` varchar(255) DEFAULT '',
+  `express_no` varchar(255) DEFAULT '' COMMENT '快递单号',
+  `status` int(1) DEFAULT '0' COMMENT '0未付款1未领取2代发货3已发货4未中奖(失败)',
+  `addtime` int(10) DEFAULT '0',
+  `delivery_time` int(10) DEFAULT '0' COMMENT '发货时间',
+  `name` varchar(255) DEFAULT '' COMMENT '收货人',
+  `address` varchar(255) DEFAULT '' COMMENT '地址',
+  `mobile` varchar(255) DEFAULT '' COMMENT '手机号',
+  `order_no` varchar(255) DEFAULT '' COMMENT '订单号',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8;
+
+
+
+DROP TABLE IF EXISTS `ims_qt_navbar`;
+
+CREATE TABLE `ims_qt_navbar` (
+  `id` int(10) NOT NULL AUTO_INCREMENT,
+  `uniacid` int(10) DEFAULT NULL,
+  `icon_url` varchar(255) DEFAULT '' COMMENT '图标',
+  `title` varchar(255) DEFAULT '',
+  `path` varchar(500) DEFAULT '' COMMENT '路径',
+  `params` text COMMENT 'json格式存储',
+  `type` varchar(255) DEFAULT 'navigate' COMMENT 'web网页，contact点化，service客服，navigate_theme主题，navigate_diysource自定义数据源,wxapp跳转微信小程序',
+  `sort` int(10) DEFAULT '100' COMMENT '排序，越大越靠前',
+  `position` int(1) DEFAULT '0' COMMENT '0首页1我的3轮播图链接',
+  `addtime` int(10) DEFAULT '0',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8;
+
+
+DROP TABLE IF EXISTS `ims_qt_operate_balance_log`;
+
+CREATE TABLE `ims_qt_operate_balance_log` (
+  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
+  `uid` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '微擎会员id,=自定义推广位id，京东+拼多多通用',
+  `uniacid` int(11) unsigned NOT NULL COMMENT '微擎公众号/小程序id',
+  `log_type` int(1) NOT NULL DEFAULT '0' COMMENT '日志类型 0 系统1京东2拼多多',
+  `isintegral` tinyint(3) unsigned NOT NULL COMMENT '0否（金额）1是（积分）',
+  `logno` varchar(30) NOT NULL COMMENT '单号/编号，日志类型为1、2且变动类型为1时为订单号',
+  `amount` decimal(16,2) NOT NULL COMMENT '金额',
+  `primaryamount` decimal(16,2) NOT NULL COMMENT '原金额',
+  `serviceamount` decimal(16,2) NOT NULL COMMENT '手续费金额',
+  `cash_pct` int(11) NOT NULL COMMENT '手续费百分比/佣金比例',
+  `cash_type` tinyint(3) unsigned NOT NULL DEFAULT '1' COMMENT '提现方式 1微信 2支付宝',
+  `logtype` varchar(1) NOT NULL COMMENT '变动类型 0 充值1佣金结算 2佣金提现 3中奖（奖品类型为0时有效）4消费/购买（如升级vip）只记录不进余额',
+  `pay_at` int(11) NOT NULL DEFAULT '0' COMMENT '付款时间',
+  `complete_at` int(11) NOT NULL DEFAULT '0' COMMENT '付款完成时间',
+  `status` varchar(1) NOT NULL DEFAULT '0' COMMENT '状态 0 待确认 1 完成（审核完成）2审核不同意',
+  `remark` varchar(500) NOT NULL COMMENT '备注 格式如：【充值】升级合伙人/【结算】佣金结算/【结算】一级佣金结算/【结算】二级佣金结算/【结算】三级佣金结算/【结算】合伙人佣金结算/【提现】佣金提现/【中奖】平台支付',
+  `approve_uid` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '审核会员id',
+  `approve_remark` varchar(500) NOT NULL COMMENT '审核备注',
+  `approve_at` int(11) NOT NULL DEFAULT '0' COMMENT '审核时间',
+  `created_at` int(11) NOT NULL DEFAULT '0' COMMENT '创建时间',
+  `updated_at` int(11) NOT NULL DEFAULT '0' COMMENT '更新时间',
+  `deleted_at` int(11) NOT NULL DEFAULT '0' COMMENT '删除时间',
+  PRIMARY KEY (`id`),
+  KEY `uniacid` (`uniacid`) USING BTREE,
+  KEY `uid` (`uid`) USING BTREE
+) ENGINE=MyISAM AUTO_INCREMENT=29 DEFAULT CHARSET=utf8 COMMENT='佣金积分变动日志表';
+
+
+DROP TABLE IF EXISTS `ims_qt_operate_choujiang`;
+
+CREATE TABLE `ims_qt_operate_choujiang` (
+  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
+  `uniacid` int(11) unsigned NOT NULL COMMENT '微擎公众号/小程序id',
+  `title` varchar(30) NOT NULL COMMENT '抽奖标题',
+  `openid` varchar(50) NOT NULL DEFAULT '' COMMENT '发起人openid',
+  `nickname` varchar(20) NOT NULL DEFAULT '' COMMENT '发起人会员昵称',
+  `avatar` varchar(255) NOT NULL DEFAULT '' COMMENT '发起人员头像',
+  `remark` varchar(500) NOT NULL COMMENT '抽奖描述，奖品信息',
+  `uid` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '微擎会员id',
+  `sponsor` varchar(100) NOT NULL DEFAULT '' COMMENT '赞助商名称',
+  `sponsorpath` varchar(100) NOT NULL DEFAULT '' COMMENT '赞助商小程序路径',
+  `goods_pic` varchar(1000) NOT NULL DEFAULT '' COMMENT '奖品图片',
+  `goods_count` int(11) NOT NULL DEFAULT '0' COMMENT '奖品数量',
+  `goods_type` tinyint(3) unsigned NOT NULL DEFAULT '0' COMMENT '奖品类型，0现金（微信红包）1实物 2虚拟物品',
+  `amount` decimal(16,2) NOT NULL COMMENT '金额,奖品类型为0时有效',
+  `open_type` tinyint(3) unsigned NOT NULL DEFAULT '1' COMMENT '开奖类型0满多少人开奖1定时开奖',
+  `open_at` int(11) NOT NULL DEFAULT '0' COMMENT '开奖时间，开奖类型为1时有效',
+  `open_count` int(11) NOT NULL DEFAULT '0' COMMENT '开奖人数，开奖类型为0时有效',
+  `status` tinyint(3) unsigned NOT NULL DEFAULT '0' COMMENT '状态0 未开奖，1已开奖 ',
+  `created_at` int(11) NOT NULL DEFAULT '0' COMMENT '创建时间',
+  `updated_at` int(11) NOT NULL DEFAULT '0' COMMENT '更新时间',
+  `deleted_at` int(11) NOT NULL DEFAULT '0' COMMENT '删除时间',
+  PRIMARY KEY (`id`),
+  KEY `uniacid` (`uniacid`) USING BTREE
+) ENGINE=MyISAM AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COMMENT='抽奖主表';
+
+
+DROP TABLE IF EXISTS `ims_qt_operate_choujiang_detail`;
+
+CREATE TABLE `ims_qt_operate_choujiang_detail` (
+  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
+  `choujiangid` int(11) unsigned NOT NULL COMMENT '抽奖主表id',
+  `uniacid` int(11) unsigned NOT NULL COMMENT '微擎公众号/小程序id',
+  `uid` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '参与抽奖微擎会员id',
+  `openid` varchar(50) NOT NULL DEFAULT '' COMMENT 'openid',
+  `nickname` varchar(20) NOT NULL DEFAULT '' COMMENT '参与抽奖微擎会员昵称',
+  `avatar` varchar(255) NOT NULL DEFAULT '' COMMENT '参与抽奖微擎会员头像',
+  `join_type` tinyint(3) unsigned NOT NULL DEFAULT '0' COMMENT '参与类型，0主动参与，1别人分享参加',
+  `help_uid` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '参与类型为1时才有',
+  `help_avatar` varchar(255) NOT NULL DEFAULT '' COMMENT '助力人微擎会员头像',
+  `status` tinyint(3) unsigned NOT NULL DEFAULT '0' COMMENT '状态0 等待开奖，1中奖2未中奖',
+  `issend` tinyint(3) unsigned NOT NULL DEFAULT '0' COMMENT '状态0 未发送，1已发送',
+  `open_at` int(11) NOT NULL DEFAULT '0' COMMENT '开奖时间',
+  `open_code` int(11) NOT NULL DEFAULT '0' COMMENT '抽奖码',
+  `formid` varchar(50) NOT NULL DEFAULT '0' COMMENT '模板消息的formid，开奖发送消息使用',
+  `created_at` int(11) NOT NULL DEFAULT '0' COMMENT '创建时间',
+  `updated_at` int(11) NOT NULL DEFAULT '0' COMMENT '更新时间',
+  `deleted_at` int(11) NOT NULL DEFAULT '0' COMMENT '删除时间',
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `cjid_code` (`choujiangid`,`open_code`) USING BTREE,
+  KEY `choujiangid` (`choujiangid`) USING BTREE,
+  KEY `uniacid` (`uniacid`) USING BTREE,
+  KEY `openid` (`openid`) USING BTREE,
+  KEY `uid` (`uid`) USING BTREE
+) ENGINE=MyISAM AUTO_INCREMENT=3 DEFAULT CHARSET=utf8 COMMENT='抽奖明细表';
+
+
+DROP TABLE IF EXISTS `ims_qt_operate_diysource`;
+
+CREATE TABLE `ims_qt_operate_diysource` (
+  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
+  `uniacid` int(11) unsigned NOT NULL COMMENT '微擎公众号/小程序id',
+  `source_name` varchar(20) NOT NULL DEFAULT '' COMMENT '商品源名称',
+  `source_pic` varchar(255) NOT NULL DEFAULT '' COMMENT '商品源图片',
+  `source_path` varchar(255) NOT NULL DEFAULT '' COMMENT '路径地址',
+  `source_type` tinyint(3) unsigned NOT NULL DEFAULT '1' COMMENT '商品源类型，1条件筛选2自选商品',
+  `source_query` text NOT NULL COMMENT '查询条件',
+  `source_status` tinyint(3) unsigned NOT NULL DEFAULT '0' COMMENT '状态0停用1启用',
+  `source_sort` tinyint(3) unsigned NOT NULL DEFAULT '0' COMMENT '排序，越大越靠前',
+  `created_at` int(11) NOT NULL DEFAULT '0' COMMENT '创建时间',
+  `updated_at` int(11) NOT NULL DEFAULT '0' COMMENT '更新时间',
+  `deleted_at` int(11) NOT NULL DEFAULT '0' COMMENT '删除时间',
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `uniacid_name` (`uniacid`,`source_name`) USING BTREE,
+  KEY `uniacid` (`uniacid`) USING BTREE
+) ENGINE=MyISAM AUTO_INCREMENT=105 DEFAULT CHARSET=utf8 COMMENT='自定义商品源';
+
+
+DROP TABLE IF EXISTS `ims_qt_operate_diysource_goods`;
+
+CREATE TABLE `ims_qt_operate_diysource_goods` (
+  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
+  `uniacid` int(11) unsigned NOT NULL COMMENT '微擎公众号/小程序id',
+  `source_id` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '商品源id',
+  `source_type` tinyint(3) unsigned NOT NULL DEFAULT '1' COMMENT '商品类型 1京东2拼多多',
+  `source_sort` tinyint(3) unsigned NOT NULL DEFAULT '0' COMMENT '排序，越大越靠前',
+  `skuId` varchar(30) NOT NULL DEFAULT '' COMMENT '商品id',
+  `created_at` int(11) NOT NULL DEFAULT '0' COMMENT '创建时间',
+  `updated_at` int(11) NOT NULL DEFAULT '0' COMMENT '更新时间',
+  `deleted_at` int(11) NOT NULL DEFAULT '0' COMMENT '删除时间',
+  `goods_data_json` text,
+  PRIMARY KEY (`id`),
+  KEY `uniacid` (`uniacid`) USING BTREE
+) ENGINE=MyISAM AUTO_INCREMENT=11 DEFAULT CHARSET=utf8 COMMENT='自定义商品源自选商品表';
+
+
+DROP TABLE IF EXISTS `ims_qt_operate_formid`;
+
+CREATE TABLE `ims_qt_operate_formid` (
+  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
+  `uniacid` int(11) unsigned NOT NULL COMMENT '微擎公众号/小程序id',
+  `uid` int(11) unsigned DEFAULT '0' COMMENT '微擎会员id',
+  `openid` varchar(50) DEFAULT '' COMMENT 'openid',
+  `nickname` varchar(20) DEFAULT '' COMMENT '微擎会员昵称',
+  `avatar` varchar(255) DEFAULT '' COMMENT '微擎会员头像',
+  `get_type` tinyint(3) unsigned DEFAULT '0' COMMENT '获取类型，0、签到 1、搜索',
+  `status` tinyint(3) unsigned DEFAULT '0' COMMENT '状态0未发送，1已发送',
+  `formid` varchar(50) DEFAULT '' COMMENT '模板消息的formid，开奖发送消息使用',
+  `created_at` int(11) DEFAULT '0' COMMENT '创建时间',
+  `updated_at` int(11) DEFAULT '0' COMMENT '更新时间',
+  `deleted_at` int(11) DEFAULT NULL COMMENT '删除时间',
+  PRIMARY KEY (`id`),
+  KEY `uniacid` (`uniacid`) USING BTREE,
+  KEY `openid` (`openid`) USING BTREE,
+  KEY `uid` (`uid`) USING BTREE
+) ENGINE=MyISAM AUTO_INCREMENT=63 DEFAULT CHARSET=utf8 COMMENT='formid表';
+
+
+DROP TABLE IF EXISTS `ims_qt_operate_keyword`;
+
+CREATE TABLE `ims_qt_operate_keyword` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `uniacid` int(11) NOT NULL,
+  `label` varchar(30) NOT NULL DEFAULT '',
+  `title` varchar(200) NOT NULL DEFAULT '',
+  `remark` varchar(500) NOT NULL DEFAULT '',
+  `keyword` varchar(100) NOT NULL DEFAULT '',
+  `picture` varchar(300) NOT NULL DEFAULT '',
+  `content` text NOT NULL,
+  `orderby` int(11) NOT NULL DEFAULT '0' COMMENT '排序序号',
+  `state` int(1) NOT NULL DEFAULT '1' COMMENT '1启用0禁用',
+  `created_at` int(11) NOT NULL DEFAULT '0' COMMENT '创建时间',
+  `updated_at` int(11) NOT NULL DEFAULT '0' COMMENT '更新时间',
+  `deleted_at` int(11) NOT NULL DEFAULT '0' COMMENT '删除时间',
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM AUTO_INCREMENT=146 DEFAULT CHARSET=utf8 COMMENT='常用帮助表';
+
+
+DROP TABLE IF EXISTS `ims_qt_operate_like`;
+
+CREATE TABLE `ims_qt_operate_like` (
+  `id` int(10) NOT NULL AUTO_INCREMENT,
+  `uid` int(10) NOT NULL,
+  `skuId` varchar(30) DEFAULT '' COMMENT '商品id',
+  `addtime` int(10) DEFAULT '0',
+  `skuName` varchar(255) DEFAULT '',
+  `source_type` int(1) DEFAULT '1',
+  `picUrl` varchar(255) DEFAULT '',
+  `wlPrice_after` double DEFAULT '0',
+  `wlPrice` double DEFAULT '0',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=90 DEFAULT CHARSET=utf8;
+
+
+DROP TABLE IF EXISTS `ims_qt_operate_member`;
+
+CREATE TABLE `ims_qt_operate_member` (
+  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
+  `uniacid` int(11) unsigned NOT NULL COMMENT '微擎公众号/小程序id',
+  `uid` int(11) unsigned NOT NULL COMMENT '微擎会员id,=自定义推广位id，京东+拼多多通用',
+  `openid` varchar(50) NOT NULL DEFAULT '' COMMENT 'openid',
+  `mobile` varchar(11) NOT NULL DEFAULT '' COMMENT '电话',
+  `sex` varchar(1) NOT NULL DEFAULT '0' COMMENT '0女1男',
+  `email` varchar(50) NOT NULL DEFAULT '' COMMENT '邮箱',
+  `realname` varchar(10) NOT NULL DEFAULT '' COMMENT '真实姓名',
+  `nickname` varchar(20) NOT NULL DEFAULT '' COMMENT '昵称',
+  `avatar` varchar(255) NOT NULL DEFAULT '' COMMENT '头像',
+  `qq` varchar(15) NOT NULL DEFAULT '' COMMENT 'QQ',
+  `vip` tinyint(3) unsigned NOT NULL DEFAULT '0' COMMENT '1合伙人',
+  `integral` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '积分',
+  `credit` decimal(10,2) unsigned NOT NULL DEFAULT '0.00' COMMENT '佣金余额',
+  `alipayno` varchar(30) NOT NULL COMMENT '支付宝账号',
+  `from_id` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '来源微擎会员id',
+  `parent_from_id` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '上级来源微擎会员id',
+  `from_vip_id` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '归属合伙人微擎会员id',
+  `userName` varchar(20) NOT NULL DEFAULT '' COMMENT '收货人',
+  `postalCode` varchar(10) NOT NULL DEFAULT '' COMMENT '邮编',
+  `provinceName` varchar(20) NOT NULL DEFAULT '' COMMENT '省',
+  `cityName` varchar(20) NOT NULL DEFAULT '' COMMENT '市',
+  `countyName` varchar(20) NOT NULL DEFAULT '' COMMENT '国家',
+  `address` varchar(50) NOT NULL DEFAULT '' COMMENT '详细地址',
+  `telNumber` varchar(11) NOT NULL DEFAULT '' COMMENT '收货电话',
+  `subscribe` tinyint(3) unsigned NOT NULL DEFAULT '1' COMMENT '1、订阅 2、取消订阅',
+  `created_at` int(11) NOT NULL COMMENT '创建时间',
+  `updated_at` int(11) NOT NULL COMMENT '更新时间',
+  `deleted_at` int(11) NOT NULL COMMENT '删除时间',
+  `taobao_user_id` varchar(255) DEFAULT '' COMMENT '淘宝用户id',
+  `vip_level` int(1) DEFAULT '0' COMMENT '0普通会员1高级会员',
+  PRIMARY KEY (`id`),
+  KEY `mobile` (`mobile`) USING BTREE,
+  KEY `uid` (`uid`) USING BTREE,
+  KEY `from_id` (`from_id`) USING BTREE,
+  KEY `parent_from_id` (`parent_from_id`) USING BTREE,
+  KEY `from_vip_id` (`from_vip_id`) USING BTREE
+) ENGINE=MyISAM AUTO_INCREMENT=404 DEFAULT CHARSET=utf8 COMMENT='会员表';
+
+
+DROP TABLE IF EXISTS `ims_qt_operate_order`;
+
+CREATE TABLE `ims_qt_operate_order` (
+  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
+  `uniacid` int(11) unsigned NOT NULL COMMENT '微擎公众号/小程序id',
+  `ordertype` varchar(1) NOT NULL DEFAULT '' COMMENT '1京东2拼多多',
+  `orderId` varchar(31) NOT NULL DEFAULT '' COMMENT '订单ID',
+  `popId` varchar(31) NOT NULL DEFAULT '' COMMENT '商家ID',
+  `parentId` varchar(31) NOT NULL DEFAULT '' COMMENT '父单ID,父单拆分后,子单中parentId为父单的id',
+  `orderTime` varchar(31) NOT NULL DEFAULT '' COMMENT '下单时间 时间戳 ',
+  `finishTime` varchar(31) NOT NULL DEFAULT '' COMMENT '完成时间 时间戳 ',
+  `plus` varchar(10) NOT NULL DEFAULT '' COMMENT '是否plus会员 1是，0不是',
+  `unionId` varchar(30) NOT NULL DEFAULT '' COMMENT '京东联盟ID/拼多多为平台会员手机号',
+  `positionId` varchar(30) NOT NULL DEFAULT '' COMMENT '自定pid',
+  `skuId` varchar(31) NOT NULL DEFAULT '' COMMENT '商品ID',
+  `skuName` varchar(100) NOT NULL DEFAULT '' COMMENT '商品名称',
+  `picUrl` varchar(100) NOT NULL DEFAULT '' COMMENT '商品图片',
+  `skuNum` varchar(31) NOT NULL DEFAULT '' COMMENT '商品数量',
+  `skuReturnNum` varchar(31) NOT NULL DEFAULT '' COMMENT '商品退货数量',
+  `subUnionId` varchar(31) NOT NULL DEFAULT '' COMMENT '子联盟ID(需要联系运营开放白名单才能拿到数据)',
+  `cosPrice` decimal(16,2) NOT NULL DEFAULT '0.00' COMMENT '订单实际计算佣金使用金额',
+  `commission` decimal(16,2) NOT NULL DEFAULT '0.00' COMMENT '佣金,如果是查询的引入订单接口，表示预估佣金',
+  `commissionRate` decimal(16,2) NOT NULL DEFAULT '0.00' COMMENT '佣金比例',
+  `subSideRate` decimal(16,2) NOT NULL DEFAULT '0.00' COMMENT '分佣方的分佣比例(收入分成比例)',
+  `Fee` decimal(16,2) NOT NULL DEFAULT '0.00' COMMENT '站长的实际佣金',
+  `finalRate` decimal(16,2) NOT NULL DEFAULT '0.00' COMMENT '最终比例 (一级分佣比例*二级分佣比例)',
+  `valistatus` varchar(50) NOT NULL DEFAULT '' COMMENT '状态描述',
+  `validCode` varchar(2) NOT NULL DEFAULT '' COMMENT ' validCode: 	 京东： 1:有效,2:订单拆单,3:订单取消,4:京东帮帮主订单,5:账户异常,6:赠品类目,7:校园订单,8:企业订单,9:团购订单,10:开增值税专用发票订单,11:乡村推广员下单,12:自己推广自己下单,13:违规订单,14:订单来源与备案网址不符,-1:无效原因未知15.待付款,16.已付款,17.已完成,18.已结算）	 拼多多： -1 未支付;0-已支付；1-已成团；2-确认收货；3-审核成功；4-审核失败（不可提现）；5-已经结算；8-非多多进宝商品（无佣金订单）;10-已处罚	 ',
+  `yn` varchar(50) NOT NULL DEFAULT '' COMMENT '0无效 1待付款2已付款3已完成4已结算',
+  `from_pid` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '上级会员推广位',
+  `parent_from_pid` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '上上级会员推广位',
+  `vip_pid` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '合伙人推广位',
+  `created_at` int(11) NOT NULL DEFAULT '0' COMMENT '创建时间',
+  `updated_at` int(11) NOT NULL DEFAULT '0' COMMENT '更新时间',
+  `deleted_at` int(11) NOT NULL DEFAULT '0' COMMENT '删除时间',
+  `reward_uid` int(11) DEFAULT '0' COMMENT '奖励的用户uid',
+  PRIMARY KEY (`id`),
+  KEY `uniacid` (`uniacid`) USING BTREE,
+  KEY `orderId` (`orderId`) USING BTREE,
+  KEY `skuId` (`skuId`) USING BTREE,
+  KEY `positionId` (`positionId`) USING BTREE,
+  KEY `from_pid` (`from_pid`) USING BTREE,
+  KEY `parent_from_pid` (`parent_from_pid`) USING BTREE,
+  KEY `vip_pid` (`vip_pid`) USING BTREE
+) ENGINE=MyISAM AUTO_INCREMENT=124 DEFAULT CHARSET=utf8 COMMENT='订单表';
+
+
+DROP TABLE IF EXISTS `ims_qt_operate_sysset`;
+
+CREATE TABLE `ims_qt_operate_sysset` (
+  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
+  `uniacid` int(11) unsigned NOT NULL COMMENT '微擎公众号/小程序id',
+  `logo` varchar(255) NOT NULL COMMENT 'LOGO图标',
+  `title` varchar(100) NOT NULL COMMENT '分享图标',
+  `remark` varchar(255) NOT NULL COMMENT '分享描述',
+  `hjk_apikey` varchar(40) NOT NULL DEFAULT '' COMMENT '好京客apikey',
+  `hjk_pddpid` varchar(20) NOT NULL DEFAULT '' COMMENT '拼多多默认推广位',
+  `applyvip` tinyint(3) unsigned NOT NULL DEFAULT '1' COMMENT '申请合伙人，0自动通过，1付费通过 2、直属会员+非直属会员+订单数',
+  `vip_fee` decimal(8,2) NOT NULL DEFAULT '0.00' COMMENT '申请合伙人费用 申请合伙人付费时有效',
+  `vip_direct_count` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '申请合伙人直接会员数量',
+  `vip_indirect_count` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '申请合伙人间接会员数量',
+  `vip_order_count` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '申请合伙人有效订单数量',
+  `mincash` int(11) NOT NULL DEFAULT '0' COMMENT '最小提现金额',
+  `rate` decimal(8,2) NOT NULL DEFAULT '0.00' COMMENT '提现手续费',
+  `mchid` varchar(50) NOT NULL DEFAULT '' COMMENT '商户号',
+  `coup_appid` varchar(50) NOT NULL DEFAULT '' COMMENT '跳转小程序APPID',
+  `couptype` int(11) NOT NULL DEFAULT '0' COMMENT '首页状态0默认客服消息，1直接跳转',
+  `notice_applycash` varchar(50) NOT NULL DEFAULT '' COMMENT '申请提现通知',
+  `notice_auditingcash` varchar(50) NOT NULL DEFAULT '' COMMENT '提现审核通知',
+  `sign_credit1` int(11) NOT NULL DEFAULT '0' COMMENT '签到积分,0为关闭签到',
+  `notice_tplno` varchar(50) NOT NULL DEFAULT '' COMMENT '抽奖任务模板消息',
+  `credit1_to_credit2` int(11) NOT NULL DEFAULT '0' COMMENT '1元等于多少积分',
+  `subscribeurl` varchar(255) NOT NULL DEFAULT '' COMMENT '引导关注URL',
+  `notice_tplno_app` varchar(50) NOT NULL DEFAULT '' COMMENT '任务通知模板消息',
+  `owner_openid` varchar(50) NOT NULL DEFAULT '' COMMENT '管理员openid',
+  `cashtype` tinyint(3) unsigned NOT NULL DEFAULT '0' COMMENT '提现方式 1微信，2支付宝',
+  `sms_type` tinyint(3) unsigned NOT NULL DEFAULT '0' COMMENT '短信服务商',
+  `dayu_appid` varchar(100) NOT NULL DEFAULT '' COMMENT '大于短信appid',
+  `dayu_appkey` varchar(200) NOT NULL DEFAULT '' COMMENT '大于短信key',
+  `dayu_smstplid` varchar(200) NOT NULL DEFAULT '' COMMENT '短信模板ID',
+  `dayu_smssign` varchar(50) NOT NULL DEFAULT '' COMMENT '大于短信签名',
+  `sms_tpl` varchar(200) NOT NULL DEFAULT '' COMMENT '短信模板',
+  `service_msg` varchar(500) NOT NULL DEFAULT '' COMMENT '默认客服消息',
+  `kefuqr` varchar(200) NOT NULL DEFAULT '' COMMENT '客服二维码',
+  `isopenpartner` tinyint(3) unsigned NOT NULL DEFAULT '1' COMMENT '是否开启合伙人1、开启 0、关闭',
+  `isshow_subsidy` tinyint(3) unsigned NOT NULL DEFAULT '1' COMMENT '是否显示返利，1是0否',
+  `leader_subsidename` varchar(50) NOT NULL DEFAULT '自购省' COMMENT '返利名称，默认自购省',
+  `share_name` varchar(50) NOT NULL DEFAULT '分享赚' COMMENT '分享赚名称，默认分享赚',
+  `vip_sidy` decimal(8,2) NOT NULL DEFAULT '0.00' COMMENT '合伙人佣金比例',
+  `first_sidy` decimal(8,2) NOT NULL DEFAULT '0.00' COMMENT '一级佣金比例',
+  `second_sidy` decimal(8,2) NOT NULL DEFAULT '0.00' COMMENT '二级佣金比例',
+  `third_sidy` decimal(8,2) NOT NULL DEFAULT '0.00' COMMENT '三级佣金比例',
+  `alipay_appid` varchar(500) NOT NULL DEFAULT '' COMMENT '支付宝appid',
+  `alipay_privatekey` text NOT NULL COMMENT '支付宝私钥',
+  `homepage_title` varchar(50) NOT NULL DEFAULT '' COMMENT '首页标题',
+  `homepage_itemhtml` text,
+  `homepage_itemjson` text NOT NULL COMMENT '首页布局json格式',
+  `homepage_my_itemjson` text COMMENT '我的页面json格式',
+  `memberposter` text NOT NULL COMMENT '会员海报json格式',
+  `islimited` tinyint(3) unsigned NOT NULL DEFAULT '0' COMMENT '0限制直接跳转，1直接跳转',
+  `isshow_lotteryrelease` tinyint(3) unsigned NOT NULL DEFAULT '1' COMMENT '1显示发布抽奖0不显示发布抽奖',
+  `pdd_client_id` varchar(255) DEFAULT '' COMMENT '拼多多client_id',
+  `pdd_client_secret` varchar(255) DEFAULT '' COMMENT '拼多多secret',
+  `taoke_18_key` varchar(255) DEFAULT '' COMMENT '18淘客助手秘钥',
+  `da_taoke_appkey` varchar(255) DEFAULT '' COMMENT '大淘客appkey',
+  `taobao_app_key` varchar(255) DEFAULT '' COMMENT '淘宝app_key',
+  `taobao_app_secret` varchar(255) DEFAULT '' COMMENT '淘宝app_secret',
+  `taobao_pid` varchar(255) DEFAULT '' COMMENT '淘宝推广位pid',
+  `rank_rule_json` text COMMENT '排名规则',
+  `super_direct_count` int(10) DEFAULT '0' COMMENT '超级会员直接会员数条件',
+  `super_indirect_count` int(10) DEFAULT '0' COMMENT '超级会员间接会员数条件',
+  `super_order_count` int(10) DEFAULT '0' COMMENT '超级会员订单数条件',
+  `auth_key` varchar(255) DEFAULT '' COMMENT '授权码',
+  `session_key` varchar(255) DEFAULT '' COMMENT '淘宝接口访问令牌',
+  `session_exp_time` int(10) DEFAULT '0' COMMENT '令牌过期时间',
+  `taobao_username` varchar(255) DEFAULT '' COMMENT '淘宝用户名',
+  `taobao_user_id` varchar(255) DEFAULT '' COMMENT '淘宝用户id',
+  `pdd_switch` int(1) DEFAULT '1' COMMENT '拼多多开关',
+  `jd_switch` int(1) DEFAULT '1' COMMENT '京东开关',
+  `taobao_switch` int(1) DEFAULT '0' COMMENT '淘宝开关',
+  `is_open_coupon` int(1) DEFAULT '1' COMMENT '优惠券开关1表示所有商品都为优惠券商品2表示所有商品',
+  `is_open_auditing` int(1) DEFAULT '0' COMMENT '是否打开',
+  `auditing_version` varchar(255) DEFAULT '' COMMENT '版本号',
+  `self_source_id` int(10) DEFAULT '0' COMMENT '精选模块商品源id，0表示自营',
+  `is_open_order_sync` int(1) DEFAULT '0' COMMENT '是否开启自动同步订单',
+  `order_sync_exp_time` int(10) DEFAULT '0' COMMENT '订单同步过期时间',
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM AUTO_INCREMENT=25 DEFAULT CHARSET=utf8 COMMENT='系统设置表';
+
+
+DROP TABLE IF EXISTS `ims_qt_operate_vipremark`;
+
+CREATE TABLE `ims_qt_operate_vipremark` (
+  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
+  `uniacid` int(11) unsigned NOT NULL COMMENT '微擎公众号/小程序id',
+  `title` varchar(30) NOT NULL COMMENT '申请合伙人标题',
+  `remark` varchar(500) NOT NULL COMMENT '说明',
+  `img1` varchar(255) NOT NULL DEFAULT '' COMMENT '申请合伙人图片1',
+  `content1` varchar(500) NOT NULL COMMENT '申请合伙人内容1',
+  `img2` varchar(255) NOT NULL DEFAULT '' COMMENT '申请合伙人图片2',
+  `content2` varchar(500) NOT NULL COMMENT '申请合伙人内容2',
+  `img3` varchar(255) NOT NULL DEFAULT '' COMMENT '申请合伙人图片3',
+  `content3` varchar(500) NOT NULL COMMENT '申请合伙人内容3',
+  `created_at` int(11) NOT NULL COMMENT '创建时间',
+  `updated_at` int(11) NOT NULL COMMENT '更新时间',
+  `deleted_at` int(11) NOT NULL COMMENT '删除时间',
+  PRIMARY KEY (`id`),
+  KEY `uniacid` (`uniacid`) USING BTREE
+) ENGINE=MyISAM AUTO_INCREMENT=9 DEFAULT CHARSET=utf8;
+
+
+DROP TABLE IF EXISTS `ims_qt_path`;
+
+CREATE TABLE `ims_qt_path` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `name` varchar(255) NOT NULL COMMENT '名字',
+  `link` varchar(255) NOT NULL COMMENT '路径',
+  `open_type` varchar(255) DEFAULT NULL COMMENT '小程序跳转类型web，contact，service，navigate,',
+  `params` varchar(500) DEFAULT '' COMMENT '跳转参数',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+
+DROP TABLE IF EXISTS `ims_qt_rank`;
+
+CREATE TABLE `ims_qt_rank` (
+  `id` int(10) NOT NULL AUTO_INCREMENT,
+  `uid` int(10) DEFAULT NULL,
+  `phase_id` int(10) DEFAULT NULL,
+  `power_count` int(10) DEFAULT NULL,
+  `is_virtual` int(1) DEFAULT '0' COMMENT '0不是1是',
+  `virtual_user_id` int(10) DEFAULT '0',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+DROP TABLE IF EXISTS `ims_qt_rank_phase`;
+
+CREATE TABLE `ims_qt_rank_phase` (
+  `id` int(10) NOT NULL AUTO_INCREMENT,
+  `goods_id` int(10) NOT NULL,
+  `phase_no` varchar(255) NOT NULL DEFAULT '' COMMENT '期号',
+  `addtime` int(10) DEFAULT '0',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COMMENT='期号';
+
+
+DROP TABLE IF EXISTS `ims_qt_sendmsg`;
+
+CREATE TABLE `ims_qt_sendmsg` (
+  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
+  `uniacid` int(11) unsigned NOT NULL,
+  `topcolor` varchar(50) NOT NULL DEFAULT '' COMMENT '顶部颜色',
+  `title` varchar(50) NOT NULL DEFAULT '' COMMENT '标题',
+  `titlecolor` varchar(50) NOT NULL DEFAULT '' COMMENT '标题颜色',
+  `taskname` varchar(300) NOT NULL DEFAULT '' COMMENT '任务名称',
+  `tasknamecolor` varchar(50) NOT NULL DEFAULT '' COMMENT '任务名称颜色',
+  `tasktype` varchar(50) NOT NULL DEFAULT '' COMMENT '任务类型',
+  `tasktypecolor` varchar(50) NOT NULL DEFAULT '' COMMENT '任务类型颜色',
+  `taskresult` varchar(50) NOT NULL DEFAULT '' COMMENT '处理结果',
+  `taskresultcolor` varchar(50) NOT NULL DEFAULT '' COMMENT '处理结果颜色',
+  `remark` varchar(50) NOT NULL DEFAULT '' COMMENT '尾备注',
+  `remarkcolor` varchar(50) NOT NULL DEFAULT '' COMMENT '尾备注颜色',
+  `url` varchar(200) NOT NULL DEFAULT '' COMMENT '详情url',
+  `createtime` int(10) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+
+
+DROP TABLE IF EXISTS `ims_qt_sendmsg_rec`;
+
+CREATE TABLE `ims_qt_sendmsg_rec` (
+  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
+  `uniacid` int(11) unsigned NOT NULL,
+  `msgid` int(11) unsigned DEFAULT '0' COMMENT '消息id',
+  `title` varchar(50) DEFAULT '' COMMENT '标题',
+  `openid` varchar(50) DEFAULT '' COMMENT '会员openid',
+  `type` int(10) DEFAULT '0' COMMENT '0普通消息1商品消息',
+  `state` int(10) DEFAULT '0' COMMENT '发送状态，0待发送,1发送成功,-1发送失败(或拒绝接受)',
+  `createtime` int(10) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+
+
+DROP TABLE IF EXISTS `ims_qt_taobao_order_sync`;
+
+CREATE TABLE `ims_qt_taobao_order_sync` (
+  `id` int(10) NOT NULL AUTO_INCREMENT,
+  `start_time` int(10) DEFAULT '0' COMMENT '本轮查询开始时间',
+  `end_time` int(10) DEFAULT '0' COMMENT '本轮查询结束时间',
+  `curent_time` int(10) DEFAULT '0' COMMENT '当前轮询时间',
+  `addtime` int(10) DEFAULT '0',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+
+DROP TABLE IF EXISTS `ims_qt_virtual_user`;
+
+CREATE TABLE `ims_qt_virtual_user` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `nickname` varchar(255) DEFAULT NULL,
+  `avatar_url` varchar(255) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=10001 DEFAULT CHARSET=utf8;
+
+
+DROP TABLE IF EXISTS `ims_qt_card`;
+
+CREATE TABLE `ims_qt_card` (
+  `id` int(10) NOT NULL AUTO_INCREMENT,
+  `uniacid` int(10) DEFAULT '0',
+  `batch_no` int(10) DEFAULT '0' COMMENT '批次',
+  `use_user_id` int(10) NOT NULL DEFAULT '0' COMMENT '使用者id',
+  `pre_account` varchar(255) DEFAULT '' COMMENT '包含前缀的',
+  `account_no` varchar(255) DEFAULT '' COMMENT '账号',
+  `password` varchar(255) DEFAULT '' COMMENT '密码',
+  `addtime` int(10) DEFAULT '0' COMMENT '添加时间',
+  `use_time` int(10) DEFAULT '0' COMMENT '使用时间',
+  `status` int(1) DEFAULT '0' COMMENT '状态',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=27 DEFAULT CHARSET=utf8;
+
+DROP TABLE IF EXISTS `ims_qt_goods_cart`;
+CREATE TABLE `ims_qt_goods_cart` (
+  `id` int(10) NOT NULL AUTO_INCREMENT,
+  `user_id` int(10) NOT NULL DEFAULT '0' COMMENT '用户id',
+  `goods_id` int(10) NOT NULL DEFAULT '0' COMMENT '商品id',
+  `status` int(10) NOT NULL DEFAULT '0' COMMENT '状态0未支付1已支付',
+  `addtime` int(10) DEFAULT '0' COMMENT '添加时间',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=84 DEFAULT CHARSET=utf8;
+
+
+
+
+]]></install>
+	<uninstall><![CDATA[]]></uninstall>
+	<upgrade><![CDATA[
+
+ALTER TABLE `ims_qt_operate_sysset`     ADD COLUMN `taoke_18_key` VARCHAR(255) DEFAULT '' NULL COMMENT '18淘客助手秘钥' AFTER `pdd_client_secret`,    CHANGE `taobao_app_key` `taobao_app_key` VARCHAR(255) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT '' NULL  COMMENT '淘宝app_key';
+
+ALTER TABLE `ims_qt_operate_sysset`     ADD COLUMN `auth_key` VARCHAR(255) DEFAULT '' NULL COMMENT '授权码' AFTER `super_order_count`,     ADD COLUMN `session_key` VARCHAR(255) DEFAULT '' NULL COMMENT '淘宝接口访问令牌' AFTER `auth_key`,     ADD COLUMN `session_exp_time` INT(10) DEFAULT '0' NULL COMMENT '令牌过期时间' AFTER `session_key`,     ADD COLUMN `taobao_username` VARCHAR(255) DEFAULT '' NULL COMMENT '淘宝用户名' AFTER `session_exp_time`,     ADD COLUMN `taobao_user_id` VARCHAR(255) DEFAULT '' NULL COMMENT '淘宝用户id' AFTER `taobao_username`;
+
+ALTER TABLE `ims_qt_operate_member`     CHANGE `taobao_user_id` `taobao_user_id` VARCHAR(255) DEFAULT '' NULL  COMMENT '淘宝用户id';
+
+ALTER TABLE `ims_qt_operate_sysset`     ADD COLUMN `pdd_switch` INT(1) DEFAULT '1' NULL COMMENT '拼多多开关' AFTER `taobao_user_id`,     ADD COLUMN `jd_switch` INT(1) DEFAULT '1' NULL COMMENT '京东开关' AFTER `pdd_switch`,     ADD COLUMN `taobao_switch` INT(1) DEFAULT '0' NULL COMMENT '淘宝开关' AFTER `jd_switch`;
+
+ALTER TABLE `ims_qt_classification`     ADD COLUMN `jd_cid` INT(10) DEFAULT '0' NULL COMMENT '京东分类' AFTER `pdd_opt_id`,     ADD COLUMN `tb_cid` INT(10) DEFAULT '0' NULL COMMENT '淘宝分类' AFTER `jd_cid`;
+
+ALTER TABLE `ims_qt_operate_diysource_goods`     ADD COLUMN `goods_data_json` TEXT NULL AFTER `deleted_at`;
+
+ALTER TABLE `ims_qt_operate_sysset`     ADD COLUMN `is_open_coupon` INT(1) DEFAULT '1' NULL COMMENT '优惠券开关1表示所有商品都为优惠券商品2表示所有商品' AFTER `taobao_switch`;
+
+ALTER TABLE `ims_qt_operate_sysset`     ADD COLUMN `is_open_auditing` INT(1) DEFAULT '0' NULL COMMENT '是否打开' AFTER `is_open_coupon`,     ADD COLUMN `auditing_version` VARCHAR(255) DEFAULT '' NULL COMMENT '版本号' AFTER `is_open_auditing`;
+
+ALTER TABLE `ims_qt_operate_like`     ADD COLUMN `skuName` VARCHAR(255) DEFAULT '';
+ALTER TABLE `ims_qt_operate_like`     ADD COLUMN `source_type` INT(1) DEFAULT '1';
+ALTER TABLE `ims_qt_operate_like`     ADD COLUMN `picUrl` VARCHAR(255) DEFAULT '';
+ALTER TABLE `ims_qt_operate_like`     ADD COLUMN `wlPrice_after` double DEFAULT '0';
+ALTER TABLE `ims_qt_operate_like`     ADD COLUMN `wlPrice` double DEFAULT '0';
+
+ALTER TABLE `ims_qt_goods`     ADD COLUMN `sales` int(10) DEFAULT '0';
+ALTER TABLE `ims_qt_goods`     ADD COLUMN `uniacid` int(10) DEFAULT '0';
+ALTER TABLE `ims_qt_goods_order`     ADD COLUMN `uniacid` int(10) DEFAULT '0';
+ALTER TABLE `ims_qt_goods_order`     ADD COLUMN `order_no` varchar(255) DEFAULT '';
+
+ALTER TABLE `ims_qt_operate_sysset`     ADD COLUMN `self_source_id` INT(10) DEFAULT '0' NULL COMMENT '精选模块商品源id，0表示自营' AFTER `auditing_version`;
+ALTER TABLE `ims_qt_operate_sysset` ADD COLUMN `is_open_order_sync`  int(1) NULL DEFAULT 0 COMMENT '是否开启自动同步订单' AFTER `self_source_id`;
+ALTER TABLE `ims_qt_operate_sysset`     ADD COLUMN `order_sync_exp_time` INT(10) DEFAULT '0' NULL COMMENT '订单同步过期时间' AFTER `is_open_order_sync`,    CHANGE `session_exp_time` `session_exp_time` INT(10) DEFAULT '0' NULL  COMMENT '令牌过期时间',     CHANGE `is_open_order_sync` `is_open_order_sync` INT(1) DEFAULT '0' NULL  COMMENT '是否开启自动同步订单';
+
+ALTER TABLE `ims_qt_classification`     ADD COLUMN `type` INT(1) DEFAULT '1' NULL COMMENT '类型';
+ALTER TABLE `ims_qt_goods`     ADD COLUMN `cate_id` INT(10) DEFAULT '0' NULL COMMENT '分类';
+
+ALTER TABLE `ims_qt_operate_member`     ADD COLUMN `expire_time` INT(10) DEFAULT '0' NULL COMMENT '过期时间' AFTER `vip_level`;
+
+DROP TABLE IF EXISTS `ims_qt_goods_cart`;
+CREATE TABLE `ims_qt_goods_cart` (
+  `id` int(10) NOT NULL AUTO_INCREMENT,
+  `user_id` int(10) NOT NULL DEFAULT '0' COMMENT '用户id',
+  `goods_id` int(10) NOT NULL DEFAULT '0' COMMENT '商品id',
+  `status` int(10) NOT NULL DEFAULT '0' COMMENT '状态0未支付1已支付',
+  `addtime` int(10) DEFAULT '0' COMMENT '添加时间',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=84 DEFAULT CHARSET=utf8;
+
+
+ALTER TABLE `ims_qt_card`     ADD COLUMN `expire_day` INT(10) DEFAULT '0' NULL COMMENT '过期天数' AFTER `status`;
+]]></upgrade>
+</manifest>

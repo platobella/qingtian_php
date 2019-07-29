@@ -1,0 +1,369 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{$_W['current_module']['title']}-后台管理</title>
+    <meta name="renderer" content="webkit|ie-comp|ie-stand">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width,user-scalable=yes, minimum-scale=0.4, initial-scale=0.8" />
+    <meta http-equiv="Cache-Control" content="no-siteapp" />
+    <link rel="shortcut icon" href="{NETS_HAOJIK_WEB_STYLE}favicon.ico" type="image/x-icon" />
+    <link rel="stylesheet" href="{NETS_HAOJIK_WEB_STYLE}css/font.css?v=201801291600">
+    <link rel="stylesheet" href="{NETS_HAOJIK_WEB_STYLE}css/hjk.css?v=201801291600">
+    <script type="text/javascript" src="{NETS_HAOJIK_WEB_STYLE}js/jquery.min.js?v=201801291600"></script>
+    <script src="{NETS_HAOJIK_WEB_STYLE}lib/layui/layui.js?v=201801291600" charset="utf-8"></script>
+    <script type="text/javascript" src="{NETS_HAOJIK_WEB_STYLE}js/hjk.js?v=201801291600"></script>
+
+</head>
+<body>
+<!-- 顶部开始 -->
+<div class="container">
+    <div class="logo">
+        {if file_exists(IA_ROOT. "/addons/". $_W['current_module']['name']. "/icon-custom.jpg")}
+        <img src="{php echo tomedia("addons/".$_W['current_module']['name']."/icon-custom.jpg")}" class="head-app-logo" onerror="this.src='./resource/images/gw-wx.gif'">
+        {else}
+        <img src="{php echo tomedia("addons/".$_W['current_module']['name']."/icon.jpg")}" class="head-app-logo" onerror="this.src='./resource/images/gw-wx.gif'">
+        {/if}
+        <a href="../web/index.php?c=site&a=entry&do=web&m=qt_shop">{$_W['current_module']['title']}-{$_W['acctype']}</a></div>
+    <div class="left_open">
+        <i title="展开菜单栏" class="iconfont">&#xe699;</i>
+    </div>
+    <ul class="layui-nav left fast-add" lay-filter="">
+        <li class="layui-nav-item">
+            <a href="javascript:;">+ 快捷菜单</a>
+            <dl class="layui-nav-child"> <!-- 二级菜单 -->
+                <dd>
+                    <a onclick="hjk_dialog_show('发放优惠券','{php echo webUrl('coupon/coupon_add');}')"><i class="iconfont">&#xe70c;</i>发放优惠券</a>
+                </dd>
+                <dd>
+                    <a onclick="hjk_dialog_show('添加商品源','{php echo webUrl('goodssource/goodssource_add');}')"><i class="iconfont">&#xe6f6;</i>添加商品源</a>
+                </dd>
+            </dl>
+        </li>
+    </ul>
+    <ul class="layui-nav right" lay-filter="">
+        <li class="layui-nav-item to-index"><a target="_blank" href="./index.php?c=platform&a=cover&m=qt_shop">封面链接入口</a></li>
+        <li class="layui-nav-item to-index"><a target="_blank" href="./index.php?c=platform&a=reply&m=qt_shop">关键字链接入口</a></li>
+        <li class="layui-nav-item">
+            <a href="javascript:;">关闭操作</a>
+            <dl class="layui-nav-child"> <!-- 二级菜单 -->
+                <dd><a href="javascript:;" onclick="x_closethis()">关闭当前选项卡</a></dd>
+                <dd><a href="javascript:;" onclick="x_closeall(); ">关闭全部选项卡</a></dd>
+                <dd><a href="javascript:;" onclick="x_closealloutthis(); ">关闭其他选项卡</a></dd>
+            </dl>
+        </li>
+        <li class="layui-nav-item">
+            <a href="javascript:;">{$_W['user']['username']}</a>
+            <dl class="layui-nav-child"> <!-- 二级菜单 -->
+                {if $_W['isfounder']}
+                <dd><a target="_blank" href="{url 'cloud/upgrade'}">自动更新</a></dd>
+                <dd><a target="_blank" href="{url 'system/updatecache'}">更新缓存</a></dd>
+                {/if}
+                <dd><a href="./index.php?c=home&a=welcome">退出</a></dd>
+            </dl>
+        </li>
+
+    </ul>
+
+</div>
+<!-- 顶部结束 -->
+<!-- 中部开始 -->
+<!-- 左侧菜单开始 -->
+<div class="left-nav">
+    <div id="side-nav">
+        <ul id="nav">
+            <li>
+                <a href="javascript:;">
+                    <i class="iconfont">&#xe6ce;</i>
+                    <cite>系统初始化</cite>
+                    <i class="iconfont nav_right">&#xe697;</i>
+                </a>
+                <ul class="sub-menu">
+                    <li>
+                        <a _href="{php echo webUrl('sysset/initialize');}">
+                            <i class="iconfont">&#xe6a7;</i>
+                            <cite>一键初始化</cite>
+                        </a>
+                    </li>
+                    <li>
+                        <a _href="{php echo webUrl('sysset/index');}">
+                            <i class="iconfont">&#xe6a7;</i>
+                            <cite>联盟设置</cite>
+                        </a>
+                    </li >
+                </ul>
+            </li>
+            <li>
+                <a href="javascript:;">
+                    <i class="iconfont">&#xe6ae;</i>
+                    <cite>基础设置</cite>
+                    <i class="iconfont nav_right">&#xe697;</i>
+                </a>
+                <ul class="sub-menu">
+                    <li>
+                        <a _href="{php echo webUrl('sysset/index/diypage');}">
+                            <i class="iconfont">&#xe6a7;</i>
+                            <cite>风格菜单</cite>
+                            <i class="iconfont nav_right">&#xe697;</i>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="javascript:;">
+                            <i class="iconfont">&#xe6a7;</i>
+                            <cite>基础</cite>
+                            <i class="iconfont nav_right">&#xe697;</i>
+                        </a>
+                        <ul class="sub-menu">
+                            <li>
+                                <a _href="{php echo webUrl('sysset/index/appentry');}">
+                                    <i class="iconfont">&#xe6a7;</i>
+                                    <cite>小程序入口</cite>
+                                </a>
+                            </li>
+                            <li>
+                                <a _href="{php echo webUrl('sysset/index/vip');}">
+                                    <i class="iconfont">&#xe6a7;</i>
+                                    <cite>合伙人设置</cite>
+                                </a>
+                            </li >
+                            <li>
+                                <a _href="{php echo webUrl('sysset/index/coupontype');}">
+                                    <i class="iconfont">&#xe6a7;</i>
+                                    <cite>领券方式</cite>
+                                </a>
+                            </li >
+                            <li>
+                                <a _href="{php echo webUrl('sysset/index/share');}">
+                                    <i class="iconfont">&#xe6a7;</i>
+                                    <cite>分享设置</cite>
+                                </a>
+                            </li>
+                            <li>
+                                <a _href="{php echo webUrl('sysset/memberposter/index');}">
+                                    <i class="iconfont">&#xe6a7;</i>
+                                    <cite>推广海报</cite>
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a href="javascript:;">
+                            <i class="iconfont">&#xe6a7;</i>
+                            <cite>消息</cite>
+                            <i class="iconfont nav_right">&#xe697;</i>
+                        </a>
+                        <ul class="sub-menu">
+                            <li>
+                                <a _href="{php echo webUrl('sysset/index/sms');}">
+                                    <i class="iconfont">&#xe6a7;</i>
+                                    <cite>短信设置</cite>
+                                </a>
+                            </li >
+                            <li>
+                                <a _href="{php echo webUrl('sysset/index/tplmsg');}">
+                                    <i class="iconfont">&#xe6a7;</i>
+                                    <cite>模板消息设置</cite>
+                                </a>
+                            </li>
+                            <li>
+                                <a _href="{php echo webUrl('sysset/usekeyword/index');}">
+                                    <i class="iconfont">&#xe6a7;</i>
+                                    <cite>帮助设置</cite>
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a href="javascript:;">
+                            <i class="iconfont">&#xe6a7;</i>
+                            <cite>交易设置</cite>
+                            <i class="iconfont nav_right">&#xe697;</i>
+                        </a>
+                        <ul class="sub-menu">
+                            <li>
+                                <a _href="{php echo webUrl('sysset/index/gradefy');}">
+                                    <i class="iconfont">&#xe6a7;</i>
+                                    <cite>返利设置</cite>
+                                </a>
+                            </li>
+                            <li>
+                                <a _href="{php echo webUrl('sysset/index/cashset');}">
+                                    <i class="iconfont">&#xe6a7;</i>
+                                    <cite>提现设置</cite>
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </li>
+            <li>
+                <a href="javascript:;">
+                    <i class="iconfont">&#xe70c;</i>
+                    <cite>查券设置</cite>
+                    <i class="iconfont nav_right">&#xe697;</i>
+                </a>
+                <ul class="sub-menu">
+                    <li>
+                        <a _href="{php echo webUrl('coupon/index');}">
+                            <i class="iconfont">&#xe6a7;</i>
+                            <cite>全网查券</cite>
+                        </a>
+                    </li >
+                    <li>
+                        <a _href="{php echo webUrl('coupon/goodssource/index');}">
+                            <i class="iconfont">&#xe6a7;</i>
+                            <cite>自定义商品源</cite>
+                        </a>
+                    </li>
+                    <!--<li>-->
+                        <!--<a _href="{php echo webUrl('coupon/mycoupon');}">-->
+                            <!--<i class="iconfont">&#xe6a7;</i>-->
+                            <!--<cite>我发放的券</cite>-->
+                        <!--</a>-->
+                    <!--</li >-->
+                </ul>
+            </li >
+            <li>
+                <a href="javascript:;">
+                    <i class="iconfont">&#xe756;</i>
+                    <cite>互动营销</cite>
+                    <i class="iconfont nav_right">&#xe697;</i>
+                </a>
+                <ul class="sub-menu">
+                    <li>
+                        <a _href="{php echo webUrl('sale/choujiang/index');}">
+                            <i class="iconfont">&#xe6a7;</i>
+                            <cite>抽奖助手</cite>
+                        </a>
+                    </li >
+                    <li>
+                        <a href="javascript:;">
+                            <i class="iconfont">&#xe6a7;</i>
+                            <cite>群发助手</cite>
+                            <i class="iconfont nav_right">&#xe697;</i>
+                        </a>
+                        <ul class="sub-menu">
+                            <li>
+                                <a _href="{php echo webUrl('sale/groupsend');}">
+                                    <i class="iconfont">&#xe6a7;</i>
+                                    <cite>开始群发</cite>
+                                </a>
+                            </li >
+                            <li>
+                                <a _href="{php echo webUrl('sale/groupsend/groupsend_msg_temp_list');}">
+                                    <i class="iconfont">&#xe6a7;</i>
+                                    <cite>消息模板</cite>
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </li>
+            <li>
+                <a _href="{php echo webUrl('member');}">
+                    <i class="iconfont">&#xe6b8;</i>
+                    <cite>会员</cite>
+                    <!--<i class="iconfont nav_right">&#xe697;</i>-->
+                </a>
+            </li>
+            <li>
+                <a href="javascript:;">
+                    <i class="iconfont">&#xe723;</i>
+                    <cite>订单管理</cite>
+                    <i class="iconfont nav_right">&#xe697;</i>
+                </a>
+                <ul class="sub-menu">
+                    <li>
+                        <a _href="{php echo webUrl('order/index');}">
+                            <i class="iconfont">&#xe6a7;</i>
+                            <cite>订单列表</cite>
+                        </a>
+                    </li >
+                    <!-- <li>
+                        <a _href="{php echo webUrl('order/order');}">
+                            <i class="iconfont">&#xe6a7;</i>
+                            <cite>业绩订单</cite>
+                        </a>
+                    </li> -->
+                </ul>
+            </li>
+            <li>
+                <a href="javascript:;">
+                    <i class="iconfont">&#xe758;</i>
+                    <cite>财务管理</cite>
+                    <i class="iconfont nav_right">&#xe697;</i>
+                </a>
+                <ul class="sub-menu">
+                    <li>
+                        <a _href="{php echo webUrl('finance/income/index');}">
+                            <i class="iconfont">&#xe6a7;</i>
+                            <cite>收入</cite>
+
+                        </a>
+                    </li>
+                    <li>
+                        <a _href="{php echo webUrl('finance/cash/index');}">
+                            <i class="iconfont">&#xe6a7;</i>
+                            <cite>提现</cite>
+
+                        </a>
+                    </li>
+                </ul>
+            </li>
+
+            <li>
+                <a href="javascript:;">
+                    <i class="iconfont">&#xe757;</i>
+                    <cite>统计分析</cite>
+                    <i class="iconfont nav_right">&#xe697;</i>
+                </a>
+                <ul class="sub-menu">
+                    <li>
+                        <a _href="{php echo webUrl('statistics/orderstatistics');}">
+                            <i class="iconfont">&#xe6a7;</i>
+                            <cite>订单分析</cite>
+                        </a>
+                    </li >
+                    <li>
+                        <a _href="{php echo webUrl('statistics/member');}">
+                            <i class="iconfont">&#xe6a7;</i>
+                            <cite>会员增长趋势</cite>
+                        </a>
+                    </li>
+
+                </ul>
+            </li>
+        </ul>
+    </div>
+</div>
+<!-- <div class="x-slide_left"></div> -->
+<ul class="rightmenu">
+    <li data-type="closethis">关闭当前</li>
+    <li data-type="closeall">关闭所有</li>
+</ul>
+<!-- 左侧菜单结束 -->
+<!-- 右侧主体开始 -->
+<div class="page-content">
+    <div class="layui-tab tab" lay-filter="xbs_tab" lay-allowclose="true">
+        <ul class="layui-tab-title">
+            <li>首页</li>
+        </ul>
+        <div class="layui-tab-content">
+            <div class="layui-tab-item layui-show" >
+                <iframe src='{php echo webUrl('statistics');}' frameborder="0" scrolling="yes" class="x-iframe"></iframe>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="page-content-bg"></div>
+<!-- 右侧主体结束 -->
+<!-- 中部结束 -->
+<!-- 底部开始 -->
+<div class="footer">
+    <div class="copyright">Copyright ©2018 {$_W['current_module']['title']} v{$_W['current_module']['version']} All Rights Reserved</div>
+</div>
+<!-- 底部结束 -->
+<script>
+</script>
+</body>
+</html>

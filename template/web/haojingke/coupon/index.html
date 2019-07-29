@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html>
+<link href="./resource/css/bootstrap.min.css?v=20180110" rel="stylesheet">
+{template 'haojingke/common/header'}
+<body>
+<div class="x-body">
+    <div class="layui-row">
+        <form action="" method="get"  enctype="multipart/form-data" class="layui-form layui-form-pane layui-col-md12 ">
+            <input type="hidden" name="m" value="qt_shop">
+            <input type="hidden" name="do" value="web">
+            <input type="hidden" name="r" value="coupon.index">
+            <input type="hidden" name="a" value="entry">
+            <input type="hidden" name="c" value="site">
+            <div class="layui-form-item">
+                <div class="layui-inline">
+                    <label class="layui-form-label ">券后价</label>
+                    <div class="layui-input-inline layui-input-inline-w100">
+                        <input name="minprice" id="minprice" type="text" value="{$_GPC['minprice']}" placeholder="￥" autocomplete="off" class="layui-input">
+                    </div>
+                    <div class="layui-form-mid">-</div>
+                    <div class="layui-input-inline layui-input-inline-w100">
+                        <input name="maxprice" id="maxprice" type="text" value="{$_GPC['maxprice']}" autocomplete="off" class="layui-input">
+                    </div>
+                </div>
+                <div class="layui-inline">
+                    <label class="layui-form-label">佣金比例</label>
+                    <div class="layui-input-inline layui-input-inline-w100">
+                        <input name="mincommission" id="mincommission" type="text" value="{$_GPC['mincommission']}"  placeholder="%" autocomplete="off" class="layui-input">
+                    </div>
+                    <div class="layui-form-mid">-</div>
+                    <div class="layui-input-inline layui-input-inline-w100">
+                        <input name="maxcommission" id="maxcommission" type="text" value="{$_GPC['maxcommission']}" placeholder="%" autocomplete="off" class="layui-input">
+                    </div>
+                </div>
+                <div class="layui-inline">
+                    <label class="layui-form-label">佣金金额</label>
+                    <div class="layui-input-inline layui-input-inline-w100">
+                        <input name="mincommissionpirce" id="mincommissionpirce" type="text" value="{$_GPC['mincommissionpirce']}"  placeholder="￥" autocomplete="off" class="layui-input">
+                    </div>
+                    <div class="layui-form-mid">-</div>
+                    <div class="layui-input-inline layui-input-inline-w100">
+                        <input name="maxcommissionpirce" id="maxcommissionpirce" type="text" value="{$_GPC['maxcommissionpirce']}" placeholder="￥" autocomplete="off" class="layui-input">
+                    </div>
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <div class="layui-inline">
+
+                    <label class="layui-form-label">
+                        分类
+                    </label>
+                    <div class="layui-input-inline">
+                        <select  name="cid" id="cid">
+                            <option value ="" {if $_GPC['cid']==''}selected="selected"{/if}>全部</option>
+                            {loop $pddcate $c}
+                            <option value ="{$c['id']}" {if $_GPC['cid']==$c['id']}selected="selected"{/if}>{$c['name']}</option>
+                            {/loop}
+                        </select>
+                    </div>
+
+                </div>
+                <div class="layui-inline">
+                    <label class="layui-form-label">排序</label>
+                    <div class="layui-input-inline">
+                        <select   name="sort" id="sort">
+                            <option value ="0" {if $_GPC['sort']=='0'}selected="selected"{/if}>默认排序</option>
+                            <option value ="1" {if $_GPC['sort']=='1'}selected="selected"{/if}>券后价</option>
+                            <option value ="2" {if $_GPC['sort']=='2'}selected="selected"{/if}>券金额</option>
+                            <option value ="3" {if $_GPC['sort']=='3'}selected="selected"{/if}>佣金比例</option>
+                            <option value ="4" {if $_GPC['sort']=='4'}selected="selected"{/if}>佣金金额</option>
+                        </select>
+                    </div>
+                    <label class="layui-form-label">
+                        排序方式
+                    </label>
+                    <div class="layui-input-inline">
+                        <select   name="sortby" id="sortby">
+                            <option value ="0" {if empty($_GPC['sortby'])}selected="selected"{/if}>默认</option>
+                            <option value ="asc" {if $_GPC['sortby']=='asc'}selected="selected"{/if}>升序</option>
+                            <option value ="desc" {if $_GPC['sortby']=='desc'}selected="selected"{/if}>降序</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+
+            <div class="layui-form-item">
+                <div class="layui-inline">
+                    <label class="layui-form-label">
+                        商品来源
+                    </label>
+                    <div class="layui-input-inline4">
+                        <label ><input title="全部"   name="source_type" type="radio"  {if empty($_GPC['source_type'])} checked="checked" {/if} value="" > </label>
+                        <label ><input title="京东"  name="source_type" type="radio"  {if $_GPC['source_type']==1} checked="checked" {/if} value="1"</label>
+                        <label ><input title="拼多多"  name="source_type" type="radio"  {if $_GPC['source_type']==2} checked="checked" {/if} value="2"</label>
+                        <label ><input title="淘宝"  name="source_type" type="radio"  {if $_GPC['source_type']==4} checked="checked" {/if} value="4"</label>
+                    </div>
+                </div>
+                <div class="layui-inline">
+                </div>
+                <div class="layui-inline">
+                    <label class="layui-form-label">关键字</label>
+                    <div class="layui-input-inline">
+                        <input type="text" value="{$_GPC['keyword']}"  name="keyword"  placeholder="商品名称、商品ID" autocomplete="off" class="layui-input">
+                    </div>
+                </div>
+                <div class="layui-inline">
+                    <label class="layui-form-label">自定商品源</label>
+                    <div class="layui-input-inline">
+                        <select  name="diysource" id="diysource">
+                            <option value ="" {if $_GPC['diysource']==''}selected="selected"{/if}>空</option>
+                            {loop $diysource $source}
+                            <option value ="{$source['id']}" {if $_GPC['diysource']==$source['id']}selected="selected"{/if}>{$source['source_name']}</option>
+                            {/loop}
+                        </select>
+                    </div>
+                    <button class="layui-btn"  lay-submit="" lay-filter="sreach"><i class="layui-icon">&#xe615;</i></button>
+                </div>
+            </div>
+        </form>
+    </div>
+    <xblock>
+        注：当自定义商品源不为空时，其他筛选条件无效
+    </xblock>
+    <table class="layui-table">
+        <thead>
+        <tr>
+            <th>图片</th>
+            <th class="w400">商品名称</th>
+            <th>商品来源/类型</th>
+            <th>优惠券</th>
+            <th>价格</th>
+            <th >券后价</th>
+            <th >佣金</th>
+            <th >操作</th>
+        </tr>
+        </thead>
+        <tbody>
+        {loop $list $r}
+        <tr>
+            <td class="postTd" >
+                <div class="goodjson" style="display:none;"><?php echo json_encode($r);?></div>
+                <img src="{$r['picUrl']}" width="48" height="48" />
+            </td>
+            <td>
+                {$r['skuId']}<br>
+                {$r['skuName']}
+            </td>
+            <td>
+                {if $r['source_type']==1}
+                <span style="color:#1E9FFF;">【京东】</span>
+                {elseif $r['source_type']==2}
+                <span style="color:#FF5722;">【拼多多】</span>
+                {elseif $r['source_type']==3}
+                <span style="color:#FF5722;">【蘑菇街】</span>
+                {elseif $r['source_type']==4}
+                <span style="color:#FF5722;">【淘宝】</span>
+                {/if}
+
+                {if $r['goodstype']==5}<span style="color:red;">【拼购】</span>{/if}
+            </td>
+            <td>
+                ￥{$r['discount']}
+            </td>
+            <td>
+                ￥{$r['wlPrice']}
+            </td>
+            <td>
+                ￥{$r['wlPrice_after']}
+            </td>
+            <td>
+                {$r['wlCommissionShare']}%/￥<?php echo number_format($r['wlCommissionShare']/100*$r['wlPrice_after'],2); ?>
+            </td>
+            <td class="td-manage">
+                <a  onclick="hjk_dialog_show('加入商品源',' {php echo webUrl('coupon/goodssource/sourcegoods_add');}&source_type={$r['source_type']}&skuName={$r['skuName']}&skuId={$r['skuId']}&goods_data_json={php echo urlencode(json_encode($r))}')"  href="javascript:;" class="layui-btn   layui-btn-mini  layui-btn-normal" ><i class="iconfont">&#xe6b9;</i> 加入商品源</a>
+
+            </td>
+        </tr>
+        {/loop}
+        </tbody>
+    </table>
+
+    {$pager}
+
+</div>
+</body>
+</html>
+
+<script>
+    layui.use('laydate', function(){
+        var laydate = layui.laydate;
+
+        //执行一个laydate实例
+        laydate.render({
+            elem: '#daterange' //指定元素
+            ,range: '~'
+            , max:0
+        });
+    });
+
+</script>

@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html>
+<link href="./resource/css/bootstrap.min.css?v=20180110" rel="stylesheet">
+<link href="./resource/css/common.css?v=20170719" rel="stylesheet">
+<script>var require = { urlArgs: 'v=201180110' };</script>
+<script type="text/javascript" src="./resource/js/lib/jquery-1.11.1.min.js"></script>
+<script type="text/javascript" src="./resource/js/lib/bootstrap.min.js"></script>
+<script type="text/javascript" src="./resource/js/app/util.js?v=20180110"></script>
+<script type="text/javascript" src="./resource/js/app/common.min.js?v=20170719"></script>
+<script type="text/javascript" src="./resource/js/require.js?v=20180110"></script>
+<script type="text/javascript" src="{NETS_HAOJIK_WEB_STYLE}js/jquery.nestable.js"></script>
+{template 'haojingke/common/header'}
+
+<body>
+<div class="x-body">
+    <fieldset class="layui-elem-field layui-field-title" style="margin-top: 20px;">
+        <legend>返利设置</legend>
+    </fieldset>
+    <form action="" method="post"  enctype="multipart/form-data" class="layui-form">
+        <!--<div class="layui-form-item">-->
+            <!--<label class="layui-form-label">-->
+                <!--<span class="x-red">*</span>返利-->
+            <!--</label>-->
+            <!--<div class="layui-input-block">-->
+                <!--<label ><input title="&nbsp;开启 "  name="isshow_subsidy" type="radio" value="1" {if $data['isshow_subsidy']==1}checked="checked"{/if}/></label>-->
+                <!--&emsp;&emsp;<label ><input title="&nbsp;关闭&nbsp;&nbsp;"  name="isshow_subsidy" type="radio" value="0" {if $data['isshow_subsidy']==0}checked="checked"{/if}/></label>-->
+            <!--</div>-->
+            <!--<label class="layui-form-label">-->
+            <!--</label>-->
+            <!--<div class="layui-form-mid layui-word-aux">-->
+            <!--</div>-->
+        <!--</div>-->
+
+        <!--<div class="layui-form-item">-->
+            <!--<label class="layui-form-label">-->
+                <!--<span class="x-red">*</span>返利名称-->
+            <!--</label>-->
+            <!--<div class="layui-input-inline4">-->
+                <!--<input type="text" name="leader_subsidename" lay-verify="leader_subsidename"-->
+                       <!--autocomplete="off" class="layui-input" value="{$data['leader_subsidename']}">-->
+            <!--</div>-->
+            <!--<div class="layui-form-mid layui-word-aux">-->
+                <!--<span class="x-red">*</span>返利名称，默认自购省-->
+            <!--</div>-->
+        <!--</div>-->
+        <!--<div class="layui-form-item">-->
+            <!--<label class="layui-form-label">-->
+                <!--<span class="x-red">*</span>分享赚名称-->
+            <!--</label>-->
+            <!--<div class="layui-input-inline4">-->
+                <!--<input type="text" name="share_name" lay-verify="share_name"-->
+                       <!--autocomplete="off" class="layui-input" value="{$data['share_name']}">-->
+            <!--</div>-->
+            <!--<div class="layui-form-mid layui-word-aux">-->
+                <!--<span class="x-red">*</span>分享赚名称，默认分享赚-->
+            <!--</div>-->
+        <!--</div>-->
+        <div class="layui-form-item">
+            <label class="layui-form-label">
+                <span class="x-red">*</span>合伙人佣金比例
+            </label>
+            <div class="layui-input-inline4">
+                <input type="text" name="vip_sidy" lay-verify="vip_sidy"
+                       autocomplete="off" class="layui-input" value="{$data['vip_sidy']}" oninput="this.value=this.value.replace(/^(\-)*(\d+)\.(\d\d).*$/,'$1$2.$3');if(isNaN(value))execCommand('undo');"   onkeyup="this.value=this.value.replace(/^(\-)*(\d+)\.(\d\d).*$/,'$1$2.$3');if(isNaN(value))execCommand('undo');"   onafterpaste="this.value=this.value.replace(/^(\-)*(\d+)\.(\d\d).*$/,'$1$2.$3');if(isNaN(value))execCommand('undo');">
+            </div>
+            <div class="layui-form-mid layui-word-aux">
+                <span class="x-red">%</span>
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">
+                <span class="x-red">*</span>一级佣金比例
+            </label>
+            <div class="layui-input-inline4">
+                <input type="text" name="first_sidy" lay-verify="first_sidy"
+                       autocomplete="off" class="layui-input" value="{$data['first_sidy']}" oninput="this.value=this.value.replace(/^(\-)*(\d+)\.(\d\d).*$/,'$1$2.$3');if(isNaN(value))execCommand('undo');"   onkeyup="this.value=this.value.replace(/^(\-)*(\d+)\.(\d\d).*$/,'$1$2.$3');if(isNaN(value))execCommand('undo');"   onafterpaste="this.value=this.value.replace(/^(\-)*(\d+)\.(\d\d).*$/,'$1$2.$3');if(isNaN(value))execCommand('undo');">
+            </div>
+            <div class="layui-form-mid layui-word-aux">
+                <span class="x-red">%</span>
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">
+                <span class="x-red">*</span>二级佣金比例
+            </label>
+            <div class="layui-input-inline4">
+                <input type="text" name="second_sidy" lay-verify="second_sidy"
+                       autocomplete="off" class="layui-input" value="{$data['second_sidy']}" oninput="this.value=this.value.replace(/^(\-)*(\d+)\.(\d\d).*$/,'$1$2.$3');if(isNaN(value))execCommand('undo');"   onkeyup="this.value=this.value.replace(/^(\-)*(\d+)\.(\d\d).*$/,'$1$2.$3');if(isNaN(value))execCommand('undo');"   onafterpaste="this.value=this.value.replace(/^(\-)*(\d+)\.(\d\d).*$/,'$1$2.$3');if(isNaN(value))execCommand('undo');">
+            </div>
+            <div class="layui-form-mid layui-word-aux">
+                <span class="x-red">%</span>
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">
+                <span class="x-red">*</span>三级佣金比例
+            </label>
+            <div class="layui-input-inline4">
+                <input type="text" name="third_sidy" lay-verify="third_sidy"
+                       autocomplete="off" class="layui-input" value="{$data['third_sidy']}" oninput="this.value=this.value.replace(/^(\-)*(\d+)\.(\d\d).*$/,'$1$2.$3');if(isNaN(value))execCommand('undo');"   onkeyup="this.value=this.value.replace(/^(\-)*(\d+)\.(\d\d).*$/,'$1$2.$3');if(isNaN(value))execCommand('undo');"   onafterpaste="this.value=this.value.replace(/^(\-)*(\d+)\.(\d\d).*$/,'$1$2.$3');if(isNaN(value))execCommand('undo');">
+            </div>
+            <div class="layui-form-mid layui-word-aux">
+                <span class="x-red">%</span>
+            </div>
+        </div>
+
+        <div class="layui-form-item">
+            <label class="layui-form-label">
+            </label>
+            <div class="layui-input-block">
+                <input type="hidden" name="id" value="{$data['id']}"/>
+                <input type="hidden" name="token" value="{$_W['token']}" />
+                <button  type="submit" class="layui-btn" lay-filter="add" lay-submit="">
+                    提交
+                </button>
+            </div>
+        </div>
+    </form>
+</div>
+</body>
+</html>
+<script>
+
+
+</script>

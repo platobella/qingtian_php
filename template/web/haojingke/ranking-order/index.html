@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html>
+<link href="./resource/css/bootstrap.min.css?v=20180110" rel="stylesheet">
+{template 'haojingke/common/header'}
+<body>
+<div class="x-body">
+    <div class="layui-row">
+        <form action="" method="get"  enctype="multipart/form-data" class="layui-form layui-form-pane layui-col-md12">
+            <input type="hidden" name="m" value="qt_shop">
+            <input type="hidden" name="do" value="web">
+            <input type="hidden" name="r" value="ranking-order.index">
+            <input type="hidden" name="a" value="entry">
+            <input type="hidden" name="c" value="site">
+            <input type="hidden" name="search" value="1" />
+            <input type="hidden" name="op" value="post" />
+            <div class="layui-form-item">
+                <div class="layui-inline">
+                    <label class="layui-form-label" style="width:80px;">订单号</label>
+                    <div class="layui-input-inline"  >
+                        <input type="text" value="{$_GPC['orderids']}"  name="orderids"  placeholder="订单号" autocomplete="off" class="layui-input">
+                    </div>
+                </div>
+                <div class="layui-inline">
+                    <label class="layui-form-label" style="width:80px;">订单状态</label>
+                    <div class="layui-input-inline" style="width:100px;">
+                        <select  name="yn" id="yn">
+                            <option value ="" {if $_GPC['yn']==''}selected="selected"{/if}>全部</option>
+                            <option value ="0" {if $_GPC['yn']=='0'}selected="selected"{/if}>未支付</option>
+                            <option value ="1" {if $_GPC['yn']=='1'}selected="selected"{/if}>未领取</option>
+                            <option value ="2" {if $_GPC['yn']=='2'}selected="selected"{/if}>待发货</option>
+                            <option value ="3" {if $_GPC['yn']=='3'}selected="selected"{/if}>已发货</option>
+                            <option value ="4" {if $_GPC['yn']=='4'}selected="selected"{/if}>失败</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="layui-inline">
+                    <label class="layui-form-label" style="width:80px;">uid</label>
+                    <div class="layui-input-inline" style="width:100px;">
+                        <input type="text" value="{$_GPC['uid']}"  name="uid"  placeholder="uid" autocomplete="off" class="layui-input">
+                    </div>
+                    <button class="layui-btn"  lay-submit="" lay-filter="sreach"><i class="layui-icon">&#xe615;</i></button>
+                </div>
+            </div>
+
+        </form>
+    </div>
+
+    <table class="layui-table">
+        <thead>
+        <tr >
+            <th>订单ID</th>
+            <th>商品名</th>
+            <th>用户名</th>
+            <th>快递</th>
+            <th>快递单号</th>
+            <th>状态</th>
+            <th>发货时间</th>
+            <th>收货人</th>
+            <th>地址</th>
+            <th>手机号</th>
+            <th>下单时间</th>
+            <th>操作</th>
+        </tr>
+        </thead>
+        <tbody>
+        {loop $list $r}
+        <tr>
+            <td class="text-left"> {$r['id']} </td>
+            <td class="text-left"> {$r['title']} </td>
+            <td class="text-left"> {$r['nickname']} </td>
+            <td class="text-left"> {$r['express_name']} </td>
+            <td class="text-left"> {$r['express_no']} </td>
+            <td class="text-left">
+                {if $r['status']  == 0 }
+                <div class="layui-btn layui-btn-mini layui-btn-warm">未支付</div>
+                {elseif $r['status'] == 1 }
+                <div class="layui-btn layui-btn-mini layui-btn-normal">未领取</div>
+                {elseif $r['status'] == 2 }
+                <div class="layui-btn layui-btn-mini  layui-btn-danger">待发货</div>
+                {elseif $r['status'] == 3 }
+                <div class="layui-btn layui-btn-mini layui-btn-disabled">已发货</div>
+                {elseif $r['status'] == 4 }
+                <div class="layui-btn layui-btn-mini layui-btn-disabled">失败</div>
+                {/if}
+
+            </td>
+            <td class="text-left"> <?php if($r['delivery_time']) echo date('Y-m-d H:i:s',$r['delivery_time']);?></td>
+            <td class="text-left"> {$r['name']} </td>
+            <td class="text-left"> {$r['address']} </td>
+            <td class="text-left"> {$r['mobile']} </td>
+
+            <td class="text-center">
+                <?php echo date("Y-m-d H:i:s",$r['addtime'])?>
+            </td>
+            <td class="text-left">
+                <a  onclick="hjk_dialog_show('编辑订单','{php echo webUrl('ranking-order/index/goodssource_add').'&id='.$r['id'];}')" href="javascript:void(0)" class="layui-btn   layui-btn-mini  layui-btn-normal" title=""><i class="layui-icon">&#xe63c;</i> 编辑</a>
+            </td>
+
+        {/loop}
+        </tbody>
+    </table>
+
+    {$pager}
+
+</div>
+</body>
+</html>
+
+<script>
+    layui.use('laydate', function(){
+        var laydate = layui.laydate;
+
+        //执行一个laydate实例
+        laydate.render({
+            elem: '#daterange' //指定元素
+            ,range: '~'
+            , max:0
+        });
+    });
+</script>

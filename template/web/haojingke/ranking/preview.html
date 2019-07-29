@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html>
+<link href="./resource/css/bootstrap.min.css?v=20180110" rel="stylesheet">
+<link href="./resource/css/common.css?v=20170719" rel="stylesheet">
+{template 'haojingke/common/header'}
+<script>var require = { urlArgs: 'v=201180110' };</script>
+<script type="text/javascript" src="./resource/js/lib/jquery-1.11.1.min.js"></script>
+<script type="text/javascript" src="./resource/js/lib/bootstrap.min.js"></script>
+<script type="text/javascript" src="./resource/js/app/util.js?v=20180110"></script>
+<script type="text/javascript" src="./resource/js/app/common.min.js?v=20170719"></script>
+<script type="text/javascript" src="./resource/js/require.js?v=20180110"></script>
+<script type="text/javascript" src="{NETS_HAOJIK_WEB_STYLE}js/jquery.nestable.js"></script>
+<body>
+<div class="x-body">
+
+        <div class="layui-carousel" id="img_show" style="margin: auto">
+            <div carousel-item>
+                {loop $diysource['image'] $r $v}
+                <image src="{$v}"></image>
+                {/loop}
+            </div>
+        </div>
+
+        <div class="layui-form-item" style="margin-top: 20px">
+
+            <label class="layui-form-label">
+                名称
+            </label>
+            <div class="layui-input-inline">
+                <input type="text" name="title"
+                       autocomplete="off" class="layui-input" value="{$diysource['title']}">
+            </div>
+            <div class="layui-form-mid layui-word-aux">
+            </div>
+
+            <label class="layui-form-label">
+                获奖人数
+            </label>
+            <div class="layui-input-inline">
+                <input type="text" name="num"
+                       autocomplete="off" class="layui-input" value="{$diysource['num']}">
+            </div>
+            <div class="layui-form-mid layui-word-aux">
+            </div>
+
+            <label class="layui-form-label">
+                开始时间
+            </label>
+            <div class="layui-input-inline">
+                <input type="text" class="layui-input" value="<?php echo date('Y-m-d H:i:s',$diysource['start_time'])?>" name="start_time" id="start" placeholder="yyyy-MM-dd" lay-key="1">
+            </div>
+            <div class="layui-form-mid layui-word-aux">
+
+            </div>
+
+            <label class="layui-form-label">
+                结束时间
+            </label>
+            <div class="layui-input-inline">
+                <input type="text" class="layui-input" value="<?php echo date('Y-m-d H:i:s',$diysource['end_time'])?>" name="end_time" id="end" placeholder="yyyy-MM-dd" lay-key="0">
+            </div>
+            <div class="layui-form-mid layui-word-aux">
+
+            </div>
+        </div>
+
+
+
+</div>
+</body>
+</html>
+<script>
+
+        layui.use(['form','layer','laydate','carousel'], function() {
+            $ = layui.jquery;
+            var form = layui.form
+                , layer = layui.layer
+                , laydate = layui.laydate
+                , carousel = layui.carousel;
+            //建造实例
+            carousel.render({
+                elem: '#img_show'
+                , width: '35%' //设置容器宽度
+                , arrow: 'always' //始终显示箭头
+                // ,anim: 'updown' //切换动画方式
+                , autoplay: true
+                , interval: 1000
+            });
+
+            //执行一个laydate实例
+            laydate.render({
+                elem: '#start', //指定元素
+                type: 'datetime',
+            });
+
+            laydate.render({
+                elem: '#end',
+                type: 'datetime',
+
+            });
+        })
+
+</script>

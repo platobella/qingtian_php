@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html>
+<link href="./resource/css/bootstrap.min.css?v=20180110" rel="stylesheet">
+<link href="./resource/css/common.css?v=20170719" rel="stylesheet">
+{template 'haojingke/common/header'}
+<script>var require = { urlArgs: 'v=201180110' };</script>
+<script type="text/javascript" src="./resource/js/lib/jquery-1.11.1.min.js"></script>
+<script type="text/javascript" src="./resource/js/lib/bootstrap.min.js"></script>
+<script type="text/javascript" src="./resource/js/app/util.js?v=20180110"></script>
+<script type="text/javascript" src="./resource/js/app/common.min.js?v=20170719"></script>
+<script type="text/javascript" src="./resource/js/require.js?v=20180110"></script>
+<script type="text/javascript" src="{NETS_HAOJIK_WEB_STYLE}js/jquery.nestable.js"></script>
+<style>
+    .pdd{
+      display:none
+    }
+</style>
+<body>
+<div class="x-body">
+    <form action="" method="post"  enctype="multipart/form-data" class="layui-form">
+        <input type="hidden" name="id" value="{$_GPC['id']}">
+
+
+        <!--<div class="layui-form-item">-->
+            <!--<label class="layui-form-label">-->
+                <!--<span class="x-red">*</span>商品id-->
+            <!--</label>-->
+            <!--<div class="layui-input-inline">-->
+                <!--<input type="text" name="goods_id" autocomplete="off" class="layui-input" value="{$diysource['goods_id']}">-->
+            <!--</div>-->
+
+        <!--</div>-->
+        <!--<div class="layui-form-item">-->
+            <!--<label class="layui-form-label">-->
+                <!--<span class="x-red">*</span>当前排名id-->
+            <!--</label>-->
+            <!--<div class="layui-input-inline">-->
+                <!--<input type="text" name="rank_id"-->
+                       <!--autocomplete="off" class="layui-input" value="{$diysource['rank_id']}">-->
+            <!--</div>-->
+
+        <!--</div>-->
+        <!--<div class="layui-form-item">-->
+            <!--<label class="layui-form-label">-->
+                <!--uid-->
+            <!--</label>-->
+            <!--<div class="layui-input-inline">-->
+                <!--<input type="text" name="uid"-->
+                       <!--autocomplete="off" class="layui-input" value="{$diysource['uid']}">-->
+            <!--</div>-->
+        <!--</div>-->
+
+        <div class="layui-form-item">
+            <label class="layui-form-label">
+                快递
+            </label>
+            <div class="layui-input-inline">
+                <input type="text" name="express_name"
+                       autocomplete="off" class="layui-input" value="{$diysource['express_name']}">
+            </div>
+        </div>
+
+        <div class="layui-form-item">
+            <label class="layui-form-label">
+                快递单号
+            </label>
+            <div class="layui-input-inline">
+                <input type="text" name="express_no"
+                       autocomplete="off" class="layui-input" value="{$diysource['express_no']}">
+            </div>
+        </div>
+
+        <div class="layui-form-item">
+            <label class="layui-form-label">
+                快递单号
+            </label>
+            <div class="layui-input-inline">
+                <select  name="status" id="status">
+                    <option value ="0" {if $diysource['status'] ==0}selected="selected"{/if}>未付款</option>
+                    <option value ="1" {if $diysource['status'] ==1}selected="selected"{/if}>未领取</option>
+                    <option value ="2" {if $diysource['status'] ==2}selected="selected"{/if}>等待发货</option>
+                    <option value ="3" {if $diysource['status'] ==3}selected="selected"{/if}>已发货</option>
+                    <option value ="4" {if $diysource['status'] ==4}selected="selected"{/if}>失败</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="layui-form-item">
+            <label class="layui-form-label">
+                发货时间
+            </label>
+            <div class="layui-input-inline">
+                <input type="text" class="layui-input" value="<?php if($diysource['delivery_time']) echo date('Y-m-d H:i:s',$diysource['delivery_time']);?>"  name="delivery_time" id="start" placeholder="yyyy-MM-dd" lay-key="1">
+            </div>
+        </div>
+
+        <div class="layui-form-item">
+            <label class="layui-form-label">
+                收货人
+            </label>
+            <div class="layui-input-inline">
+                <input type="text" name="name"
+                       autocomplete="off" class="layui-input" value="{$diysource['name']}">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">
+                地址
+            </label>
+            <div class="layui-input-inline">
+                <input type="text" name="address"
+                       autocomplete="off" class="layui-input" value="{$diysource['address']}">
+            </div>
+        </div>
+
+        <div class="layui-form-item">
+            <label class="layui-form-label">
+                手机号
+            </label>
+            <div class="layui-input-inline">
+                <input type="text" name="mobile"
+                       autocomplete="off" class="layui-input" value="{$diysource['mobile']}">
+            </div>
+        </div>
+
+        <div class="layui-form-item">
+            <label class="layui-form-label">
+            </label>
+            <div class="layui-input-block">
+                <input type="hidden" name="token" value="{$_W['token']}" />
+                <button  type="submit" class="layui-btn" lay-filter="add" lay-submit="">
+                    提交
+                </button>
+            </div>
+        </div>
+    </form>
+</div>
+</body>
+</html>
+<script>
+
+        layui.use(['form','layer','laydate'], function(){
+            $ = layui.jquery;
+            var form = layui.form
+                , laydate = layui.laydate
+                ,layer = layui.layer;
+
+            //执行一个laydate实例
+            laydate.render({
+                elem: '#start', //指定元素
+                type: 'datetime',
+            });
+            //自定义验证规则
+            form.verify({
+            });
+
+            //监听提交
+            form.on('submit(add)', function(data){
+                var loadii = layer.load();
+
+                //发异步，把数据提交给php
+                var ajaxurl="<?php echo webUrl('ranking-order/index/goodssource_addpost')?>";
+                $.post(ajaxurl,data.field,function(res){
+                    var res=JSON.parse(res);
+                    layer.close(loadii);
+                    if(res.status==1){
+                        layer.alert(res.result.message, {icon: 6,closeBtn: 0},function () {
+                            // 获得frame索引
+
+                            var index = parent.layer.getFrameIndex(window.name);
+                            //关闭当前frame
+                            parent.layer.close(index);
+                            parent.location.href=parent.location.href;
+                        });
+                    } else {
+                        layer.msg(res.message);
+                    }
+                });
+                return false;
+            });
+        });
+
+</script>

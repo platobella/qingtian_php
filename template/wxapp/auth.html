@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>跳转授权</title>
+    <script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.js"></script>
+    <meta name="viewport" content="width=device-width,height=device-height,initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+</head>
+<style>
+    body,html{
+        padding: 0px;
+        margin: 0px;
+    }
+</style>
+<body>
+
+<div id="header" style="display: none;height: 100px;width: 100%;background: #222222;position: relative;">
+    <div style="color: #fff;width: 300px;padding-top: 20px; padding-left: 20px;" id="title"></div>
+    <img src="../addons/qt_shop/template/wxapp/images/right.png" style="position: absolute;right: 20px;top: 20px">
+</div>
+
+<div style="margin: 100px auto;text-align: center">
+    <img style="height: 150px;" src="../addons/qt_shop/template/wxapp/images/taobao.png" >
+</div>
+
+
+</body>
+<script>
+
+
+    $(function () {
+        if(is_weixin()){
+            $("#header").show();
+
+            var u = navigator.userAgent, app = navigator.appVersion;
+            var isAndroid = u.indexOf('Android') > -1 || u.indexOf('Linux') > -1; //g
+            var isIOS = !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/); //ios终端
+
+            if (isIOS) {
+                $("#title").text("点击右上角按钮，然后在弹出的菜单中，点击“在Safari中打开”,即可授权");
+            }else{
+                $("#title").text("点击右上角按钮，然后在弹出的菜单中，点击在浏览器中打开，即可授权");
+            }
+        }else{
+            window.location.href="http://shop.qt666.top/cloud_auth.php?redirect_url={$redirect_url}";
+            // window.location.href="http://we7.com/cloud_auth.php?redirect_url={$redirect_url}";
+        }
+    });
+
+    function is_weixin() {
+        var ua = window.navigator.userAgent.toLowerCase();
+        if (ua.match(/MicroMessenger/i) == 'micromessenger') {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+
+</script>
+</html>

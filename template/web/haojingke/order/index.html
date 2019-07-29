@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html>
+<link href="./resource/css/bootstrap.min.css?v=20180110" rel="stylesheet">
+{template 'haojingke/common/header'}
+<body>
+<div class="x-body">
+    <div class="layui-row">
+        <form action="" method="get"  enctype="multipart/form-data" class="layui-form layui-form-pane layui-col-md12">
+            <input type="hidden" name="m" value="qt_shop">
+            <input type="hidden" name="do" value="web">
+            <input type="hidden" name="r" value="order.index">
+            <input type="hidden" name="a" value="entry">
+            <input type="hidden" name="c" value="site">
+            <input type="hidden" name="search" value="1" />
+            <input type="hidden" name="op" value="post" />
+            <div class="layui-form-item">
+                <div class="layui-inline">
+                    <label class="layui-form-label" style="width:80px;">日期范围</label>
+                    <div class="layui-input-inline">
+                        <input class="layui-input" placeholder="日期范围" name="daterange" id="daterange" value="{$_GPC['daterange']}">
+                    </div>
+                </div>
+                <div class="layui-inline">
+                    <label class="layui-form-label" style="width:80px;">订单类型</label>
+                    <div class="layui-input-inline" style="width:100px;">
+                        <select  name="ordertype" id="ordertype">
+                            <option value ="" {if $_GPC['ordertype']==''}selected="selected"{/if}>全部</option>
+                            <option value ="1" {if $_GPC['ordertype']=='1'}selected="selected"{/if}>京东</option>
+                            <option value ="2" {if $_GPC['ordertype']=='2'}selected="selected"{/if}>拼多多</option>
+                            <option value ="2" {if $_GPC['ordertype']=='4'}selected="selected"{/if}>淘宝</option>
+                            <!--<option value ="3" {if $_GPC['ordertype']=='3'}selected="selected"{/if}>蘑菇街</option>-->
+
+                        </select>
+                    </div>
+                </div>
+                <div class="layui-inline">
+                    <label class="layui-form-label" style="width:80px;">订单状态</label>
+                    <div class="layui-input-inline" style="width:100px;">
+                        <select  name="yn" id="yn">
+                            <option value ="" {if $_GPC['yn']==''}selected="selected"{/if}>全部</option>
+                            <option value ="0" {if $_GPC['yn']=='0'}selected="selected"{/if}>无效</option>
+                            <option value ="1" {if $_GPC['yn']=='1'}selected="selected"{/if}>待付款</option>
+                            <option value ="2" {if $_GPC['yn']=='2'}selected="selected"{/if}>已付款</option>
+                            <option value ="3" {if $_GPC['yn']=='3'}selected="selected"{/if}>已完成</option>
+                            <option value ="4" {if $_GPC['yn']=='4'}selected="selected"{/if}>已结算</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="layui-inline">
+                    <label class="layui-form-label" style="width:80px;">订单号</label>
+                    <div class="layui-input-inline"  >
+                        <input type="text" value="{$_GPC['orderids']}"  name="orderids"  placeholder="订单号" autocomplete="off" class="layui-input">
+                    </div>
+                </div>
+                <div class="layui-inline">
+                    <label class="layui-form-label" style="width:80px;">关键字</label>
+                    <div class="layui-input-inline" >
+                        <input type="text" value="{$_GPC['keyword']}"  name="keyword"  placeholder="订单编号、推广位ID" autocomplete="off" class="layui-input">
+                    </div>
+                </div>
+
+                <div class="layui-inline">
+                    <label class="layui-form-label">订单来源</label>
+                    <div class="layui-input-inline">
+                        <select   id="level" name="level">
+                            <option value="" {if $_GPC['level']==""}selected="true"{/if}>全部</option>
+                            <option value="0" {if $_GPC['level']=='0'}selected="true"{/if}>自己推广</option>
+                            <option value="1" {if $_GPC['level']=='1'}selected="true"{/if}>下级会员推广</option>
+                            <option value="2" {if $_GPC['level']=='2'}selected="true"{/if}>间接会员推广</option>
+                            <!--<option value="3" {if $_GPC['level']=='3'}selected="true"{/if}>合伙人会员推广</option>-->
+                        </select>
+                    </div>
+                </div>
+                <div class="layui-inline">
+                    <label class="layui-form-label" style="width:80px;">uid</label>
+                    <div class="layui-input-inline" style="width:100px;">
+                        <input type="text" value="{$_GPC['uid']}"  name="uid"  placeholder="uid" autocomplete="off" class="layui-input">
+                    </div>
+                    <button class="layui-btn"  lay-submit="" lay-filter="sreach"><i class="layui-icon">&#xe615;</i></button>
+                </div>
+
+            </div>
+            <div class="layui-form-item">
+
+            </div>
+        </form>
+    </div>
+    <!--<xblock>-->
+        <!--注：订单状态只有在选择订单类型时才有效;-->
+    <!--</xblock>-->
+    <table class="layui-table">
+        <thead>
+        <tr >
+            <th>订单/商品</th>
+            <th style="width: 165px;">下单时间/计佣金额</th>
+            <th style="width: 165px;">完成时间/佣金</th>
+            <th>一级佣金</th>
+            <th>二级佣金</th>
+            <th>三级佣金</th>
+            <th>合伙人佣金</th>
+        </tr>
+        </thead>
+        <tbody>
+        {loop $list $r}
+        <tr style='background-color:#f5f1f1;'>
+            <td class="text-left">
+                {if $r['ordertype'] == '1' }
+                京东
+                {elseif $r['ordertype'] == '2' }
+                拼多多
+                {elseif $r['ordertype'] == '4' }
+                淘宝
+                {/if}-{$r['orderId']}
+            </td>
+            <td class="text-center">
+                <?php echo date("Y-m-d H:i:s",$r['orderTime'])?>
+            </td>
+            <td class="text-center">
+                {if !empty($r['finishTime'])}
+                <?php echo date("Y-m-d H:i:s",$r['finishTime'])?>
+                {/if}
+            </td>
+            <td class="text-center">
+                {$r['positionId']}/{$r['nickname']}
+            </td>
+            <td class="text-center">
+                {if !empty($r['from_pid'])}
+                {$r['from_pid']}/<?php echo m('member')->member_nicknamebyuid($r['from_pid']);?>
+                {/if}
+            </td>
+            <td class="text-center">
+                {if !empty($r['parent_from_pid'])}
+                {$r['parent_from_pid']}/<?php echo m('member')->member_nicknamebyuid($r['parent_from_pid']);?>
+                {/if}
+            </td>
+            <td class="text-center">
+                {if !empty($r['vip_pid'])}
+                {$r['vip_pid']}/<?php echo m('member')->member_nicknamebyuid($r['vip_pid']);?>
+                {/if}
+            </td>
+        </tr>
+        <?php foreach($r['skus'] AS $sku){?>
+        <tr>
+
+            <td class="text-center">
+                <div style='width:400px;height:auto;overflow:hidden;text-align:left;'>
+                    【官方状态:{$sku['valistatus']}】<br/>{$sku['skuName']}*{$sku['skuNum']}<br/>
+                </div>
+            </td>
+            <td class="text-center">￥{$sku['cosPrice']}
+            </td>
+            <td class="text-center">￥{$sku['Fee']}
+            </td>
+            <td class="text-center">
+                {if  (!empty($_GPC['uid']) && $sku['positionId'] == $_GPC['uid']) || empty($_GPC['uid']) }
+                ￥{$sku['estimateFee1']}
+                {/if}
+            </td>
+            <td class="text-center">
+                {if  (!empty($_GPC['uid']) && $sku['from_pid'] == $_GPC['uid']) || empty($_GPC['uid']) }
+                ￥{$sku['estimateFee2']}
+                {/if}
+            </td>
+            <td class="text-center">
+                {if  (!empty($_GPC['uid']) && $sku['parent_from_pid'] == $_GPC['uid']) || empty($_GPC['uid']) }
+                ￥{$sku['estimateFee3']}
+                {/if}
+            </td>
+            <td class="text-center">
+                {if  (!empty($_GPC['uid']) && $sku['vip_pid'] == $_GPC['uid']) || empty($_GPC['uid']) }
+                ￥{$sku['estimateFeevip']}
+                {/if}
+            </td>
+        </tr>
+        <?php } ?>
+        {/loop}
+        </tbody>
+    </table>
+
+    {$pager}
+
+</div>
+</body>
+</html>
+
+<script>
+    layui.use('laydate', function(){
+        var laydate = layui.laydate;
+
+        //执行一个laydate实例
+        laydate.render({
+            elem: '#daterange' //指定元素
+            ,range: '~'
+            , max:0
+        });
+    });
+</script>

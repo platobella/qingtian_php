@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html>
+{template 'haojingke/common/header'}
+<body>
+<div class="x-body">
+
+    <form action="" method="post"  enctype="multipart/form-data" class="layui-form">
+
+        <fieldset class="layui-elem-field layui-field-title" style="margin-top: 20px;">
+            <legend>授权码设置（若还未开通请联系官方客服）</legend>
+        </fieldset>
+        <div class="layui-form-item">
+            <label for="auth_key" class="layui-form-label">
+                <span class="x-red">*</span>授权码
+            </label>
+            <div class="layui-input-inline">
+                <input type="text" id="auth_key" name="auth_key" lay-verify="auth_key"
+                       autocomplete="off" class="layui-input" value="{$data['auth_key']}">
+            </div>
+            <div class="layui-form-mid layui-word-aux">
+                <span class="x-red">*</span>授权码
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">
+                <span class="x-red">*</span>开启订单自动同步
+            </label>
+            <div class="layui-input-inline">
+
+                    {if $data['is_open_order_sync'] == 0}
+                        <a class="layui-btn" style="color: #fff;" href="{php echo webUrl('sysset/index/api_order_set');}">开启</a>
+                    {else}
+
+                        <a class="layui-btn"  href="{php echo webUrl('sysset/index/api_order_set');}" style="background: #f90;color: #fff;" href="#">{php echo  $data['order_sync_exp_time'] < time() ? "已过期，点击重新激活" : "已开启"}</a>
+
+                    {/if}
+
+            </div>
+            <div class="layui-form-mid layui-word-aux">
+                <span class="x-red">*</span>
+                请先填写授权码，保存以后再点<br/>过期时间：{php echo date('Y-m-d H:i:s', $data['order_sync_exp_time'])}
+            </div>
+        </div>
+
+        <fieldset class="layui-elem-field layui-field-title" style="margin-top: 20px;">
+            <legend>京东、淘宝、拼多多开关</legend>
+        </fieldset>
+        <div class="layui-form-item">
+            <label class="layui-form-label">
+                商品来源
+            </label>
+            <div class="layui-input-block">
+                <input title="拼多多" value="1"  name="pdd_switch" type="checkbox" {if $data['pdd_switch'] == 1}checked="checked"{/if} lay-filter="pdd_switch"  id="pdd_switch">
+                <input title="京东"  value="1" name="jd_switch" type="checkbox" {if $data['jd_switch'] == 1}checked="checked"{/if} lay-filter="jd_switch"  id="jd_switch">
+                <input title="淘宝"  value="1" name="taobao_switch" type="checkbox" {if $data['taobao_switch'] == 1}checked="checked"{/if} lay-filter="taobao_switch"  id="taobao_switch">
+            </div>
+        </div>
+        <fieldset class="layui-elem-field layui-field-title" style="margin-top: 20px;">
+            <legend>优惠券开关（开启则只查询有优惠券的商品，商品数量相对少。关闭则查询所有商品）</legend>
+        </fieldset>
+        <div class="layui-form-item">
+            <label class="layui-form-label">
+                是否只查优惠券商品
+            </label>
+            <div class="layui-input-block">
+                <input title="只查优惠券商品" value="1"  name="is_open_coupon" type="checkbox" {if $data['is_open_coupon'] == 1}checked="checked"{/if} lay-filter="is_open_coupon"  id="is_open_coupon">
+                <input type="hidden" name="coupon_switch" value="1">
+            </div>
+        </div>
+        <fieldset class="layui-elem-field layui-field-title" style="margin-top: 20px;">
+            <legend>骗审开关（提交审核之前请先到小程序里核实好是否已隐藏，审核通过后请关闭）</legend>
+        </fieldset>
+        <div class="layui-form-item">
+            <label class="layui-form-label">
+                开启骗审
+            </label>
+            <div class="layui-input-block">
+                <input title="开启骗审" value="1"  name="is_open_auditing" type="checkbox" {if $data['is_open_auditing'] == 1}checked="checked"{/if} lay-filter="is_open_auditing"  id="is_open_auditing">
+                <input type="hidden" name="auditing_switch" value="1">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label for="auditing_version" class="layui-form-label">
+                <span class="x-red">*</span>当前审核的版本
+            </label>
+            <div class="layui-input-inline">
+                <input type="text" id="auditing_version" name="auditing_version" lay-verify="auditing_version"
+                       autocomplete="off" class="layui-input" value="{$data['auditing_version']}">
+
+            </div>
+            <div class="layui-form-mid layui-word-aux">
+                <span class="x-red">*</span>当前审核的版本
+            </div>
+        </div>
+
+        <fieldset class="layui-elem-field layui-field-title" style="margin-top: 20px;">
+            <legend>拼多多多多设置</legend>
+        </fieldset>
+        <div class="layui-form-item">
+            <label for="hjk_pddpid" class="layui-form-label">
+                <span class="x-red">*</span>默认推广位
+            </label>
+            <div class="layui-input-inline">
+                <input type="text" id="hjk_pddpid" name="hjk_pddpid" lay-verify="hjk_pddpid"
+                       autocomplete="off" class="layui-input" value="{$data['hjk_pddpid']}">
+
+            </div>
+            <div class="layui-form-mid layui-word-aux">
+                <span class="x-red">*</span>拼多多默认推广位
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label for="pdd_client_id" class="layui-form-label">
+                <span class="x-red">*</span>拼多多client_id
+            </label>
+            <div class="layui-input-inline">
+                <input type="text" id="pdd_client_id" name="pdd_client_id" lay-verify="pdd_client_id"
+                       autocomplete="off" class="layui-input" value="{$data['pdd_client_id']}">
+            </div>
+            <div class="layui-form-mid layui-word-aux">
+                <span class="x-red">*</span>拼多多client_id
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label for="pdd_client_secret" class="layui-form-label">
+                <span class="x-red">*</span>拼多多secret
+            </label>
+            <div class="layui-input-inline">
+                <input type="text" id="pdd_client_secret" name="pdd_client_secret" lay-verify="pdd_client_secret"
+                       autocomplete="off" class="layui-input" value="{$data['pdd_client_secret']}">
+            </div>
+            <div class="layui-form-mid layui-word-aux">
+                <span class="x-red">*</span>拼多多secret
+            </div>
+        </div>
+
+        <fieldset class="layui-elem-field layui-field-title" style="margin-top: 20px;">
+            <legend>好京客</legend>
+        </fieldset>
+        <div class="layui-form-item">
+            <label for="hjk_apikey" class="layui-form-label">
+                <span class="x-red">*</span>好京客apikey
+            </label>
+            <div class="layui-input-inline">
+                <input type="text" id="hjk_apikey" name="hjk_apikey" lay-verify="hjk_apikey"
+                       autocomplete="off" class="layui-input" value="{$data['hjk_apikey']}">
+            </div>
+            <div class="layui-form-mid layui-word-aux">
+                <span class="x-red">*</span>好京客apikey
+            </div>
+        </div>
+
+        <fieldset class="layui-elem-field layui-field-title" style="margin-top: 20px;">
+            <legend>淘宝（高佣授权）</legend>
+        </fieldset>
+
+        <div class="layui-form-item">
+            <label for="taobao_pid" class="layui-form-label">
+                <span class="x-red">*</span>淘宝推广位pid
+            </label>
+            <div class="layui-input-inline">
+                <input type="text" id="taobao_pid" name="taobao_pid" lay-verify="taobao_pid"
+                       autocomplete="off" class="layui-input" value="{$data['taobao_pid']}">
+            </div>
+            <div class="layui-form-mid layui-word-aux">
+                <span class="x-red">*</span>淘宝推广位pid
+            </div>
+        </div>
+
+        <div class="layui-form-item">
+            <label for="taobao_app_key" class="layui-form-label">
+                <span class="x-red">*</span>淘宝app_key
+            </label>
+            <div class="layui-input-inline">
+                <input type="text" id="taobao_app_key" name="taobao_app_key" lay-verify="taobao_app_key"
+                       autocomplete="off" class="layui-input" value="{$data['taobao_app_key']}">
+            </div>
+            <div class="layui-form-mid layui-word-aux">
+                <span class="x-red">*</span>淘宝app_key
+            </div>
+        </div>
+
+        <div class="layui-form-item">
+            <label for="taobao_app_secret" class="layui-form-label">
+                <span class="x-red">*</span>淘宝app_secret
+            </label>
+            <div class="layui-input-inline">
+                <input type="text" id="taobao_app_secret" name="taobao_app_secret" lay-verify="taobao_app_secret"
+                       autocomplete="off" class="layui-input" value="{$data['taobao_app_secret']}">
+            </div>
+            <div class="layui-form-mid layui-word-aux">
+                <span class="x-red">*</span>淘宝app_secret
+            </div>
+        </div>
+
+
+        <div class="layui-form-item">
+            <label for="hjk_apikey" class="layui-form-label">
+                <span class="x-red">*</span>淘宝（高佣授权）
+            </label>
+            <div class="layui-input-inline">
+
+                <a class="layui-btn" style="color: #fff;" target="_blank" href="https://oauth.taobao.com/authorize?response_type=token&client_id=23196777&state=1212&view=web">点击授权</a>
+
+            </div>
+            <div class="layui-form-mid layui-word-aux">
+                <span class="x-red">*</span>过期时间：{php echo date('Y-m-d H:i:s', $data['session_exp_time'])}
+            </div>
+        </div>
+
+        <div class="layui-form-item">
+            <label for="session_key" class="layui-form-label">
+                <span class="x-red">*</span>淘宝的session
+            </label>
+            <div class="layui-input-inline">
+                <input type="text" id="session_key" name="session_key" lay-verify="session_key"
+                       autocomplete="off" class="layui-input" value="{$data['session_key']}">
+            </div>
+            <div class="layui-form-mid layui-word-aux">
+                <span class="x-red">*</span>把点击授权后的session：后面的数值复制到这里<br/>
+                例如：70002100a458544bb8b03e99c70503578c2b369b897a99637851a049f19ba2d7f54efaa2465428162
+            </div>
+        </div>
+
+        <div class="layui-form-item">
+            <label for="session_key" class="layui-form-label">
+                <span class="x-red">*</span>精选商品商品源
+            </label>
+            <div class="layui-input-inline">
+
+                <select  name="self_source_id" id="self_source_id">
+                    <option value ="0" >使用自营商品</option>
+
+                    {loop $sourcelist $p}
+                    <option {if $data['self_source_id']==$p['id'] } selected="selected" {/if} value="{$p['id']}">{$p['source_name']}</option>
+                    {/loop}
+
+                </select>
+
+            </div>
+            <div class="layui-form-mid layui-word-aux">
+                <span class="x-red">*</span>此选项是小程序中精选模块的数据源
+            </div>
+        </div>
+
+
+
+        <div class="layui-form-item">
+            <input type="hidden" name="token" value="{$_W['token']}" />
+            <input type="hidden" name="id" value="{$data['id']}" />
+            <input type="hidden" name="ispost" value="1"/>
+            <button  type="submit" class="layui-btn" lay-filter="add" lay-submit="">
+                提交
+            </button>
+        </div>
+    </form>
+
+</div>
+</body>
+</html>
+
+<script>
+    layui.use(['form','layer'], function(){
+        $ = layui.jquery;
+        var form = layui.form
+            ,layer = layui.layer;
+
+        //自定义验证规则
+        form.verify({
+            hjk_apikey: function(value){
+                if(value.length <=0){
+                    return '请输入京东联盟key！';
+                }
+            },
+            hjk_pddpid: function(value){
+                if(value.length <=0){
+                    return '拼多多默认推广位id！';
+                }
+            }
+        });
+    });
+</script>

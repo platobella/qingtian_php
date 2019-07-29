@@ -1,0 +1,98 @@
+
+2019-04-18 20:27:43	orderlist：[{"ordertype":2,"orderId":"190418-677937480613129","orderTime":1555584828,"finishTime":"","positionId":"174797,2902","skuId":5362110700,"skuName":"\u5077\u5f71\u5b50\u7684\u4eba\u9a6c\u514b\u674e\u7ef4\u8457\u6cd5\u56fd\u6e29\u60c5\u7597\u6108\u5c0f\u8bf4","picUrl":"http:\/\/t00img.yangkeduo.com\/goods\/images\/2018-12-31\/0ba9d383293bfd15298444c4629135bb.jpeg","skuNum":1,"cosPrice":11.8,"commission":0.12,"commissionRate":1,"Fee":0.12,"finalRate":1,"valistatus":"\u5df2\u6210\u56e2","validCode":1},{"ordertype":2,"orderId":"190418-521049539373129","orderTime":1555584740,"finishTime":"","positionId":"174797,2902","skuId":7526894256,"skuName":"\u6b63\u7248\u5305\u90ae\u8ffd\u98ce\u7b5d\u7684\u4eba \u4e66\u7c4d \u7545\u9500\u4e66\u6392\u884c\u699c\u5361\u52d2\u5fb7.\u80e1\u8d5b\u5c3c\u8457 \u674e\u7ee7\u5b8f\u8bd1","picUrl":"http:\/\/t00img.yangkeduo.com\/goods\/images\/2019-04-12\/e1d086fe204a0a2800e4382404fa6002.jpeg","skuNum":1,"cosPrice":21.8,"commission":0.22,"commissionRate":1,"Fee":0.22,"finalRate":1,"valistatus":"\u5df2\u6210\u56e2","validCode":1},{"ordertype":2,"orderId":"190418-404810957573129","orderTime":1555584499,"finishTime":"","positionId":"174797,2902","skuId":4178334750,"skuName":"\u4e8c\u624b\u8d85\u7ea7\u6210\u957f\u7248\u5192\u9669\u5c0f\u864e\u961f \u4f1a\u6d41\u6cea\u7684\u9ab7\u9ac5&227B3121240I521.8","picUrl":"http:\/\/t00img.yangkeduo.com\/goods\/images\/2019-02-27\/e8c175c19dc1ce998ffca5f27d9e797a.jpeg","skuNum":1,"cosPrice":14.9,"commission":0.15,"commissionRate":1,"Fee":0.15,"finalRate":1,"valistatus":"\u5df2\u6210\u56e2","validCode":1},{"ordertype":2,"orderId":"190418-308930806713129","orderTime":1555584380,"finishTime":"","positionId":"174797,2902","skuId":280423724,"skuName":"\u9ec4\u84d3\u4f73\u503e\u60c5\u5c0f\u8bf4\u7cfb\u5217:\u9065\u8fdc\u7684\u98ce\u94c3","picUrl":"http:\/\/omsproductionimg.yangkeduo.com\/images\/2017-12-04\/999643389be92105ed2857854ff9f8f7.jpeg","skuNum":1,"cosPrice":8.8,"commission":0.88,"commissionRate":10,"Fee":0.88,"finalRate":10,"valistatus":"\u5df2\u6210\u56e2","validCode":1},{"ordertype":2,"orderId":"190418-231620281093129","orderTime":1555583849,"finishTime":"","positionId":"174797,2902","skuId":856669041,"skuName":"\u6b63\u7248\u5305\u90ae \u65ad\u7fc5\u7684\u8774\u8776--\u4e2d\u56fd\u65b0\u9510\u4f5c\u5bb6\u65b9\u9635\u5f53\u4ee3\u9752\u5c11\u5e74\u5c0f\u5c0f\u8bf4\u8bfb\u672c","picUrl":"http:\/\/t00img.yangkeduo.com\/t07img\/images\/2018-05-31\/c7a7b1ba9f52201720908b67601b7e6e.jpeg","skuNum":1,"cosPrice":12.85,"commission":1.29,"commissionRate":10,"Fee":1.29,"finalRate":10,"valistatus":"\u5df2\u6210\u56e2","validCode":1},{"ordertype":2,"orderId":"190418-067899556573129","orderTime":1555583707,"finishTime":"","positionId":"174797,2902","skuId":862513452,"skuName":"\u6b63\u7248\u5305\u90ae \u6539\u53d8\u4eba\u751f\u7684\u4e00\u676f\u6c34--\u4e2d\u56fd\u65b0\u9510\u4f5c\u5bb6\u65b9\u9635\u5f53\u4ee3\u9752\u5c11\u5e74\u6545\u4e8b\u8bfb","picUrl":"http:\/\/t05img.yangkeduo.com\/images\/2018-03-29\/156a068996127002bb994608254318b1.jpeg","skuNum":1,"cosPrice":13.9,"commission":1.39,"commissionRate":10,"Fee":1.39,"finalRate":10,"valistatus":"\u5df2\u6210\u56e2","validCode":1},{"ordertype":2,"orderId":"190415-432168961270554","orderTime":1555340161,"finishTime":"","positionId":"2017,2","skuId":7372462309,"skuName":"\u30105\u53cc-10\u53cc\u3011\u7537\u889c\u5b50\u590f\u5b63\u8584\u6b3e\u68c9\u889c\u9690\u5f62\u889c\u6d45\u53e3\u889c \u4f4e\u5e2e\u77ed\u889c \u77ed\u7b52\u8239\u889c","picUrl":"http:\/\/t00img.yangkeduo.com\/goods\/images\/2019-04-09\/6d1f19db9b50ae3fa11cdf39ac5145d7.jpeg","skuNum":1,"cosPrice":6.9,"commission":1.38,"commissionRate":20,"Fee":1.38,"finalRate":20,"valistatus":"\u5df2\u6210\u56e2","validCode":1},{"ordertype":2,"orderId":"190415-542321869690554","orderTime":1555339801,"finishTime":"","positionId":"2017,2","skuId":6636662,"skuName":"\u5168\u65b0\u6599\u5783\u573e\u888b\u52a0\u539a\u5bb6\u7528\u4fbf\u5b9c\u9ed1\u8272\u53a8\u623f\u4e00\u6b21\u6027\u6279\u53d1\u62c9\u573e\u5851\u6599\u888b\u5b50\u4e2d\u5927\u53f7","picUrl":"http:\/\/t00img.yangkeduo.com\/goods\/images\/2019-04-04\/d46eb7e2ac32c3277bbc7a18111d6d7d.jpeg","skuNum":1,"cosPrice":3.9,"commission":0.78,"commissionRate":20,"Fee":0.78,"finalRate":20,"valistatus":"\u5df2\u6210\u56e2","validCode":1},{"ordertype":2,"orderId":"190415-461741425650554","orderTime":1555339766,"finishTime":"","positionId":"2017,2","skuId":6636662,"skuName":"\u5168\u65b0\u6599\u5783\u573e\u888b\u52a0\u539a\u5bb6\u7528\u4fbf\u5b9c\u9ed1\u8272\u53a8\u623f\u4e00\u6b21\u6027\u6279\u53d1\u62c9\u573e\u5851\u6599\u888b\u5b50\u4e2d\u5927\u53f7","picUrl":"http:\/\/t00img.yangkeduo.com\/goods\/images\/2019-04-04\/d46eb7e2ac32c3277bbc7a18111d6d7d.jpeg","skuNum":1,"cosPrice":1.9,"commission":0.38,"commissionRate":20,"Fee":0.38,"finalRate":20,"valistatus":"\u5df2\u6210\u56e2","validCode":1},{"ordertype":2,"orderId":"190402-165440717473910","orderTime":1554205394,"finishTime":1555549412,"positionId":"83489%2C35","skuId":7051928769,"skuName":"\u8f66\u4ec6\u6c7d\u8f66\u5236\u52a8\u6db2\u5239\u8f66\u6cb9\u901a\u7528\u578bDOT4\u6469\u6258\u8f66\u7535\u52a8\u8f66\u789f\u5239\u5408\u6210\u5239\u8f66\u6db2800g","picUrl":"http:\/\/t00img.yangkeduo.com\/goods\/images\/2019-03-30\/827d4f6648d042f7559cefcf878f7306.jpeg","skuNum":1,"cosPrice":28,"commission":5.6,"commissionRate":20,"Fee":5.6,"finalRate":20,"valistatus":"\u786e\u8ba4\u6536\u8d27","validCode":2}]
+
+2019-04-18 20:27:43	positionId：174797
+
+2019-04-18 20:27:43	Fee：0.12
+
+2019-04-18 20:27:43	positionId：174797
+
+2019-04-18 20:27:43	Fee：0.22
+
+2019-04-18 20:27:43	positionId：174797
+
+2019-04-18 20:27:43	Fee：0.15
+
+2019-04-18 20:27:43	positionId：174797
+
+2019-04-18 20:27:43	Fee：0.88
+
+2019-04-18 20:27:43	positionId：174797
+
+2019-04-18 20:27:43	Fee：1.29
+
+2019-04-18 20:27:43	positionId：174797
+
+2019-04-18 20:27:43	Fee：1.39
+
+2019-04-18 20:27:43	positionId：2017
+
+2019-04-18 20:27:44	Fee：1.38
+
+2019-04-18 20:27:44	positionId：2017
+
+2019-04-18 20:27:44	Fee：0.78
+
+2019-04-18 20:27:44	positionId：2017
+
+2019-04-18 20:27:44	Fee：0.38
+
+2019-04-18 20:27:44	positionId：83489
+
+2019-04-18 20:27:44	Fee：5.6
+
+2019-04-18 20:28:06	orderlist：[{"ordertype":2,"orderId":"190418-677937480613129","orderTime":1555584828,"finishTime":"","positionId":"174797,2902","skuId":5362110700,"skuName":"\u5077\u5f71\u5b50\u7684\u4eba\u9a6c\u514b\u674e\u7ef4\u8457\u6cd5\u56fd\u6e29\u60c5\u7597\u6108\u5c0f\u8bf4","picUrl":"http:\/\/t00img.yangkeduo.com\/goods\/images\/2018-12-31\/0ba9d383293bfd15298444c4629135bb.jpeg","skuNum":1,"cosPrice":11.8,"commission":0.12,"commissionRate":1,"Fee":0.12,"finalRate":1,"valistatus":"\u5df2\u6210\u56e2","validCode":1},{"ordertype":2,"orderId":"190418-521049539373129","orderTime":1555584740,"finishTime":"","positionId":"174797,2902","skuId":7526894256,"skuName":"\u6b63\u7248\u5305\u90ae\u8ffd\u98ce\u7b5d\u7684\u4eba \u4e66\u7c4d \u7545\u9500\u4e66\u6392\u884c\u699c\u5361\u52d2\u5fb7.\u80e1\u8d5b\u5c3c\u8457 \u674e\u7ee7\u5b8f\u8bd1","picUrl":"http:\/\/t00img.yangkeduo.com\/goods\/images\/2019-04-12\/e1d086fe204a0a2800e4382404fa6002.jpeg","skuNum":1,"cosPrice":21.8,"commission":0.22,"commissionRate":1,"Fee":0.22,"finalRate":1,"valistatus":"\u5df2\u6210\u56e2","validCode":1},{"ordertype":2,"orderId":"190418-404810957573129","orderTime":1555584499,"finishTime":"","positionId":"174797,2902","skuId":4178334750,"skuName":"\u4e8c\u624b\u8d85\u7ea7\u6210\u957f\u7248\u5192\u9669\u5c0f\u864e\u961f \u4f1a\u6d41\u6cea\u7684\u9ab7\u9ac5&227B3121240I521.8","picUrl":"http:\/\/t00img.yangkeduo.com\/goods\/images\/2019-02-27\/e8c175c19dc1ce998ffca5f27d9e797a.jpeg","skuNum":1,"cosPrice":14.9,"commission":0.15,"commissionRate":1,"Fee":0.15,"finalRate":1,"valistatus":"\u5df2\u6210\u56e2","validCode":1},{"ordertype":2,"orderId":"190418-308930806713129","orderTime":1555584380,"finishTime":"","positionId":"174797,2902","skuId":280423724,"skuName":"\u9ec4\u84d3\u4f73\u503e\u60c5\u5c0f\u8bf4\u7cfb\u5217:\u9065\u8fdc\u7684\u98ce\u94c3","picUrl":"http:\/\/omsproductionimg.yangkeduo.com\/images\/2017-12-04\/999643389be92105ed2857854ff9f8f7.jpeg","skuNum":1,"cosPrice":8.8,"commission":0.88,"commissionRate":10,"Fee":0.88,"finalRate":10,"valistatus":"\u5df2\u6210\u56e2","validCode":1},{"ordertype":2,"orderId":"190418-231620281093129","orderTime":1555583849,"finishTime":"","positionId":"174797,2902","skuId":856669041,"skuName":"\u6b63\u7248\u5305\u90ae \u65ad\u7fc5\u7684\u8774\u8776--\u4e2d\u56fd\u65b0\u9510\u4f5c\u5bb6\u65b9\u9635\u5f53\u4ee3\u9752\u5c11\u5e74\u5c0f\u5c0f\u8bf4\u8bfb\u672c","picUrl":"http:\/\/t00img.yangkeduo.com\/t07img\/images\/2018-05-31\/c7a7b1ba9f52201720908b67601b7e6e.jpeg","skuNum":1,"cosPrice":12.85,"commission":1.29,"commissionRate":10,"Fee":1.29,"finalRate":10,"valistatus":"\u5df2\u6210\u56e2","validCode":1},{"ordertype":2,"orderId":"190418-067899556573129","orderTime":1555583707,"finishTime":"","positionId":"174797,2902","skuId":862513452,"skuName":"\u6b63\u7248\u5305\u90ae \u6539\u53d8\u4eba\u751f\u7684\u4e00\u676f\u6c34--\u4e2d\u56fd\u65b0\u9510\u4f5c\u5bb6\u65b9\u9635\u5f53\u4ee3\u9752\u5c11\u5e74\u6545\u4e8b\u8bfb","picUrl":"http:\/\/t05img.yangkeduo.com\/images\/2018-03-29\/156a068996127002bb994608254318b1.jpeg","skuNum":1,"cosPrice":13.9,"commission":1.39,"commissionRate":10,"Fee":1.39,"finalRate":10,"valistatus":"\u5df2\u6210\u56e2","validCode":1},{"ordertype":2,"orderId":"190415-432168961270554","orderTime":1555340161,"finishTime":"","positionId":"2017,2","skuId":7372462309,"skuName":"\u30105\u53cc-10\u53cc\u3011\u7537\u889c\u5b50\u590f\u5b63\u8584\u6b3e\u68c9\u889c\u9690\u5f62\u889c\u6d45\u53e3\u889c \u4f4e\u5e2e\u77ed\u889c \u77ed\u7b52\u8239\u889c","picUrl":"http:\/\/t00img.yangkeduo.com\/goods\/images\/2019-04-09\/6d1f19db9b50ae3fa11cdf39ac5145d7.jpeg","skuNum":1,"cosPrice":6.9,"commission":1.38,"commissionRate":20,"Fee":1.38,"finalRate":20,"valistatus":"\u5df2\u6210\u56e2","validCode":1},{"ordertype":2,"orderId":"190415-542321869690554","orderTime":1555339801,"finishTime":"","positionId":"2017,2","skuId":6636662,"skuName":"\u5168\u65b0\u6599\u5783\u573e\u888b\u52a0\u539a\u5bb6\u7528\u4fbf\u5b9c\u9ed1\u8272\u53a8\u623f\u4e00\u6b21\u6027\u6279\u53d1\u62c9\u573e\u5851\u6599\u888b\u5b50\u4e2d\u5927\u53f7","picUrl":"http:\/\/t00img.yangkeduo.com\/goods\/images\/2019-04-04\/d46eb7e2ac32c3277bbc7a18111d6d7d.jpeg","skuNum":1,"cosPrice":3.9,"commission":0.78,"commissionRate":20,"Fee":0.78,"finalRate":20,"valistatus":"\u5df2\u6210\u56e2","validCode":1},{"ordertype":2,"orderId":"190415-461741425650554","orderTime":1555339766,"finishTime":"","positionId":"2017,2","skuId":6636662,"skuName":"\u5168\u65b0\u6599\u5783\u573e\u888b\u52a0\u539a\u5bb6\u7528\u4fbf\u5b9c\u9ed1\u8272\u53a8\u623f\u4e00\u6b21\u6027\u6279\u53d1\u62c9\u573e\u5851\u6599\u888b\u5b50\u4e2d\u5927\u53f7","picUrl":"http:\/\/t00img.yangkeduo.com\/goods\/images\/2019-04-04\/d46eb7e2ac32c3277bbc7a18111d6d7d.jpeg","skuNum":1,"cosPrice":1.9,"commission":0.38,"commissionRate":20,"Fee":0.38,"finalRate":20,"valistatus":"\u5df2\u6210\u56e2","validCode":1},{"ordertype":2,"orderId":"190402-165440717473910","orderTime":1554205394,"finishTime":1555549412,"positionId":"83489%2C35","skuId":7051928769,"skuName":"\u8f66\u4ec6\u6c7d\u8f66\u5236\u52a8\u6db2\u5239\u8f66\u6cb9\u901a\u7528\u578bDOT4\u6469\u6258\u8f66\u7535\u52a8\u8f66\u789f\u5239\u5408\u6210\u5239\u8f66\u6db2800g","picUrl":"http:\/\/t00img.yangkeduo.com\/goods\/images\/2019-03-30\/827d4f6648d042f7559cefcf878f7306.jpeg","skuNum":1,"cosPrice":28,"commission":5.6,"commissionRate":20,"Fee":5.6,"finalRate":20,"valistatus":"\u786e\u8ba4\u6536\u8d27","validCode":2}]
+
+2019-04-18 20:28:06	positionId：174797
+
+2019-04-18 20:28:06	positionId：174797
+
+2019-04-18 20:28:06	positionId：174797
+
+2019-04-18 20:28:06	positionId：174797
+
+2019-04-18 20:28:06	positionId：174797
+
+2019-04-18 20:28:06	positionId：174797
+
+2019-04-18 20:28:06	positionId：2017
+
+2019-04-18 20:28:06	Fee：1.38
+
+2019-04-18 20:28:06	positionId：2017
+
+2019-04-18 20:28:06	Fee：0.78
+
+2019-04-18 20:28:06	positionId：2017
+
+2019-04-18 20:28:06	Fee：0.38
+
+2019-04-18 20:28:06	positionId：83489
+
+2019-04-18 20:43:01	orderlist：[{"ordertype":2,"orderId":"190418-677937480613129","orderTime":1555584828,"finishTime":"","positionId":"174797,2902","skuId":5362110700,"skuName":"\u5077\u5f71\u5b50\u7684\u4eba\u9a6c\u514b\u674e\u7ef4\u8457\u6cd5\u56fd\u6e29\u60c5\u7597\u6108\u5c0f\u8bf4","picUrl":"http:\/\/t00img.yangkeduo.com\/goods\/images\/2018-12-31\/0ba9d383293bfd15298444c4629135bb.jpeg","skuNum":1,"cosPrice":11.8,"commission":0.12,"commissionRate":1,"Fee":0.12,"finalRate":1,"valistatus":"\u5df2\u6210\u56e2","validCode":1},{"ordertype":2,"orderId":"190418-521049539373129","orderTime":1555584740,"finishTime":"","positionId":"174797,2902","skuId":7526894256,"skuName":"\u6b63\u7248\u5305\u90ae\u8ffd\u98ce\u7b5d\u7684\u4eba \u4e66\u7c4d \u7545\u9500\u4e66\u6392\u884c\u699c\u5361\u52d2\u5fb7.\u80e1\u8d5b\u5c3c\u8457 \u674e\u7ee7\u5b8f\u8bd1","picUrl":"http:\/\/t00img.yangkeduo.com\/goods\/images\/2019-04-12\/e1d086fe204a0a2800e4382404fa6002.jpeg","skuNum":1,"cosPrice":21.8,"commission":0.22,"commissionRate":1,"Fee":0.22,"finalRate":1,"valistatus":"\u5df2\u6210\u56e2","validCode":1},{"ordertype":2,"orderId":"190418-404810957573129","orderTime":1555584499,"finishTime":"","positionId":"174797,2902","skuId":4178334750,"skuName":"\u4e8c\u624b\u8d85\u7ea7\u6210\u957f\u7248\u5192\u9669\u5c0f\u864e\u961f \u4f1a\u6d41\u6cea\u7684\u9ab7\u9ac5&227B3121240I521.8","picUrl":"http:\/\/t00img.yangkeduo.com\/goods\/images\/2019-02-27\/e8c175c19dc1ce998ffca5f27d9e797a.jpeg","skuNum":1,"cosPrice":14.9,"commission":0.15,"commissionRate":1,"Fee":0.15,"finalRate":1,"valistatus":"\u5df2\u6210\u56e2","validCode":1},{"ordertype":2,"orderId":"190418-308930806713129","orderTime":1555584380,"finishTime":"","positionId":"174797,2902","skuId":280423724,"skuName":"\u9ec4\u84d3\u4f73\u503e\u60c5\u5c0f\u8bf4\u7cfb\u5217:\u9065\u8fdc\u7684\u98ce\u94c3","picUrl":"http:\/\/omsproductionimg.yangkeduo.com\/images\/2017-12-04\/999643389be92105ed2857854ff9f8f7.jpeg","skuNum":1,"cosPrice":8.8,"commission":0.88,"commissionRate":10,"Fee":0.88,"finalRate":10,"valistatus":"\u5df2\u6210\u56e2","validCode":1},{"ordertype":2,"orderId":"190418-231620281093129","orderTime":1555583849,"finishTime":"","positionId":"174797,2902","skuId":856669041,"skuName":"\u6b63\u7248\u5305\u90ae \u65ad\u7fc5\u7684\u8774\u8776--\u4e2d\u56fd\u65b0\u9510\u4f5c\u5bb6\u65b9\u9635\u5f53\u4ee3\u9752\u5c11\u5e74\u5c0f\u5c0f\u8bf4\u8bfb\u672c","picUrl":"http:\/\/t00img.yangkeduo.com\/t07img\/images\/2018-05-31\/c7a7b1ba9f52201720908b67601b7e6e.jpeg","skuNum":1,"cosPrice":12.85,"commission":1.29,"commissionRate":10,"Fee":1.29,"finalRate":10,"valistatus":"\u5df2\u6210\u56e2","validCode":1},{"ordertype":2,"orderId":"190418-067899556573129","orderTime":1555583707,"finishTime":"","positionId":"174797,2902","skuId":862513452,"skuName":"\u6b63\u7248\u5305\u90ae \u6539\u53d8\u4eba\u751f\u7684\u4e00\u676f\u6c34--\u4e2d\u56fd\u65b0\u9510\u4f5c\u5bb6\u65b9\u9635\u5f53\u4ee3\u9752\u5c11\u5e74\u6545\u4e8b\u8bfb","picUrl":"http:\/\/t05img.yangkeduo.com\/images\/2018-03-29\/156a068996127002bb994608254318b1.jpeg","skuNum":1,"cosPrice":13.9,"commission":1.39,"commissionRate":10,"Fee":1.39,"finalRate":10,"valistatus":"\u5df2\u6210\u56e2","validCode":1},{"ordertype":2,"orderId":"190415-432168961270554","orderTime":1555340161,"finishTime":"","positionId":"2017,2","skuId":7372462309,"skuName":"\u30105\u53cc-10\u53cc\u3011\u7537\u889c\u5b50\u590f\u5b63\u8584\u6b3e\u68c9\u889c\u9690\u5f62\u889c\u6d45\u53e3\u889c \u4f4e\u5e2e\u77ed\u889c \u77ed\u7b52\u8239\u889c","picUrl":"http:\/\/t00img.yangkeduo.com\/goods\/images\/2019-04-09\/6d1f19db9b50ae3fa11cdf39ac5145d7.jpeg","skuNum":1,"cosPrice":6.9,"commission":1.38,"commissionRate":20,"Fee":1.38,"finalRate":20,"valistatus":"\u5df2\u6210\u56e2","validCode":1},{"ordertype":2,"orderId":"190415-542321869690554","orderTime":1555339801,"finishTime":"","positionId":"2017,2","skuId":6636662,"skuName":"\u5168\u65b0\u6599\u5783\u573e\u888b\u52a0\u539a\u5bb6\u7528\u4fbf\u5b9c\u9ed1\u8272\u53a8\u623f\u4e00\u6b21\u6027\u6279\u53d1\u62c9\u573e\u5851\u6599\u888b\u5b50\u4e2d\u5927\u53f7","picUrl":"http:\/\/t00img.yangkeduo.com\/goods\/images\/2019-04-04\/d46eb7e2ac32c3277bbc7a18111d6d7d.jpeg","skuNum":1,"cosPrice":3.9,"commission":0.78,"commissionRate":20,"Fee":0.78,"finalRate":20,"valistatus":"\u5df2\u6210\u56e2","validCode":1},{"ordertype":2,"orderId":"190415-461741425650554","orderTime":1555339766,"finishTime":"","positionId":"2017,2","skuId":6636662,"skuName":"\u5168\u65b0\u6599\u5783\u573e\u888b\u52a0\u539a\u5bb6\u7528\u4fbf\u5b9c\u9ed1\u8272\u53a8\u623f\u4e00\u6b21\u6027\u6279\u53d1\u62c9\u573e\u5851\u6599\u888b\u5b50\u4e2d\u5927\u53f7","picUrl":"http:\/\/t00img.yangkeduo.com\/goods\/images\/2019-04-04\/d46eb7e2ac32c3277bbc7a18111d6d7d.jpeg","skuNum":1,"cosPrice":1.9,"commission":0.38,"commissionRate":20,"Fee":0.38,"finalRate":20,"valistatus":"\u5df2\u6210\u56e2","validCode":1},{"ordertype":2,"orderId":"190402-165440717473910","orderTime":1554205394,"finishTime":1555549412,"positionId":"83489%2C35","skuId":7051928769,"skuName":"\u8f66\u4ec6\u6c7d\u8f66\u5236\u52a8\u6db2\u5239\u8f66\u6cb9\u901a\u7528\u578bDOT4\u6469\u6258\u8f66\u7535\u52a8\u8f66\u789f\u5239\u5408\u6210\u5239\u8f66\u6db2800g","picUrl":"http:\/\/t00img.yangkeduo.com\/goods\/images\/2019-03-30\/827d4f6648d042f7559cefcf878f7306.jpeg","skuNum":1,"cosPrice":28,"commission":5.6,"commissionRate":20,"Fee":5.6,"finalRate":20,"valistatus":"\u786e\u8ba4\u6536\u8d27","validCode":2}]
+
+2019-04-18 20:43:02	positionId：174797
+
+2019-04-18 20:43:02	positionId：174797
+
+2019-04-18 20:43:02	positionId：174797
+
+2019-04-18 20:43:02	positionId：174797
+
+2019-04-18 20:43:02	positionId：174797
+
+2019-04-18 20:43:02	positionId：174797
+
+2019-04-18 20:43:02	positionId：2017
+
+2019-04-18 20:43:02	Fee：1.38
+
+2019-04-18 20:43:02	positionId：2017
+
+2019-04-18 20:43:02	Fee：0.78
+
+2019-04-18 20:43:02	positionId：2017
+
+2019-04-18 20:43:02	Fee：0.38
+
+2019-04-18 20:43:02	positionId：83489

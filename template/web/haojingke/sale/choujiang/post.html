@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html>
+<!--<link href="./resource/affordable/css/bootstrap.min.css?v=20170915" rel="stylesheet">-->
+<!--<link href="./resource/affordable/css/commona.css?v=20170915" rel="stylesheet">	-->
+<link href="./resource/css/bootstrap.min.css?v=20170719" rel="stylesheet">
+<link href="./resource/css/common.css?v=20170719" rel="stylesheet">
+{template 'haojingke/common/header'}
+<script>var require = { urlArgs: 'v=20170915' };</script>
+<script type="text/javascript" src="./resource/js/lib/jquery-1.11.1.min.js"></script>
+<script type="text/javascript" src="./resource/js/lib/bootstrap.min.js"></script>
+<script type="text/javascript" src="./resource/js/app/util.js?v=20170719"></script>
+<script type="text/javascript" src="./resource/js/app/common.min.js?v=20170719"></script>
+<script type="text/javascript" src="./resource/js/require.js?v=20170719"></script>
+<body>
+<div class="x-body">
+
+
+    <form action="" method="post"  enctype="multipart/form-data" class="layui-form">
+
+        <div class="layui-form-item">
+            <label class="layui-form-label">
+                <span class="x-red">*</span>奖励
+            </label>
+            <div class="layui-input-inline12">
+                <label style="float:left;">
+                    <input  title="&nbsp;现金（微信红包）"  name="goods_type" type="radio" value="0" {if $cjinfo['goods_type']=='0' || empty($cjinfo['goods_type'])}checked="checked"{/if}/>
+                </label>&emsp;&emsp;
+                <label  style="float:left;">
+                    <input  title="&nbsp;实物 "  name="goods_type" type="radio" value="1" {if $cjinfo['goods_type']==1}checked="checked"{/if}/>
+                </label>
+                <label  style="float:left;">
+                    <input  title="&nbsp;虚拟物品 "  name="goods_type" type="radio" value="2" {if $cjinfo['goods_type']==2}checked="checked"{/if}/>
+                </label>
+            </div>
+            <div class="layui-form-mid layui-word-aux">
+                <span class="x-red">*</span>实物请在描述和活动图片中做详细描述，红包开奖后直接发放到会员微信钱包，请保证企业商户内余额充足
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">
+                <span class="x-red">*</span>标题
+            </label>
+            <div class="layui-input-block">
+                <input type="text" name="title"   lay-verify="title" class="layui-input"  value="{$cjinfo['title']}">
+            </div>
+
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">
+                <span class="x-red">*</span>描述
+            </label>
+            <div class="layui-input-block">
+                <textarea  name="remark" placeholder="请输入内容"   lay-verify="remark"  class="layui-textarea">{$cjinfo['remark']}</textarea>
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">
+                <span class="x-red">*</span>奖品数量
+            </label>
+            <div class="layui-input-inline">
+                <input type="number" name="goods_count"   lay-verify="goods_count"  class="layui-input"  value="{$cjinfo['goods_count']}">
+            </div>
+            <div class="layui-form-mid layui-word-aux">奖品数量/中奖人数</div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">
+                <span class="x-red">*</span>开奖方式
+            </label>
+            <div class="layui-input-inline12">
+                <label style="float:left;">
+                    <input  title="&nbsp;满多少人开奖"  name="open_type" type="radio" value="0" {if $cjinfo['open_type']=='0' }checked="checked"{/if}/>
+                </label>&emsp;&emsp;
+                <label  style="float:left;">
+                    <input  title="&nbsp;定时开奖 "  name="open_type" type="radio" value="1" {if $cjinfo['open_type']==1||empty($cjinfo)}checked="checked"{/if}/>
+                </label>
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">
+                <span class="x-red">*</span>开奖人数
+            </label>
+            <div class="layui-input-inline">
+                <input type="number" name="open_count"   lay-verify="open_count"  class="layui-input"  value="{$cjinfo['open_count']}">
+            </div>
+            <div class="layui-form-mid layui-word-aux">开奖方式为满多少人开奖时有效</div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">
+                <span class="x-red">*</span>红包金额
+            </label>
+            <div class="layui-input-inline">
+                <input type="text" name="amount"   class="layui-input"  value="{$cjinfo['amount']}">
+            </div>
+            <div class="layui-form-mid layui-word-aux"><span class="x-red">奖励为红包时才生效,中奖金额=红包金额/中奖人数</span></div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">开奖时间</label>
+            <div class="layui-input-inline" style="width: 100px;">
+                <input class="layui-input" readonly="readonly" placeholder="开奖日期" name="open_day" id="open_day" value="{$open_day}">
+            </div>
+            <div class="layui-input-inline" style="width: 60px;">
+                <select name="open_h">
+                    <?php for($i=0;$i<=23;$i++){ ?>
+                    <option value="{$i}"  {if $open_h==$i}selected="selected"{/if}>{$i}</option>
+                    <?php }?>
+
+                </select>
+            </div>
+            <div class="layui-input-inline" style="width: 60px;">
+                <select name="open_m">
+                    <option value="00" {if $open_m=="00"}selected="selected"{/if}>00</option>
+                    <option value="30" {if $open_m=="30"}selected="selected"{/if}>30</option>
+                </select>
+            </div>
+            <div class="layui-form-mid layui-word-aux">每天开奖时间</div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">
+                <span class="x-red">*</span>赞助商名称
+            </label>
+            <div class="layui-input-inline">
+                <input type="text" name="sponsor"   class="layui-input"  value="{$cjinfo['sponsor']}">
+            </div>
+            <div class="layui-form-mid layui-word-aux">有赞助产品/赞助商时生效</div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">
+                <span class="x-red">*</span>赞助链接路径
+            </label>
+            <div class="layui-input-inline" style="width:400px;">
+                {php echo tpl_form_field_image('sponsorpath',$cjinfo['sponsorpath'])}
+            </div>
+            <div class="layui-form-mid layui-word-aux">有赞助产品/赞助商时生效，可选择一张图片或输入下面格式的商品链接</div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">
+            </label>
+            <div class="layui-form-mid layui-word-aux">
+				当前小程序商品：如：mayiwo/pages/detail/index?skuid=30084947240&source_type=1 其中skuid为商品id，source_type为商品源  1京东2拼多多3蘑菇街
+				<br/>
+				其他小程序页面如：mayiwo/pages/detail/index?appid=xxx 页面路径+参数appid，appid不可缺少，如果有其他参数可以直接在path后追加,请确认已关联对方小程序
+			</div>
+			<div class="layui-form-mid layui-word-aux"></div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">
+                <span class="x-red">*</span>奖品图片
+            </label>
+            <div class="layui-input-inline4">
+                {php echo tpl_form_field_image('picture',$cjinfopicture[0])}
+            </div>
+            <div class="layui-form-mid layui-word-aux">
+                <span class="x-red">*</span>
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">
+                <span class="x-red">*</span>
+            </label>
+            <div class="layui-input-inline4">
+                {php echo tpl_form_field_image('picture1',$cjinfopicture[1])}
+            </div>
+
+            <!--<label class="layui-form-label">-->
+            <!--</label>-->
+            <div class="layui-form-mid layui-word-aux">
+                <span class="x-red">*</span>
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">
+                <span class="x-red">*</span>
+            </label>
+            <div class="layui-input-inline4">
+                {php echo tpl_form_field_image('picture2',$cjinfopicture[2])}
+            </div>
+
+            <!--<label class="layui-form-label">-->
+            <!--</label>-->
+            <div class="layui-form-mid layui-word-aux">
+                <span class="x-red">*</span>
+            </div>
+        </div>
+
+        <div class="layui-form-item">
+            <label class="layui-form-label">
+            </label>
+            <input type="hidden" name="id" value="{$cjinfo['id']}"/>
+            <input type="hidden" name="op" value="post"/>
+            <input type="hidden" name="ispost" value="1"/>
+            <input type="hidden" name="token" value="{$_W['token']}" />
+            <button  class="layui-btn" lay-filter="add" lay-submit="">
+                提交
+            </button>
+        </div>
+    </form>
+
+</div>
+</body>
+</html>
+
+<script>
+    layui.use('laydate', function(){
+        var laydate = layui.laydate;
+        //执行一个laydate实例
+        laydate.render({
+            elem: '#open_day' //指定元素
+            ,min: 0
+            ,max: 6
+        });
+    });
+    layui.use(['form','layer'], function(){
+        $ = layui.jquery;
+        var form = layui.form
+            ,layer = layui.layer;
+
+        //自定义验证规则
+        form.verify({
+            title: function(value){
+                if(value.length <=0){
+                    return '请输入标题！';
+                }
+            },
+            remark: function(value){
+                if(value.length <=0){
+                    return '请输入描述！';
+                }
+            },
+            goods_count: function(value){
+                if(value <1){
+                    return '中奖人数至少为1！';
+                }
+            },
+            open_count: function(value){
+                var open_type =$("input[name='open_type']").val();
+                var goods_count =$("input[name='goods_count']").val();
+                if(open_type =='0'){
+                    if(value <1){
+                        return '开奖人数至少为1！';
+                    }
+                    if(parseInt(goods_count)>parseInt(value))
+                        return '开奖人数不可以小于中奖人数！';
+                }
+            }
+        });
+        //监听提交
+        form.on('submit(add)', function(data){
+            var loadii = layer.load();
+            console.log(data);
+            //发异步，把数据提交给php
+            var ajaxurl="<?php echo webUrl('sale/choujiang/choujiang_addpost').'&id='.$_GPC['id']?>";
+            $.post(ajaxurl,data.field,function(res){
+                var res=JSON.parse(res);
+                layer.close(loadii);
+                if(res.status==1){
+                    layer.alert("操作成功", {icon: 6,closeBtn: 0},function () {
+                        // 获得frame索引
+                        var index = parent.layer.getFrameIndex(window.name);
+                        //关闭当前frame
+                        parent.layer.close(index);
+                        parent.location.href=parent.location.href;
+                    });
+                }else{
+                    layer.msg("操作失败");
+                }
+            });
+            return false;
+        });
+    });
+</script>

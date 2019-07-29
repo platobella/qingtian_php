@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html>
+<link href="./resource/css/bootstrap.min.css?v=20180110" rel="stylesheet">
+{template 'haojingke/common/header'}
+<body>
+<div class="x-body">
+    <div class="layui-row">
+        <form action="" method="get"  enctype="multipart/form-data" class="layui-form layui-form-pane layui-col-md12">
+            <input type="hidden" name="m" value="qt_shop">
+            <input type="hidden" name="do" value="web">
+            <input type="hidden" name="r" value="{$_W['action']}">
+            <input type="hidden" name="a" value="entry">
+            <input type="hidden" name="c" value="site">
+
+            <div class="layui-form-item">
+                <div class="layui-inline">
+                    <label class="layui-form-label">日期范围</label>
+                    <div class="layui-input-inline">
+                        <input class="layui-input" placeholder="日期范围" name="daterange" id="daterange" value="{$_GPC['daterange']}">
+                    </div>
+                </div>
+                <div class="layui-inline">
+                    <label class="layui-form-label">类型</label>
+                    <div class="layui-input-inline">
+                        <select  name="cash_type" id="cash_type">
+                            <option value ="" {if $_GPC['cash_type']==''}selected="selected"{/if}>全部</option>
+                            <option value ="1" {if $_GPC['cash_type']=='1'}selected="selected"{/if}>微信</option>
+                            <option value ="2" {if $_GPC['cash_type']=='2'}selected="selected"{/if}>支付宝</option>>
+                        </select>
+                    </div>
+                </div>
+                <div class="layui-inline">
+                    <label class="layui-form-label">关键字</label>
+                    <div class="layui-input-inline">
+                        <input type="text" value="{$_GPC['keyword']}"  name="keyword"  placeholder="昵称、手机号" autocomplete="off" class="layui-input">
+                    </div>
+                    <button class="layui-btn"  lay-submit="" lay-filter="sreach"><i class="layui-icon">&#xe615;</i></button>
+                </div>
+            </div>
+        </form>
+    </div>
+    <!--<xblock>-->
+    <!--<button class="layui-btn layui-btn-danger" onclick="delAll()"><i class="layui-icon"></i>批量禁用</button>-->
+    <!--<button class="layui-btn" onclick="hjk_dialog_show('添加','{php echo webUrl('sysset/gradefy/add');}')"><i class="layui-icon"></i>添加</button>-->
+    <!--<span class="x-right" style="line-height:40px">共有数据 {$allcount} 条</span>-->
+    <!--</xblock>-->
+    <table class="layui-table">
+        <thead>
+        <tr >
+            <th>会员ID</th>
+            <th>会员</th>
+            <th>手机号</th>
+            <th>金额/积分</th>
+            <th style="width:200px;">提现方式</th>
+            <th style="width:200px;">备注</th>
+            <th>状态</th>
+            <th>时间</th>
+            <th>操作</th>
+        </tr>
+        </thead>
+        <tbody>
+        {loop $list $r}
+        <tr>
+            <td class="text-center">
+                {$r['uid']}
+            </td>
+            <td class="text-center">
+                {$r['nickname']}
+            </td>
+            <td class="text-center">
+                {$r['mobile']}
+            </td>
+            <td class="text-center">
+                {if $r['isintegral']==0}
+                ￥
+                {/if}
+                {$r['amount']}
+                {if $r['isintegral']==1}
+                积分
+                {/if}
+            </td>
+
+            <td class="text-left">
+                {if $r['cash_type']==1}
+                微信
+                {elseif $r['cash_type']==2}
+                支付宝<br/>
+                账号：{$r['alipayno']}
+                {/if}
+            </td>
+            <td class="text-left">
+                {$r['remark']}
+            </td>
+            <td class="text-center">
+                {if $r['status']==1}
+                已完成
+                {elseif $r['status']==2}
+                已拒绝
+                {elseif $r['status']==0}
+                待确认
+                {/if}
+            </td>
+            <td class="text-center" >
+                {php echo date('Y-m-d H:i:s', $r['created_at'])}
+            </td>
+            <td class="text-center" >
+                {if $r['status']==0}
+                <a onclick="cash_allow({$r['id']})" href="javascript:;" class="layui-btn   layui-btn-mini  layui-btn-normal" ><i class="layui-icon">&#xe63c;</i>   手动发放</a>
+                {/if}
+                {if $r['cash_type']==2&&$r['status']==0}
+                <a onclick="cash_alipay({$r['id']})" href="javascript:;" class="layui-btn   layui-btn-mini  layui-btn-normal" ><i class="layui-icon">&#xe63c;</i> 支付宝付款</a>
+                {/if}
+                {if $r['status']==0 && $r['cash_type']==1}
+                <a onclick="cash_wechart({$r['id']})" href="javascript:;" class="layui-btn   layui-btn-mini  layui-btn-normal" ><i class="layui-icon">&#xe63c;</i>微信付款</a>
+                {/if}
+                {if $r['status']==0}
+                <a onclick="cash_refuse({$r['id']})" href="javascript:;" class="layui-btn   layui-btn-mini  layui-btn-danger" ><i class="layui-icon">&#xe63c;</i> 拒绝</a>
+                {/if}
+            </td>
+        </tr>
+        {/loop}
+        </tbody>
+    </table>
+
+    {$pager}
+
+</div>
+</body>
+</html>
+
+<script>
+
+    layui.use('laydate', function(){
+        var laydate = layui.laydate;
+
+        //执行一个laydate实例
+        laydate.render({
+            elem: '#daterange' //指定元素
+            ,range: '~'
+            , max:0
+        });
+    });
+
+    /*支付宝付款*/
+    function cash_alipay(id){
+        layer.confirm('已经支付宝打款,确定同意提现申请？',function(index){
+            var loadii = layer.load();
+            var ajaxurl="<?php echo webUrl('finance/cash/cash_alipay').'&id='?>"+id;
+            $.post(ajaxurl,function(res){
+                var res=JSON.parse(res);
+                layer.close(loadii);
+                if(res.status==1){
+                    layer.alert(res.result.message, {icon: 6,closeBtn: 0},function () {
+                        location.href=location.href;
+                    });
+                }else{
+                    layer.msg("操作失败");
+                }
+            });
+        });
+    }
+
+    /*微信付款*/
+    function cash_wechart(id){
+        layer.confirm('同意后直接进行微信支付,确定同意提现申请？',function(index){
+            var loadii = layer.load();
+            var ajaxurl="<?php echo webUrl('finance/cash/cash_wechart').'&id='?>"+id;
+            $.post(ajaxurl,function(res){
+                var res=JSON.parse(res);
+                layer.close(loadii);
+                if(res.status==1){
+                    layer.alert(res.result.message, {icon: 6,closeBtn: 0},function () {
+                        location.href=location.href;
+                    });
+                }else{
+                    layer.msg("操作失败");
+                }
+            });
+        });
+    }
+    /*手动发放*/
+    function cash_allow(id){
+        layer.confirm('同意后直接进行手动发放,确定同意提现申请？',function(index){
+            var loadii = layer.load();
+            var ajaxurl="<?php echo webUrl('finance/cash/cash_allow').'&id='?>"+id;
+            $.post(ajaxurl,function(res){
+                var res=JSON.parse(res);
+                layer.close(loadii);
+                if(res.status==1){
+                    layer.alert(res.result.message, {icon: 6,closeBtn: 0},function () {
+                        location.href=location.href;
+                    });
+                }else{
+                    layer.msg("操作失败");
+                }
+            });
+        });
+    }
+    /*拒绝*/
+    function cash_refuse(id){
+        layer.confirm('拒绝后不可恢复,确认确定拒绝提现申请？',function(index){
+            var loadii = layer.load();
+            var ajaxurl="<?php echo webUrl('finance/cash/cash_refuse').'&id='?>"+id;
+            $.post(ajaxurl,function(res){
+                var res=JSON.parse(res);
+                layer.close(loadii);
+                if(res.status==1){
+                    layer.alert(res.result.message, {icon: 6,closeBtn: 0},function () {
+                        location.href=location.href;
+                    });
+                }else{
+                    layer.msg("操作失败");
+                }
+            });
+        });
+    }
+</script>

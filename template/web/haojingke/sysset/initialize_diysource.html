@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+{template 'haojingke/common/header'}
+<body>
+<div class="x-body">
+    <blockquote class="layui-elem-quote layui-text">
+        一键初始化：为系统一键配置基础数据，操作后将系统配置数据还原为系统自带的基础配置数据；<span style="color:red;">其他数据不变，请谨慎操作！</span>
+    </blockquote>
+    <div class="layui-tab layui-tab-card" id="setForm" style="float:left;width:90%;display:block;">
+        <ul class="layui-tab-title">
+            <li class="layui-this">初始化数据源</li>
+
+        </ul>
+        <div class="layui-tab-content" style="height: 200px;padding-top: 100px;text-align: center;">
+
+                <button  type="button" onclick="sysreset()" class="layui-btn layui-btn-danger" lay-filter="add1" lay-submit="">
+                    初始化数据源
+                </button>
+        </div>
+    </div>
+</div>
+</body>
+</html>
+<script>
+    sysreset=function() {
+
+        layui.use('laytpl', function () {
+            //配置一个透明的询问框
+            layer.msg('确认你已经了解了一键初始化为你带来的<br>方便和风险吗<br>请熟读上面的文字3遍在执行此操作！', {
+                time: 20000, //20s后自动关闭
+                btn: ['确认执行', '知道了，先取消', '哦,关闭吧'],
+                yes: function(){
+                    var ajaxurl = "<?php echo webUrl('sysset/initialize.diysource')?>";
+                    var data = new Object();
+                    data.reset = 1;
+                    $.post(ajaxurl, data, function (res) {
+                        var res = JSON.parse(res);
+                        if (res.status == 1) {
+                            layer.msg("初始化操作执行成功");
+                        } else {
+                            layer.msg("操作失败");
+                        }
+                    });
+                },btn2: function(){
+                },btn3: function(){
+                }
+        });
+            return;
+
+        });
+    }
+</script>

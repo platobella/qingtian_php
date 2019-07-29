@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html>
+<link href="./resource/css/bootstrap.min.css?v=20170719" rel="stylesheet">
+<link href="./resource/css/common.css?v=20170719" rel="stylesheet">
+{template 'haojingke/common/header'}
+<script>var require = { urlArgs: 'v=20170915' };</script>
+<script type="text/javascript" src="./resource/js/lib/jquery-1.11.1.min.js"></script>
+<script type="text/javascript" src="./resource/js/lib/bootstrap.min.js"></script>
+<script type="text/javascript" src="./resource/js/app/util.js?v=20170719"></script>
+<script type="text/javascript" src="./resource/js/app/common.min.js?v=20170719"></script>
+<script type="text/javascript" src="./resource/js/require.js?v=20170719"></script>
+
+<body>
+<div class="x-body">
+    <fieldset class="layui-elem-field layui-field-title" style="margin-top: 20px;">
+        <legend>超级会员设置（不填则直接成为超级会员）</legend>
+    </fieldset>
+    <form action="" method="post"  enctype="multipart/form-data" class="layui-form">
+        <!--<div class="layui-form-item">-->
+            <!--<label class="layui-form-label">-->
+                <!--<span class="x-red">*</span>申请超级会员-->
+            <!--</label>-->
+            <!--<div class="layui-input-block">-->
+                <!--<label ><input title="&nbsp;自动通过 "  name="applyvip" type="radio" value="0" {if $data['applyvip']==0}checked="checked"{/if}/></label>-->
+                <!--&emsp;&emsp;<label ><input title="&nbsp;达成条件/付费通过&nbsp;&nbsp;"  name="applyvip" type="radio" value="1" {if $data['applyvip']==1}checked="checked"{/if}/></label>-->
+            <!--</div>-->
+            <!--<label class="layui-form-label">-->
+            <!--</label>-->
+            <!--<div class="layui-form-mid layui-word-aux">-->
+            <!--</div>-->
+        <!--</div>-->
+        <!--<div class="layui-form-item">-->
+            <!--<label class="layui-form-label">-->
+                <!--<span class="x-red">*</span>超级会员费用-->
+            <!--</label>-->
+            <!--<div class="layui-input-inline4">-->
+                <!--<input type="text" name="vip_fee" lay-verify="vip_fee"-->
+                       <!--autocomplete="off" class="layui-input" value="{$data['vip_fee']}" oninput="this.value=this.value.replace(/^(\-)*(\d+)\.(\d\d).*$/,'$1$2.$3');if(isNaN(value))execCommand('undo');"   onkeyup="this.value=this.value.replace(/^(\-)*(\d+)\.(\d\d).*$/,'$1$2.$3');if(isNaN(value))execCommand('undo');"   onafterpaste="this.value=this.value.replace(/^(\-)*(\d+)\.(\d\d).*$/,'$1$2.$3');if(isNaN(value))execCommand('undo');">-->
+            <!--</div>-->
+            <!--<div class="layui-form-mid layui-word-aux">-->
+                <!--<span class="x-red">*</span>申请超级会员费用 申请超级会员付费时有效-->
+            <!--</div>-->
+        <!--</div>-->
+        
+        
+        
+        <div class="layui-form-item">
+            <label class="layui-form-label">
+                <span class="x-red">*</span>直接会员数量
+            </label>
+            <div class="layui-input-inline4">
+                <input type="text" name="super_direct_count" lay-verify="super_direct_count"
+                       autocomplete="off" class="layui-input" value="{$data['super_direct_count']}" oninput="this.value=this.value.replace(/^(\-)*(\d+)\.(\d\d).*$/,'$1$2.$3');if(isNaN(value))execCommand('undo');"   onkeyup="this.value=this.value.replace(/^(\-)*(\d+)\.(\d\d).*$/,'$1$2.$3');if(isNaN(value))execCommand('undo');"   onafterpaste="this.value=this.value.replace(/^(\-)*(\d+)\.(\d\d).*$/,'$1$2.$3');if(isNaN(value))execCommand('undo');">
+            </div>
+            <div class="layui-form-mid layui-word-aux">
+                <span class="x-red">*</span>免费申请条件1：直接会员数量
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">
+                <span class="x-red">*</span>间接会员数量
+            </label>
+            <div class="layui-input-inline4">
+                <input type="text" name="super_indirect_count" lay-verify="super_indirect_count"
+                       autocomplete="off" class="layui-input" value="{$data['super_indirect_count']}" oninput="this.value=this.value.replace(/^(\-)*(\d+)\.(\d\d).*$/,'$1$2.$3');if(isNaN(value))execCommand('undo');"   onkeyup="this.value=this.value.replace(/^(\-)*(\d+)\.(\d\d).*$/,'$1$2.$3');if(isNaN(value))execCommand('undo');"   onafterpaste="this.value=this.value.replace(/^(\-)*(\d+)\.(\d\d).*$/,'$1$2.$3');if(isNaN(value))execCommand('undo');"/>
+            </div>
+            <div class="layui-form-mid layui-word-aux">
+                <span class="x-red">*</span>免费申请条件2：间接会员数量
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">
+                <span class="x-red">*</span>有效订单数量
+            </label>
+            <div class="layui-input-inline4">
+                <input type="text" name="super_order_count" lay-verify="super_order_count"
+                       autocomplete="off" class="layui-input" value="{$data['super_order_count']}" oninput="this.value=this.value.replace(/^(\-)*(\d+)\.(\d\d).*$/,'$1$2.$3');if(isNaN(value))execCommand('undo');"   onkeyup="this.value=this.value.replace(/^(\-)*(\d+)\.(\d\d).*$/,'$1$2.$3');if(isNaN(value))execCommand('undo');"   onafterpaste="this.value=this.value.replace(/^(\-)*(\d+)\.(\d\d).*$/,'$1$2.$3');if(isNaN(value))execCommand('undo');"/>
+            </div>
+            <div class="layui-form-mid layui-word-aux">
+                <span class="x-red">*</span>免费申请条件3：有效订单数量
+            </div>
+        </div>
+
+        <div class="layui-form-item">
+            <label class="layui-form-label">
+            </label>
+            <div class="layui-input-block">
+                <input type="hidden" name="id" value="{$data['id']}"/>
+                <input type="hidden" name="token" value="{$_W['token']}" />
+                <button  type="submit" class="layui-btn" lay-filter="add" lay-submit="">
+                    提交
+                </button>
+            </div>
+        </div>
+    </form>
+</div>
+</body>
+</html>
+<script>
+
+
+</script>

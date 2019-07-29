@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html>
+<link href="./resource/css/bootstrap.min.css?v=20180110" rel="stylesheet">
+{template 'haojingke/common/header'}
+<style>.td-manage{text-align: left;} .td-manage a{margin: 1px;}</style>
+<body>
+<div class="x-body">
+    <div class="layui-row">
+        <form action="" method="get"  enctype="multipart/form-data" class="layui-form layui-form-pane layui-col-md12">
+            <input type="hidden" name="m" value="qt_shop">
+            <input type="hidden" name="do" value="web">
+            <input type="hidden" name="r" value="card.index">
+            <input type="hidden" name="a" value="entry">
+            <input type="hidden" name="c" value="site">
+
+            <div class="layui-form-item">
+                <div class="layui-inline">
+                    <label class="layui-form-label">日期范围</label>
+                    <div class="layui-input-inline">
+                        <input class="layui-input" placeholder="日期范围" name="daterange" id="daterange" value="{$_GPC['daterange']}">
+                    </div>
+                </div>
+
+                <div class="layui-inline">
+                    <button class="layui-btn"  lay-submit="" lay-filter="sreach"><i class="layui-icon">&#xe615;</i></button>
+                    <a  class="layui-btn" onclick="hjk_dialog_show('编辑商品源','<?php echo webUrl('card/batch_add'); ?>')" href="#">批量生成卡密</a>
+                    <a  class="layui-btn" href="<?php echo webUrl('card/excel_export'); ?>">导出</a>
+
+                    <a href="#" id="getCheckDelete" class="layui-btn" >批量删除</a>
+                </div>
+            </div>
+        </form>
+    </div>
+    <xblock>
+    <span class="x-right" style="line-height:40px">总数：{$totalcount} </span>
+    </xblock>
+    <table class="layui-table">
+        <thead>
+        <tr>
+            <th style="width: 50px;">
+                <input type="checkbox" name="close" id="c_all" style="width: 65px;"  lay-text="">
+                <!--<input type="checkbox" name="close" lay-skin="switch"  id="c_boolean"  lay-filter="c_boolean"  lay-text="全不选|全选">-->
+            </th>
+            <th >卡密</th>
+            <th>使用者</th>
+            <th>使用状态</th>
+            <th>有效天数</th>
+            <th>时间</th>
+            <th>操作</th>
+        </tr>
+        </thead>
+        <tbody>
+        {loop $list $r}
+        <tr>
+            <td align="center">
+                <input type="checkbox" name="cityId" class="cityId"  value="{$r['id']}">
+            </td>
+
+            <td class="text-left">
+                {$r['password']}
+            </td>
+            <td class="text-center">
+                {$r['nickname']}
+            </td>
+            <td class="text-center">
+                {if $r['status']=='0'}未使用{else}已使用{/if}
+            </td>
+            <td class="text-center">
+                {$r['expire_day']}
+            </td>
+
+            <td class="text-center">
+                {$r['addtime']}
+            </td>
+            <td class="td-manage">
+
+				<a onclick="delete_card('{$r['id']}')" href="javascript:;" class="layui-btn   layui-btn-mini  layui-btn-danger" ><i class="iconfont">&#xe6b8;</i> 删除</a>
+
+            </td>
+        </tr>
+        {/loop}
+        </tbody>
+    </table>
+
+    {$pager}
+
+</div>
+</body>
+</html>
+
+<script>
+	/*升级合伙人*/
+    function member_vip(id,type){
+        layer.confirm('确认执行升级合伙人操作吗？升级后因订单原因不能在取消合伙人身份，请谨慎操作！',function(index){
+            var loadii = layer.load();
+            var ajaxurl="<?php echo webUrl('member/member_vip').'&id='?>"+id+"&type="+type;
+            $.post(ajaxurl,function(res){
+                var res=JSON.parse(res);
+                layer.close(loadii);
+                if(res.status==1){
+                    layer.alert(res.result.message, {icon: 6,closeBtn: 0},function () {
+                        location.href=location.href;
+                    });
+                }else{
+                    layer.msg("操作失败");
+                }
+            });
+        });
+    }
+    function delete_card(id){
+        layer.confirm('确定要删除吗',function(index){
+            var loadii = layer.load();
+            var ajaxurl="<?php echo webUrl('card/delete_card').'&id='?>"+id;
+            $.post(ajaxurl,function(res){
+                var res=JSON.parse(res);
+                layer.close(loadii);
+                if(res.status==1){
+                    layer.alert(res.result.message, {icon: 6,closeBtn: 0},function () {
+                        location.href=location.href;
+                    });
+                }else{
+                    layer.msg("操作失败");
+                }
+            });
+        });
+    }
+
+    /*删除*/
+    function member_delete(id){
+        layer.confirm('删除后不可恢复,确认要删除么？',function(index){
+            var loadii = layer.load();
+            var ajaxurl="<?php echo webUrl('member/member_delete').'&id='?>"+id;
+            $.post(ajaxurl,function(res){
+                var res=JSON.parse(res);
+                layer.close(loadii);
+                if(res.status==1){
+                    layer.alert(res.result.message, {icon: 6,closeBtn: 0},function () {
+                        location.href=location.href;
+                    });
+                }else{
+                    layer.msg("操作失败");
+                }
+            });
+        });
+    }
+
+
+    $("#c_all").change(function (e) {
+        if(this.checked){
+            $(".cityId").prop("checked", true);
+        }else{
+            $(".cityId").prop("checked", false);
+        }
+    });
+
+    $("#getCheckDelete").click(function(){
+        var ids ="";
+        $(".cityId:checked").each(function () {
+            var id = $(this).val();
+            ids += id + ","
+
+        })
+        ids = ids.substr(0, ids.length - 1);
+
+        layer.confirm('确定要删除吗',function(index){
+            var loadii = layer.load();
+            var ajaxurl="<?php echo webUrl('card/batch_delete') ?>";
+            $.post(ajaxurl,{ids:ids},function(res){
+                var res=JSON.parse(res);
+                layer.close(loadii);
+                if(res.status==1){
+                    layer.alert(res.result.message, {icon: 6,closeBtn: 0},function () {
+                       location.reload();
+                    });
+                }else{
+                    layer.msg("操作失败");
+                }
+            });
+        });
+    });
+
+
+    layui.use(['form','table','laydate'], function(){
+        var laydate = layui.laydate;
+        var form = layui.form;
+
+        //执行一个laydate实例
+        laydate.render({
+            elem: '#daterange' //指定元素
+            ,range: '~'
+            , max:0
+        });
+
+
+    });
+
+</script>

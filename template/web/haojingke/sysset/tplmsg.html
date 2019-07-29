@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+{template 'haojingke/common/header'}
+    <body>
+        <div class="x-body">
+            <fieldset class="layui-elem-field layui-field-title" style="margin-top: 20px;">
+                <legend>模板消息设置</legend>
+            </fieldset>
+            <form action="" method="post"  enctype="multipart/form-data" class="layui-form">
+                <div class="layui-form-item">
+                    <label class="layui-form-label">
+                        <span class="x-red">*</span>	活动参与成功通知
+                    </label>
+                    <div class="layui-input-inline4">
+                        <input type="text" name="notice_tplno_app" lay-verify="notice_tplno_app"
+                               autocomplete="off" class="layui-input" value="{$data['notice_tplno_app']}">
+                    </div>
+                    <div class="layui-form-mid layui-word-aux">
+                        <span class="x-red">*</span>模板消息编号: AT1348,搜索“活动参与成功通知”，依次选择活动名称、会员名称、温馨提示；
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <label class="layui-form-label">
+                        <span class="x-red">*</span>抽奖结果通知
+                    </label>
+                    <div class="layui-input-inline4">
+                        <input type="text" name="notice_tplno" lay-verify="notice_tplno"
+                               autocomplete="off" class="layui-input" value="{$data['notice_tplno']}">
+                    </div>
+                    <div class="layui-form-mid layui-word-aux">
+                        <span class="x-red">*</span>模板消息编号: AT0628,模板库搜索“抽奖”，依次选择抽奖提醒、活动商品；
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <label class="layui-form-label">
+                        <span class="x-red">*</span>通知管理员(小程序)
+                    </label>
+                    <div class="layui-input-inline4">
+                        <input type="text" name="owner_openid" lay-verify="owner_openid"
+                               autocomplete="off" class="layui-input" value="{$data['owner_openid']}">
+                    </div>
+                    <div class="layui-form-mid layui-word-aux">
+                        <span class="x-red">*</span>小程序会员openid
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <label class="layui-form-label">
+                        <span class="x-red">*</span>申请提现通知
+                    </label>
+                    <div class="layui-input-inline4">
+                        <input type="text" name="notice_applycash" lay-verify="notice_applycash"
+                               autocomplete="off" class="layui-input" value="{$data['notice_applycash']}">
+                    </div>
+                    <div class="layui-form-mid layui-word-aux">
+                        <span class="x-red">*</span>标题，默认"提现申请通知"
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <label class="layui-form-label">
+                        <span class="x-red">*</span>提现申请审核通知
+                    </label>
+                    <div class="layui-input-inline4">
+                        <input type="text" name="notice_auditingcash" lay-verify="notice_auditingcash"
+                               autocomplete="off" class="layui-input" value="{$data['notice_auditingcash']}">
+                    </div>
+                    <div class="layui-form-mid layui-word-aux">
+                        <span class="x-red">*</span>标题，默认"提现申请审核通知"
+                    </div>
+                </div>
+
+                <div class="layui-form-item">
+                    <label class="layui-form-label">
+                    </label>
+                    <div class="layui-input-inline4">
+                        <input type="hidden" name="token" value="{$_W['token']}" />
+                        <input type="hidden" name="id" value="{$data['id']}" />
+                        <button  type="submit" class="layui-btn" lay-filter="add" lay-submit="">
+                            提交
+                        </button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </body>
+</html>

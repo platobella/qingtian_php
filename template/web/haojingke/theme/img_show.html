@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<link href="./resource/css/bootstrap.min.css?v=20180110" rel="stylesheet">
+{template 'haojingke/common/header'}
+<style>
+    .x-body{
+        text-align: center;
+    }
+</style>
+<body>
+<div class="x-body">
+    <image src="{$img}"></image>
+</div>
+</body>
+</html>
+
+<script>
+
+    layui.use('laydate', function(){
+        var laydate = layui.laydate;
+
+        //执行一个laydate实例
+        laydate.render({
+            elem: '#daterange' //指定元素
+            ,range: '~'
+            , max:0
+        });
+    });
+
+</script>

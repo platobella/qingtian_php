@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html>
+<link href="./resource/css/bootstrap.min.css?v=20180110" rel="stylesheet">
+{template 'haojingke/common/header'}
+<body>
+<div class="x-body">
+    <div class="layui-row">
+        <form action="" method="get"  enctype="multipart/form-data" class="layui-form layui-form-pane layui-col-md12 ">
+            <input type="hidden" name="m" value="haojk_myw">
+            <input type="hidden" name="do" value="web">
+            <input type="hidden" name="r" value="banner.index">
+            <input type="hidden" name="a" value="entry">
+            <input type="hidden" name="c" value="site">
+            <div class="layui-form-item">
+
+            </div>
+        </form>
+    </div>
+
+    <xblock>
+        <button class="layui-btn" onclick="hjk_dialog_show('添加分类','{php echo webUrl('navbar/index/goodssource_add');}')"><i class="layui-icon"></i>添加分类</button>
+        <span class="x-right" style="line-height:40px">共有数据 {$total} 条</span>
+    </xblock>
+    <table class="layui-table">
+        <thead>
+        <tr>
+            <th style="width: 80px">ID</th>
+            <th>位置</th>
+            <th style="width: 80px">图片url</th>
+            <th>名称</th>
+            <th>页面路径</th>
+
+            <th>添加时间</th>
+            <th style="width: 160px">操作</th>
+        </tr>
+        </thead>
+        <tbody>
+        {loop $list $r}
+        <tr>
+            <td >
+                {$r['id']}
+            </td>
+            <td >
+                {if $r['position'] == 0}
+                首页
+                {elseif $r['position'] == 1}
+                我的
+                {/if}
+            </td>
+            <td><image src="{php echo to_attach_image($r['icon_url'])}" style="width:50px;height: 22px"></image></td>
+            <td>{$r['title']}</td>
+
+            <td>{$r['path']}</td>
+            <td><?php echo date('Y-m-d H:i:s',$r['addtime'])?></td>
+
+            <td class="td-manage">
+                <a  onclick="hjk_dialog_show('编辑商品源','{php echo webUrl('navbar/index/goodssource_add').'&id='.$r['id'];}')" href="javascript:void(0)" class="layui-btn   layui-btn-mini  layui-btn-normal" title=""><i class="layui-icon">&#xe63c;</i> 编辑</a>
+                <a class="layui-btn   layui-btn-mini  layui-btn-danger" href="javascript:void(0)" onclick="goodssource_delete(this,{$r['id']})"><i class="iconfont">&#xe69d;</i> 删除</a>
+            </td>
+        </tr>
+        {/loop}
+        </tbody>
+    </table>
+
+    {$pager}
+
+</div>
+</body>
+</html>
+
+<script>
+    /*删除*/
+    function goodssource_delete(obj,id){
+        var loadii = layer.load();
+        var ajaxurl="<?php echo webUrl('navbar/index/navbar_delete')?>";
+        var data= { "id": id};
+        layer.confirm('是否要删除信息!',{
+            btn: ['确定', '取消'],
+            cancel: function(index, layero){
+                layer.close(loadii);
+            }
+            }, function (index, layero) {
+
+            $.post(ajaxurl,data,function(res){
+                var res=JSON.parse(res);
+                layer.close(loadii);
+                if(res.status==1){
+                    layer.alert(res.result.message, {icon: 6,closeBtn: 0},function () {
+                        location.href=location.href;
+                    });
+                }else{
+                    layer.msg("操作失败");
+                }
+            })
+            },function (index,layero) {
+            layer.close(loadii);
+            }
+        
+        );
+    }
+
+    layui.use('laydate', function(){
+        var laydate = layui.laydate;
+
+        //执行一个laydate实例
+        laydate.render({
+            elem: '#daterange' //指定元素
+            ,range: '~'
+            , max:0
+        });
+    });
+
+</script>

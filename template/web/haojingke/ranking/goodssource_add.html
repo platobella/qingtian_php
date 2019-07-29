@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html>
+<link href="./resource/css/bootstrap.min.css?v=20180110" rel="stylesheet">
+<link href="./resource/css/common.css?v=20170719" rel="stylesheet">
+{template 'haojingke/common/header'}
+<script>var require = { urlArgs: 'v=201180110' };</script>
+<script type="text/javascript" src="./resource/js/lib/jquery-1.11.1.min.js"></script>
+<script type="text/javascript" src="./resource/js/lib/bootstrap.min.js"></script>
+<script type="text/javascript" src="./resource/js/app/util.js?v=20180110"></script>
+<script type="text/javascript" src="./resource/js/app/common.min.js?v=20170719"></script>
+<script type="text/javascript" src="./resource/js/require.js?v=20180110"></script>
+<script type="text/javascript" src="{NETS_HAOJIK_WEB_STYLE}js/jquery.nestable.js"></script>
+<body>
+<div class="x-body">
+    <form action="" method="post"  enctype="multipart/form-data" class="layui-form">
+        <input type="hidden" name="id" value="{$_GPC['id']}">
+
+        <div class="layui-form-item">
+            <label class="layui-form-label">
+                名称
+            </label>
+            <div class="layui-input-inline">
+                <input type="text" name="title"
+                       autocomplete="off" class="layui-input" value="{$diysource['title']}">
+            </div>
+            <div class="layui-form-mid layui-word-aux">
+            </div>
+        </div>
+
+        <div class="layui-form-item">
+            <label class="layui-form-label">
+                分类
+            </label>
+            <div class="layui-input-inline240">
+
+                <select  name="cate_id" id="cate_id" >
+                    <option value ="">--请选择--</option>
+                    {loop $cate_list $c}
+                    <option value ="{$c['id']}"  {if $diysource['cate_id']==$c['id']}selected="selected"{/if}>{$c['name']}</option>
+                    {/loop}
+                </select>
+            </div>
+        </div>
+
+        <div class="layui-form-item">
+            <label class="layui-form-label">
+                现价
+            </label>
+            <div class="layui-input-inline">
+                <input type="text" name="price"
+                       autocomplete="off" class="layui-input" value="{$diysource['price']}">
+            </div>
+            <div class="layui-form-mid layui-word-aux">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">
+                原价
+            </label>
+            <div class="layui-input-inline">
+                <input type="text" name="original_price"
+                       autocomplete="off" class="layui-input" value="{$diysource['original_price']}">
+            </div>
+            <div class="layui-form-mid layui-word-aux">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">
+                虚拟销量
+            </label>
+            <div class="layui-input-inline">
+                <input type="text" name="sales"
+                       autocomplete="off" class="layui-input" value="{$diysource['sales']}">
+            </div>
+            <div class="layui-form-mid layui-word-aux">
+            </div>
+        </div>
+        <!--<div class="layui-form-item">-->
+            <!--<label class="layui-form-label">-->
+               <!--开始时间-->
+            <!--</label>-->
+            <!--<div class="layui-input-inline">-->
+                <!--<input type="text" class="layui-input" name="start_time" value="<?php if($diysource['end_time']) echo date('Y-m-d H:i:s',$diysource['start_time']);?>" id="start" placeholder="yyyy-MM-dd" lay-key="1">-->
+            <!--</div>-->
+            <!--<div class="layui-form-mid layui-word-aux">-->
+
+            <!--</div>-->
+        <!--</div>-->
+        <!--<div class="layui-form-item">-->
+            <!--<label class="layui-form-label">-->
+                <!--结束时间-->
+            <!--</label>-->
+            <!--<div class="layui-input-inline">-->
+                <!--<input type="text" class="layui-input" value="<?php if($diysource['end_time']) echo date('Y-m-d H:i:s',$diysource['end_time']);?>" name="end_time" id="end" placeholder="yyyy-MM-dd" lay-key="0">-->
+            <!--</div>-->
+            <!--<div class="layui-form-mid layui-word-aux">-->
+
+            <!--</div>-->
+        <!--</div>-->
+        <?php if(empty($_GPC['id'])){?>
+        <div class="layui-form-item" >
+            <div class="layui-form-item">
+                <label class="layui-form-label">
+                    图片
+                </label>
+                <div class="layui-input-inline4">
+                    {php echo tpl_form_field_image('image[0]',$diysource['pic_url'])}
+                </div>
+                <div class="layui-form-mid layui-word-aux">
+                    <span class="x-red">*</span>
+                </div>
+
+            </div>
+        </div>
+
+        <div class="layui-form-item" >
+            <div class="layui-form-item">
+                <label class="layui-form-label">
+                    图片
+                </label>
+                <div class="layui-input-inline4">
+                    {php echo tpl_form_field_image('image[1]',$diysource['pic_url'])}
+                </div>
+                <div class="layui-form-mid layui-word-aux">
+                    <span class="x-red">*</span>
+                </div>
+
+            </div>
+        </div>
+
+        <div class="layui-form-item" >
+            <div class="layui-form-item">
+                <label class="layui-form-label">
+                    图片
+                </label>
+                <div class="layui-input-inline4">
+                    {php echo tpl_form_field_image('image[2]',$diysource['pic_url'])}
+                </div>
+                <div class="layui-form-mid layui-word-aux">
+                    <span class="x-red">*</span>
+                </div>
+
+            </div>
+        </div>
+        <?php }else{?>
+            {loop $diysource['image'] $k $v}
+            <div class="layui-form-item" >
+                <div class="layui-form-item">
+                    <label class="layui-form-label">
+                        图片
+                    </label>
+                    <div class="layui-input-inline4">
+                        {php echo tpl_form_field_image('image['.$k.']',$v)}
+                    </div>
+                    <div class="layui-form-mid layui-word-aux">
+                        <span class="x-red">*</span>
+                    </div>
+
+                </div>
+            </div>
+
+        {/loop}
+
+        <?php
+        if($diysource['image']){
+            $num = count($diysource['image']);
+        }else{
+            $num = 0;
+        }
+            for($i=$num;$i<3;$i++){
+        ?>
+        <div class="layui-form-item" >
+            <div class="layui-form-item">
+                <label class="layui-form-label" >
+                    图片
+                </label>
+                <div class="layui-input-inline4">
+                    {php echo tpl_form_field_image('image['.$i.']')}
+                </div>
+                <div class="layui-form-mid layui-word-aux">
+                    <span class="x-red">*</span>
+                </div>
+
+            </div>
+        </div>
+        <?php }?>
+        <?php }?>
+
+
+        <div class="layui-form-item">
+            <label class="layui-form-label">
+            </label>
+            <div class="layui-input-block">
+                <input type="hidden" name="token" value="{$_W['token']}" />
+                <button  type="submit" class="layui-btn" lay-filter="add" lay-submit="">
+                    提交
+                </button>
+            </div>
+        </div>
+    </form>
+</div>
+</body>
+</html>
+<script>
+
+        layui.use(['form','layer','laydate','carousel'], function(){
+            $ = layui.jquery;
+            var form = layui.form
+                ,layer = layui.layer
+                ,laydate = layui.laydate;
+
+
+            //执行一个laydate实例
+            laydate.render({
+                elem: '#start', //指定元素
+                type:'datetime',
+            });
+
+            laydate.render({
+                elem: '#end',
+                type:'datetime',
+
+            });
+            //自定义验证规则
+            form.verify({
+                source_name: function(value){
+                    if(value.length <=0){
+                        return '请输入分类名称！';
+                    }
+                }
+            });
+            //监听提交
+            form.on('submit(add)', function(data){
+                var val =$("input[name='source_pic_url']").val();
+
+
+                var loadii = layer.load();
+
+                var image1 = $("input[name='image[0]']").attr('url');
+                if(image1){
+                    data.field["image[0]"] = image1
+                }
+
+                var image2 = $("input[name='image[1]']").attr('url');
+                if(image2){
+                    data.field["image[1]"] = image2
+                }
+
+                var image3 = $("input[name='image[2]']").attr('url');
+                if(image3){
+                    data.field["image[2]"] = image3
+                }
+                //发异步，把数据提交给php
+                var ajaxurl="<?php echo webUrl('ranking/index/goodssource_addpost')?>";
+                $.post(ajaxurl,data.field,function(res){
+                    var res=JSON.parse(res);
+                    layer.close(loadii);
+                    if(res.status==1){
+                        layer.alert(res.result.message, {icon: 6,closeBtn: 0},function () {
+                            // 获得frame索引
+
+                            var index = parent.layer.getFrameIndex(window.name);
+                            //关闭当前frame
+                            parent.layer.close(index);
+
+                                parent.location.href=parent.location.href;
+
+                        });
+                    } else {
+                        layer.msg(res.message);
+                    }
+                });
+                return false;
+            });
+        });
+
+</script>
